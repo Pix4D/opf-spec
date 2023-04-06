@@ -1,0 +1,1208 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Project format specification &mdash; Open Photogrammetry Format Specification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cameras" href="../cameras.html" />
+    <link rel="prev" title="Open Photogrammetry Format (OPF) Specification" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="globalNav">
+      <a class="homeLogo" href="../index.html">
+            
+            <li>Open Photogrammetry Format</li>
+      </a>
+      <ul>
+          <li class="version-switcher-placeholder"></li>
+      </ul>
+  </div>
+
+
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          </a>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <img class="searchIcon" src="../_static/search_icon.svg"/>
+    <input type="text" name="q" placeholder="Search docs..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project format specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#goal">Goal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#big-picture">Big picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-items">Project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extension-mechanism-for-item-types-and-resource-formats">Extension mechanism for Item types and Resource formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#naming-convention">Naming convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extension-example">Extension example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#project-specification">Project specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project">Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-item">Project Item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-resource">Project Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-source">Project Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-generator-of-this-project">The generator of this project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#top-level-scene-reference-frame">Top level scene reference frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ids">IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cameras.html">Cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="camera_list.html">Camera list format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#image-uid-generator-registry">Image UID Generator registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera-list">Camera list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#uid-generator">UID generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input_cameras.html">Input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-cameras">Input cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#band-information">Band information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#capture-element">Capture element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#dynamic-pixel-range">Dynamic pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#geolocation">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#omega-phi-kappa-orientation">Omega-Phi-Kappa orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#pixel-range">Pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#sensor-element">Sensor element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#spherical-internals">Spherical internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#yaw-pitch-roll-orientation">Yaw-Pitch-Roll orientation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="projected_input_cameras.html">Projected input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-input-camera">Projected input camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#capture">Capture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-geolocation">Projected geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-orientation">Projected orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#sensor">Sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="control_points.html">Control Points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#file-format">File format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-input-control-points">Format specification: Input control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-input-control-points">Input control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#crs">CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#gcp">GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#geolocation">Geolocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#mark">Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#mtp">MTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-projected-control-points">Format specification: Projected control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-projected-control-points">Projected control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#projected-gcp">Projected GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-calibrated-control-points">Format specification: Calibrated control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#calibrated-control-points">Calibrated control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id4">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-scale-and-orientation-constraints">Format specification: Scale and orientation constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#orientation-constraint">Orientation constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#scale-constraint">Scale constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id6">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scene_reference_frame.html">Scene reference frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame.html">Scene reference frame project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame_format.html">Scene reference frame format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#base-to-translated-canonical-crs-transform">Base to translated canonical CRS transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame">Scene reference frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calibration.html">Calibration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">Calibration project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gps_bias.html">GPS bias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#gps-bias-gps-bias">GPS bias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="point_cloud.html">OPF-glTF point cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#format-structure">Format structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#data-layout">Data layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-extensions">OPF-glTF point cloud extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-asset-version">OPF_asset_version</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#point-cloud-opf-asset-version">OPF_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-partitioning-extension">OPF_mesh_primitive_partitioning extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-partitioning">OPF_mesh_primitive_partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-matches-extension">OPF_mesh_primitive_matches extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-matches">OPF_mesh_primitive_matches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-custom-attributes-extension">OPF_mesh_primitive_custom_attributes extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-custom-attributes">OPF_mesh_primitive_custom_attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-parser-support">OPF-glTF point cloud parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#material">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../annexes.html">Annexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary_objects.html">Auxiliary objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#coordinate-reference-system-definition">Coordinate reference system definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#crs">CRS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#geolocation">Geolocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#id1">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#auxiliary-objects-geolocation">Geolocation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rigid-transform-with-scaling">Rigid transform with scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#canonical-reference-system">Canonical reference system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#coordinate-reference-system-crs">Coordinate reference system (CRS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#processing-crs">Processing CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#scene-reference-frame">Scene reference frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#spatial-reference-system">Spatial reference system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#acronyms">Acronyms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Open Photogrammetry Format Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li>OPF /</li>
+
+      <li>
+        Version  /
+      </li>
+
+      <li class="dateInfo">None</li>
+
+        
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/project.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“application/opf-project+json”</p></td>
+<td><p>“1.0”</p></td>
+</tr>
+</tbody>
+</table>
+<div class="tex2jax_ignore mathjax_ignore section" id="project-format-specification">
+<span id="project-format"></span><h1>Project format specification<a class="headerlink" href="#project-format-specification" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<p>The goal of this page is to specify the project/data container format that is used to reference the different files and metadata of a project.</p>
+</div>
+<div class="section" id="big-picture">
+<h2>Big picture<a class="headerlink" href="#big-picture" title="Permalink to this headline">¶</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">project</span></code> is essentially a container. As such it is composed of different items (cameras, control points, calibration, …) that are glued together in a coherent structure.</p>
+<div class="mermaid">
+            flowchart LR
+    SpatialReference --&gt; ProjectedInputCameras
+    InputCameras --&gt; ProjectedInputCameras
+    GCPs --&gt; ProjectedGCPs
+    SpatialReference --&gt; ProjectedGCPs
+    MTPs --&gt; Calibration
+    ProjectedInputCameras --&gt; Calibration
+    ProjectedGCPs --&gt; Calibration
+    Calibration --&gt; PointCloud
+        </div><p>Figure: The calibration inputs and pipeline</p>
+</div>
+<div class="section" id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">project</span></code> is composed of any number of project <code class="docutils literal notranslate"><span class="pre">items</span></code></p></li>
+<li><p>Each <code class="docutils literal notranslate"><span class="pre">item</span></code> has a <code class="docutils literal notranslate"><span class="pre">type</span></code> and an <code class="docutils literal notranslate"><span class="pre">id</span></code>, that allows the consumer to identify what it is. Example of item types: <code class="docutils literal notranslate"><span class="pre">input_cameras</span></code>, <code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code>, <code class="docutils literal notranslate"><span class="pre">calibration</span></code>, etc.</p></li>
+<li><p>An <em>item</em> is composed of any number of <code class="docutils literal notranslate"><span class="pre">resources</span></code> and <code class="docutils literal notranslate"><span class="pre">sources</span></code> :</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">resources</span></code> references content belonging to the current <code class="docutils literal notranslate"><span class="pre">item</span></code>. As such a <code class="docutils literal notranslate"><span class="pre">resource</span></code> has a <code class="docutils literal notranslate"><span class="pre">uri</span></code> to point to the actual content and a <code class="docutils literal notranslate"><span class="pre">format</span></code> that identifies the content format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sources</span></code> represent the list of <code class="docutils literal notranslate"><span class="pre">items</span></code> that were used to generate the current <em>item</em>. The link between the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">item</span></code> is done through the <code class="docutils literal notranslate"><span class="pre">id</span></code> field.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">labels</span></code> is an array of (string) labels that can be attached to the item.</p></li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<ol class="arabic simple">
+<li><p>It is not required that there is an item <code class="docutils literal notranslate"><span class="pre">id</span></code> that matches the source <code class="docutils literal notranslate"><span class="pre">id</span></code>.</p></li>
+<li><p>Circular dependencies are not allowed between items and sources.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> attribute of the project refers to the version of the specification, not
+the project JSON schema.</p></li>
+<li><p>The extension of this specific file (“project container”) shall be <code class="docutils literal notranslate"><span class="pre">.opf</span></code>. This extension is reserved for the project container and should not be used for any other file in this specification.</p></li>
+</ol>
+</div>
+<div class="section" id="project-items">
+<h2>Project items<a class="headerlink" href="#project-items" title="Permalink to this headline">¶</a></h2>
+<p>The table below describes which <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">format</span></code> and <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">types</span></code> an item <em>may</em> contain depending on its <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>item type</p></th>
+<th class="head"><p>required resource formats</p></th>
+<th class="head"><p>optional resource formats</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">camera_list</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-camera-list+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">input_cameras</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-input-cameras+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">projected_input_cameras</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-projected-input-cameras+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code></p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-scene-reference-frame+json</span></code><br></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">input_control_points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-input-control-points+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">projected_control_points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-projected-control-points+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-constraints+json</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calibration</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-calibrated-cameras+json</span></code><br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/opf-calibrated-control-points+json</span></code><br> <code class="docutils literal notranslate"><span class="pre">application/opf-gps-bias+json</span></code><br> <code class="docutils literal notranslate"><span class="pre">model/gltf+json</span></code><br> <code class="docutils literal notranslate"><span class="pre">application/gltf-buffer+bin</span></code><br></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">model/gltf+json</span></code><br> <code class="docutils literal notranslate"><span class="pre">application/gltf-buffer+bin</span></code><br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">model/gltf+json</span></code><br> <code class="docutils literal notranslate"><span class="pre">application/gltf-buffer+bin</span></code><br></p></td>
+</tr>
+<tr class="row-odd"><td><p>&lt;extension-name&gt; (must start with <code class="docutils literal notranslate"><span class="pre">ext_</span></code> see <a class="reference internal" href="#naming-convention"><span class="std std-ref">naming convention</span></a>)</p></td>
+<td><p>Defined by the extension</p></td>
+<td><p>Defined by the extension</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>item type</p></th>
+<th class="head"><p>required source types</p></th>
+<th class="head"><p>optional source types</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">camera_list</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">input_cameras</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">camera_list</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">projected_input_cameras</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code><br> <code class="docutils literal notranslate"><span class="pre">input_cameras</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">input_control_points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">camera_list</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">projected_control_points</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code><br> <code class="docutils literal notranslate"><span class="pre">input_control_points</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">input_control_points</span></code><br></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calibration</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">input_cameras</span></code><br> <code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code><br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code><br> <code class="docutils literal notranslate"><span class="pre">projected_input_cameras</span></code><br> <code class="docutils literal notranslate"><span class="pre">input_control_points</span></code><br> <code class="docutils literal notranslate"><span class="pre">projected_control_points</span></code><br></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code><br></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">calibration</span></code><br></p></td>
+</tr>
+<tr class="row-odd"><td><p>&lt;extension-name&gt; (must start with <code class="docutils literal notranslate"><span class="pre">ext_</span></code> see <a class="reference internal" href="#naming-convention"><span class="std std-ref">naming convention</span></a>)</p></td>
+<td><p>Defined by the extension</p></td>
+<td><p>Defined by the extension</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="extension-mechanism-for-item-types-and-resource-formats">
+<h2>Extension mechanism for Item types and Resource formats<a class="headerlink" href="#extension-mechanism-for-item-types-and-resource-formats" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="naming-convention">
+<span id="id1"></span><h3>Naming convention<a class="headerlink" href="#naming-convention" title="Permalink to this headline">¶</a></h3>
+<p>This specification allows for extensions for <em>item types</em> and <em>resource formats</em>. To avoid possible clashes and ambiguities, such extensions must follow the following naming conventions:</p>
+<ul class="simple">
+<li><p>Extension names shall be of the form <code class="docutils literal notranslate"><span class="pre">&quot;&lt;UPPERCASE</span> <span class="pre">vendor&gt;_[&lt;myteam/myBU/myproject&gt;_]&lt;my_type_name&gt;&quot;</span></code></p></li>
+<li><p>Extensions for item types shall of the form <code class="docutils literal notranslate"><span class="pre">&quot;ext_&lt;vendor&gt;_[&lt;myteam/myBU/myproduct&gt;_]&lt;my_type_name&gt;&quot;</span></code></p></li>
+<li><p>Extensions for resource formats shall be of the form <code class="docutils literal notranslate"><span class="pre">&quot;application/ext-&lt;vendor&gt;-[&lt;myteam/myBU/myproduct&gt;-]&lt;my_resource_name&gt;+&lt;ext&gt;&quot;</span></code></p></li>
+</ul>
+<p>For extensions that are intended to be shared it is recommended they are accompagnied with a specification.</p>
+<p>Extensions should be designed such that tooling that do not recognize them can safely ignore them and still interpret the other parts of the project correctly. In other words an extension may not change the semantic of other parts of the projects.</p>
+</div>
+<div class="section" id="extension-example">
+<h3>Extension example<a class="headerlink" href="#extension-example" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Extension name</p></td>
+<td><p>PIX4D_myteam_myalgo_settings</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>This extension allow the storage of the settings for myalgo</p></td>
+</tr>
+<tr class="row-even"><td><p>New item type(s)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ext_pix4d_myteam_myalgo_settings</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>New ressource type used</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">application/ext-pix4d-myteam-myalgo-settings+json</span></code> (defined below)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Extension format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“ext-pix4d-myteam-myalgo-settings+json”</p></td>
+<td><p>“0.1”</p></td>
+</tr>
+</tbody>
+</table>
+<p>The extension author should provide the specification for <em>application/ext-pix4d-myteam-myalgo-settings+json</em> including its <em>schema</em> definition.</p>
+<p>For brevity we just describe an hypothetical example of ext-pix4d-myteam-myalgo-settings.json:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ext-pix4d-myteam-myalgo-settings+json&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;14.2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="project-specification">
+<h2>Project specification<a class="headerlink" href="#project-specification" title="Permalink to this headline">¶</a></h2>
+<p>The project is an item catalog. It is stored in the JSON format.</p>
+<hr class="docutils" />
+<div class="section" id="project">
+<span id="project-project"></span><h3>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h3>
+<p>Project Structure</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Project</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Must be application/opf-project+json</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of this specification as <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code>. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR-tag</span></code>. Examples: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0-draft1</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>name</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The name of the project</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>description</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The description of the project</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>generator</strong></p></td>
+<td><p><a class="reference internal" href="#project-generator"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">generator</span></code></span></a></p></td>
+<td><p></p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A UUID string</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>items</strong></p></td>
+<td><p><a class="reference internal" href="#project-item"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">item</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>The items contained in this project</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="project-item">
+<span id="id2"></span><h3>Project Item<a class="headerlink" href="#project-item" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Item</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A UUID string</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>name</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The name of this item</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>type</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Define the type of data represented by the item. Can be one of [‘camera_list’, ‘input_cameras’, ‘projected_input_cameras’, ‘scene_reference_frame’, ‘input_control_points’, ‘projected_control_points’, ‘constraints’, ‘calibration’, ‘point_cloud’] or an extension type (starting with <code class="docutils literal notranslate"><span class="pre">ext_</span></code> see <a class="reference internal" href="#naming-convention"><span class="std std-ref">naming convention</span></a>)<br><strong>Allowed values</strong> :       <code class="docutils literal notranslate"><span class="pre">&quot;camera_list&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>resources</strong></p></td>
+<td><p><a class="reference internal" href="#project-resource"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">resource</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>The resources that constitute this item</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>sources</strong></p></td>
+<td><p><a class="reference internal" href="#project-source"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">source</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>The sources of this item, that is the set of items this item depends on</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>labels</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>Labels associated to the item in the format <code class="docutils literal notranslate"><span class="pre">&lt;vendor&gt;-key:value</span></code>. The <code class="docutils literal notranslate"><span class="pre">&lt;vendor&gt;</span></code> prefix should be lower case. The specification reserves the <code class="docutils literal notranslate"><span class="pre">opf</span></code> vendor prefix. In this version of the specification, the only specified key is <code class="docutils literal notranslate"><span class="pre">opf-origin</span></code> which indicates the origin of the data. Allowed values for the key <code class="docutils literal notranslate"><span class="pre">opf-origin</span></code> are <code class="docutils literal notranslate"><span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> which indicate that the corresponding item is derived from images and depth maps respectively.</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="project-resource">
+<span id="id3"></span><h3>Project Resource<a class="headerlink" href="#project-resource" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Resource</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>uri</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>URI reference of the resource file as specified by <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc3986">RFC3986</a>. If the reference is relative, it is relative to the folder containing the present file</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The storage format of this resource. Can be one of [‘application/opf-scene-reference-frame+json’, ‘application/opf-camera-list+json’, ‘application/opf-input-cameras+json’, ‘application/opf-projected-input-cameras+json’, ‘application/opf-input-control-points+json’, ‘application/opf-projected-control-points+json’, ‘application/opf-calibrated-control-points+json’, ‘application/opf-constraints+json’, ‘application/opf-calibrated-cameras+json’, ‘application/opf-gps-bias+json’, ‘model/gltf+json’, ‘application/gltf-buffer+bin’] or an extension type (starting with <code class="docutils literal notranslate"><span class="pre">application/ext-</span></code> see <a class="reference internal" href="#naming-convention"><span class="std std-ref">naming convention</span></a>)<br><strong>Allowed values</strong> :       <code class="docutils literal notranslate"><span class="pre">&quot;application/opf-scene-reference-frame+json&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="project-source">
+<span id="id4"></span><h3>Project Source<a class="headerlink" href="#project-source" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Source</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A UUID string</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>type</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="the-generator-of-this-project">
+<span id="project-generator"></span><h3>The generator of this project<a class="headerlink" href="#the-generator-of-this-project" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">generator</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">project</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>name</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The name of the generator</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of the generator`</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="top-level-scene-reference-frame">
+<h2>Top level scene reference frame<a class="headerlink" href="#top-level-scene-reference-frame" title="Permalink to this headline">¶</a></h2>
+<p>One of the top level data item of a project may be a scene reference frame. This item represents the <em>Project CRS</em> and its transformation to the <em>Processing CRS</em>. The Project CRS is the CRS that must be implicitly used for presentation purpose (e.g. an application displaying coordinates to a user) of any projected coordinate present in the project’s data items. However, this representation is not suitable for processing and visualization, so the canonical equivalent of the Project CRS, i.e. the Processing CRS, is the implicit coordinate reference system used for storage of all projected coordinates of a project.</p>
+<p>A scene reference frame must be present at the top level whenever a project contains data items with projected coordinates, otherwise the project is malformed. Projected coordinates are present, for example, in the <a class="reference internal" href="projected_input_cameras.html"><span class="doc std std-doc">projected cameras</span></a> and <a class="reference internal" href="control_points.html#format-specification-projected-control-points"><span class="std std-doc">projected control points</span></a>.</p>
+<p>For additional details see the generic specification of a <a class="reference internal" href="scene_reference_frame.html"><span class="doc std std-doc">scene reference frame</span></a>.</p>
+</div>
+<div class="section" id="ids">
+<h2>IDs<a class="headerlink" href="#ids" title="Permalink to this headline">¶</a></h2>
+<p>For some object, a unique ID may be assigned to the object when it is created.</p>
+<p>There are multiple types of IDs throughout this specification, for example:</p>
+<ul class="simple">
+<li><p>Sensor UIDs, Camera UIDs, and Capture UIDs. These are 64 bit unsigned integers that identify the sensor, camera or capture uniquely.
+In the JSON representation they are stored as numbers.</p></li>
+<li><p>Other objects that require global identification scope may use a standard UUID</p></li>
+<li><p>Objects that require project scope identification only may use any other kind of id, e.g. GCP names as ID for GCPs, etc.</p></li>
+</ul>
+</div>
+<div class="section" id="point-cloud-project-item">
+<span id="pcl-naming-convention"></span><h2>point_cloud project item<a class="headerlink" href="#point-cloud-project-item" title="Permalink to this headline">¶</a></h2>
+<p>The point cloud in the project is represented as a <code class="docutils literal notranslate"><span class="pre">glTF</span></code> file of type <code class="docutils literal notranslate"><span class="pre">model/gltf+json</span></code>, which, in turn, refers to binary buffers of type <code class="docutils literal notranslate"><span class="pre">application/gltf-buffer+bin</span></code> (see <a class="reference external" href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#file-extensions-and-media-types">here</a>). These files must be included as resources in the OPF project item of the point cloud. Further details on the format can be found in <a class="reference internal" href="point_cloud.html#opf-gltf-format"><span class="std std-ref">OPF-glTF point cloud</span></a>.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-project+json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;caa7754e-90dc-11ec-b909-0242ac120002&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Example of a calibration project&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Show an example of a calibration project&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PIX4Dmatic&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.41.0&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1fbfd8dd-188c-45dc-955c-30eac64ad4d7&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ext_pix4d_myteam_myalgo_settings&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myalgo-settings.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/ext-pix4d-myteam-myalgo-settings&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0bc95642-e37f-46df-a2c6-3ddd65881807&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera_list&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-camera-list+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;57608ca8-912d-4fee-b097-2648651474c4&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-input-cameras+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0bc95642-e37f-46df-a2c6-3ddd65881807&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera_list&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-input-control-points+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0bc95642-e37f-46df-a2c6-3ddd65881807&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera_list&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;processing_spatial_reference.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-scene-reference-frame+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;54b313cf-9a5d-4bd7-8f51-b06577dedad1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-input-cameras+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;57608ca8-912d-4fee-b097-2648651474c4&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cf980832-21cd-4830-b02c-1e7f6faa7176&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-control-points+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1fbfd8dd-188c-45dc-955c-30eac64ad4d7&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ext_pix4d_myteam_myalgo_settings&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;57608ca8-912d-4fee-b097-2648651474c4&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;54b313cf-9a5d-4bd7-8f51-b06577dedad1&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cf980832-21cd-4830-b02c-1e7f6faa7176&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/tracks.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-positions.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchCameraIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointPixelCoordinates.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointFeatureIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointScales.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointDepths.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibrated_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-calibrated-cameras+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gps_bias.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-gps-bias+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some_additional_calib_data.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/ext-pix4d-myteam-myalgo-settings&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f99cfd9a-eb41-4af9-a9e9-d60f4bd383c5&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Corridor&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;opf-origin:images&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;opf-origin:depth&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pcl.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partition.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;positions.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normals.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;colors.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-groups.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-visibility-index-ranges.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;df2694f3-105a-4ee7-ba6e-86e2accd0fd6&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Living room&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;opf-origin:images&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pcl2.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partition2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;positions2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normals2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;colors2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-groups2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-visibility-index-ranges2.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../cameras.html" class="btn btn-neutral float-right" title="Cameras" accesskey="n" rel="next">Next</a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Open Photogrammetry Format (OPF) Specification" accesskey="p" rel="prev">Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Pix4D.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+  
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  <script type="text/javascript" src="/server/switcher.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

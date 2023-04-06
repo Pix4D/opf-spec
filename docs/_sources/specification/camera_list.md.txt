@@ -1,0 +1,148 @@
+# Camera list format
+
+This format defines the camera list, that is the list of cameras that are used in the OPF project with their associated UID.
+The list of cameras shall include all images used in the project, including images required by extensions.
+
+Camera UIDs must be unique at the project scope.
+The mechanism used to generate UIDs is implementation defined.
+A camera list item contains an optional property to identify the generation mechanism.
+If present, it must be the same for all camera lists and it declares a scope which can be project level or global.
+Given two camera lists using the same generator, the UIDs can be used as a proxy for equality at the specified scope without further consideration.
+If the UID generator property is missing, the implicit UIDs scope is project level, an implementation may assign UIDs in any fashion provided the uniqueness requirement is fulfilled.
+It is not allowed to mix camera lists with and without declared UID generator in the same project.
+
+Examples of UID generation mechanisms include: sequential numbers, random numbers, hashes based on whole files, hashes based on pixel content, ...
+It is recommended to use UIDs that are globally unique and robustly reproducible just from the images, specially if different artifacts are intended to be combined in a single project.
+Using sequential UIDs is highly discouraged.
+
+Implementations are strongly recommended to test for the presence of the [`Xmp.Camera.UID`](http://pix4d.com/camera/1.0) tag in the cameras.
+If the tag is present it may be used as the camera UID of the camera regardless of whatever other mechanism is used to generate UIDs for untagged cameras.
+Since the UID generator property must be unique for a whole project, if present it should reflect whenever tags as UIDs are mixed with some other method for untagged cameras.
+In the case all cameras have been assigned UIDs from tags, the UID generator property can be declared as:
+```json
+{
+   "uid_generator": {
+       "vendor": "opf",
+       "name": "xmp",
+       "scope": "global",
+       "version": 1
+   }
+}
+```
+
+## Image UID Generator registry
+
+The OPF specification does not mandate a specific method for generating cameras UIDs, and allows for vendor-specific implementation of UID generation. The table below contains a list of registered camera UID generators, along with a brief description of each.
+
+|vendor|name|scope|version|description|
+|---|---|---|---|---|
+|`pix4d`|`image_content_hashing`|`global`|1|The image UID is generated from the raw image content using a hashing algorithm. Metadata, such as EXIF or XMP tags, are not part of the image content hash, making the mechanism robust to changes in such data (as e.g. added rating tags). The detailed mechanism is implementation specific.|
+|`pix4d`|`blake2b_8_file_hash`|`global`|1|The image UID is generated from a Blake2b 8 byte hash of the full contents of the image file. The UID is constructed from the sequence of 8 hash bytes such that its hex representation matches the sequence,  with first byte in the sequence corresponding to the MSB. For example, the byte sequence `"\x88\x99\xAA\xBB\xCC\xDD\xEE\xFF"` corresponds to the UID value `0x8899aabbccddeeff`, or `9843086184167632639`.|
+
+## Format specification
+
+| Specification format                                  | Version                               |
+| ----------------------------------------------------- | ------------------------------------- |
+| "application/opf-camera-list+json" | "1.0" |
+
+
+
+---------------------------------------
+(camera_list--camera-list)=
+###  Camera list
+
+List of primitive camera data files
+
+**` Camera list` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|For a camera list it must be `"application/opf-camera-list+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**uid_generator**|[`uid_generator`](camera_list-uid_generator)|The UID generator used to generate the UIDs of the cameras in the list. The OPF specification does not mandate a particular ID generation mechanism, but the mapping between camera IDs and cameras must be unique at the specified scope. Note that it is required that all `camera_list` items from a given OPF project use the same uid_generator.|No|
+|**cameras**|[`camera`](camera_list-camera) `[]`|List of all cameras in all captures.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(camera_list-camera)=
+### Camera
+
+All data files associated with one camera in a capture
+
+**`Camera` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**uri**|`string`|The location of the image file given as a URI-reference. For multi-page images, only one page shall be considered. By default, that page will be the first one unless the URI refers to a different one in a fragment part with the syntax "page=n", e.g. "image.tiff#page=1".| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(camera_list-uid_generator)=
+### UID generator
+
+The UID generator used to generate the UIDs of the cameras in the list. The OPF specification does not mandate a particular ID generation mechanism, but the mapping between camera IDs and cameras must be unique at the specified scope. Note that it is required that all `camera_list` items from a given OPF project use the same uid_generator.
+
+**`UID generator` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**vendor**|`string`|The vendor of the UID generator. The string should be lower case.| &#10003; Yes|
+|**name**|`string`|The name of the UID generator.| &#10003; Yes|
+|**scope**|`string`|In `project` scope the UIDs <-> cameras mapping is guaranteed to be unique within the OPF project. In `global` scope the UID <-> camera mapping is required to be unique beyond the project boundaries.<br>**Allowed values** :       `"global"`       `"project"` | &#10003; Yes|
+|**version**|`integer`|The version of the UID generator.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+## Example
+
+```json
+{
+    "format": "application/opf-camera-list+json",
+    "version": "1.0",
+    "uid_generator": {
+        "vendor": "pix4d",
+        "name": "image_content_hashing",
+        "scope": "global",
+        "version": 1
+    },
+    "cameras": [
+        {
+            "id": 47292894,
+            "uri": "IMG_160929_114101_0001_GRE.tif"
+        },
+        {
+            "id": 42727834,
+            "uri": "IMG_03849021.tiff#page=0"
+        },
+        {
+            "id": 84736329,
+            "uri": "IMG_03849021.jpg"
+        },
+        {
+            "id": 86930102,
+            "uri": "file:///c:/data/images/DJI_09572.jpg"
+        },
+        {
+            "id": 28493939,
+            "uri": "Image_09573.jpg"
+        },
+        {
+            "id": 28493939,
+            "uri": "Image_09573.jpg"
+        },
+        {
+            "id": 28436394,
+            "uri": "DepthMap_09573.tiff"
+        },
+        {
+            "id": 92742343,
+            "uri": "Confidence_09573.tiff"
+        }
+    ]
+}
+```

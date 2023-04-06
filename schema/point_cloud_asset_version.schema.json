@@ -1,0 +1,19 @@
+{
+    "$id": "point_cloud_asset_version.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OPF_asset_version",
+    "version": "1.0",
+    "description": "glTF extension storing the OPF specification version",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "string",
+            "description": "The OPF version in the form of `<major>.<minor>` that this asset targets.",
+            "pattern": "^[0-9]+\\.[0-9]+$"
+        }
+    },
+    "required": [
+        "version"
+    ],
+    "additionalProperties": false
+}

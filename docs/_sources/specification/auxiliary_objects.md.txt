@@ -1,0 +1,333 @@
+# Auxiliary objects
+
+## Rig relatives
+
+The sub-objects in this section are used in input, projected and calibrated cameras to represent the relative position and orientation of a camera relative to a reference one.
+
+For a secondary camera $s$, its absolute position is a function of the absolute position of the reference camera $r$.
+
+Let:
+
+- $T_r$ and $R_r$ be the translation vector and rotation matrix that convert from the reference
+  camera image CS to world coordinates,
+- $T_s$ and $R_s$ be the translation vector and rotation matrix that convert from the local secondary
+  camera image CS to world coordinates and
+- $T_{rel}$ and $R_{rel}$ be the relative translation and rotation matrix for the secondary camera,
+
+then $T_s = T_r + R_r T_{rel}$ and $R_s = R_r R_{rel}$.
+
+The vector $T_{rel}$ is the position of the secondary camera in the image CS of the reference camera.
+The matrix $R_{rel}$ may be interpreted as a base change from a secondary camera image CS to the reference camera image CS.
+The image CS used here is right-down-front, which is not the image CS normally used in Omega-Phi-Kappa angles.
+
+Relative rotations are given as Euler angles $(\alpha, \beta, \gamma)$ in degree. The angles define the rotation matrix $R_{rel} = R_x(\alpha)R_y(\beta)R_z(\gamma)$.
+
+
+
+---------------------------------------
+(auxiliary_objects-input-rig-relatives)=
+### Input rig relatives
+
+Input rig relatives contain the a priori knowledge about the relative translation and rotation of secondary cameras. Since these values are supposedly coming from a sensor database, the units are always meters and degrees.
+
+**`Input rig relatives` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**translation**|[`translation`](auxiliary_objects-translation)|Input camera rig translation relative to the reference camera.| &#10003; Yes|
+|**rotation**|[`rotation`](auxiliary_objects-rotation)|Input camera rig rotation relative to the reference camera.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(auxiliary_objects-rotation)=
+### Rig relative rotation
+
+Input camera rig rotation relative to the reference camera.
+
+**`Rig relative rotation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**angles_deg**|`number` `[3]`|Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives)).| &#10003; Yes|
+|**sigmas_deg**|`number` `[3]`|Measurement error (standard deviation) in degrees.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(auxiliary_objects-translation)=
+### Rig relative translation
+
+Input camera rig translation relative to the reference camera.
+
+**`Rig relative translation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**values_m**|`number` `[3]`|Relative translation of the secondary sensor in the image CS of the reference sensor in meters.| &#10003; Yes|
+|**sigmas_m**|`number` `[3]`|Measurement error (standard deviation) in meters.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+Example:
+
+```json
+
+{
+    "translation": {
+        "values_m": [
+            -0.015,
+            0.015,
+            0.0
+        ],
+        "sigmas_m": [
+            0.001,
+            0.001,
+            0.001
+        ]
+    },
+    "rotation": {
+        "angles_deg": [
+            0,
+            0,
+            0
+        ],
+        "sigmas_deg": [
+            0.05,
+            0.05,
+            0.05
+        ]
+    }
+}
+
+```
+
+
+
+---------------------------------------
+(auxiliary_objects-projected-rig-translation)=
+### Projected rig translation
+
+Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.
+
+**`Projected rig translation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**values**|`number` `[3]`|Relative translation in processing CRS units.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Measurement error (standard deviation) in processing CRS units.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+Example:
+
+```json
+{
+    "values": [
+        -0.015,
+        0.015,
+        0.0
+    ],
+    "sigmas": [
+        0.001,
+        0.001,
+        0.001
+    ]
+}
+
+```
+
+
+
+---------------------------------------
+(auxiliary_objects-calibrated-rig-relatives)=
+### Calibrated rig relatives
+
+Calibrated rig relatives contain the optimised relative translations and rotations in processing CRS units.
+
+**`Calibrated rig relatives` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**translation**|`number` `[3]`|Relative translation in processing CRS units| &#10003; Yes|
+|**rotation_angles_deg**|`number` `[3]`|Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+Example:
+
+```json
+{
+    "translation": [
+        -0.015,
+        0.015,
+        0.0
+    ],
+    "rotation_angles_deg": [
+        0,
+        0,
+        0
+    ]
+}
+```
+
+## Coordinate reference system definition
+
+This sub-object defines a coordinate reference system (CRS) along with an optional geoid height.
+The CRS may be defined as either a WTK2 string or some shorthand identifier with well known authority codes.
+
+The geoid height is an alternative way of specifying the datum of a vertical CRS for which no geoid model is available.
+More concretely, this value is a constant height over the ellipsoid of the underlying geographic CRS.
+The surface defined by this value shall be used as the zero height surface for approximating conversions between ellipsoidal and gravity related heights.
+Note that this only makes sense if the CRS defined is compound.
+
+Three dimensional CRS are preferable (3D compound, 3D geographic, 3D projected or 3D engineering CRS).
+2D engineering CRSs are not accepted.
+
+Whenever the declared CRS is 2D, a 3D promoted equivalent shall be used for 3D coordinate conversions.
+In this promotion the Z axis of the coordinates shall be interpreted as an ellipsoidal height over the ellipsoid of the underlying geographic CRS in the same units as the X, Y axes.
+For example, given the 2D CRS with code EPSG:6434 (NAD83(2011) / Connecticut (ftUS)), its 3D promoted equivalent will have a Z axis in ftUS representing ellipsoidal heights over the ellipsoid used by NAD83(2011).
+
+
+
+---------------------------------------
+(auxiliary_objects-crs)=
+### CRS
+
+Coordinate reference system
+
+**`CRS` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
+|**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+Examples:
+
+```json
+{
+    "definition": "EPSG:4326"
+}
+```
+
+```json
+{
+    "definition": "GEOGCRS[\"NAD83(2011)\",DATUM[\"NAD83 (National Spatial Reference System 2011)\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],CS[ellipsoidal,3],AXIS[\"geodetic latitude (Lat)\",north,ORDER[1],ANGLEUNIT[\"degree\",0.0174532925199433]],AXIS[\"geodetic longitude (Lon)\",east,ORDER[2],ANGLEUNIT[\"degree\",0.0174532925199433]],AXIS[\"ellipsoidal height (h)\",up,ORDER[3],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Geodesy.\"],BBOX[14.92,167.65,74.71,-63.88]],ID[\"EPSG\",6319]]"
+}
+```
+
+```json
+{
+    "definition": "EPSG:4170+ESRI:115807",
+    "geoid_height": 47.12
+}
+```
+
+## Geolocation
+
+This sub-object is used in input cameras and control points and represents a geolocated measurement with an error estimate.
+It contains a coordinate reference system and the coordinates and standard deviation of the measured position.
+
+
+
+---------------------------------------
+(auxiliary_objects-crs)=
+### CRS
+
+Coordinate reference system
+
+**`CRS` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
+|**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(auxiliary_objects-geolocation)=
+### Geolocation
+
+Geolocation information
+
+**`Geolocation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**crs**|[`crs`](auxiliary_objects-crs)|Coordinate reference system| &#10003; Yes|
+|**coordinates**|`number` `[3]`|3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are **not** always Easting-Northing.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion).| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+Examples:
+
+- EPSG
+
+```json
+{
+    "crs": {
+        "definition": "EPSG:4265+5214",
+        "geoid_height": 52.12
+    },
+    "coordinates": [
+        45.7345725,
+        7.3205342,
+        583
+    ],
+    "sigmas": [
+        5,
+        5,
+        10
+    ]
+}
+```
+
+- WKT
+
+```json
+{
+    "crs": {
+        "definition": "GEOGCRS[\"WGS 84\",ENSEMBLE[\"World Geodetic System 1984 ensemble\",MEMBER[\"World Geodetic System 1984 (Transit)\"],MEMBER[\"World Geodetic System 1984 (G730)\"],MEMBER[\"World Geodetic System 1984 (G873)\"],MEMBER[\"World Geodetic System 1984 (G1150)\"],MEMBER[\"World Geodetic System 1984 (G1674)\"],MEMBER[\"World Geodetic System 1984 (G1762)\"],MEMBER[\"World Geodetic System 1984 (G2139)\"],ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ENSEMBLEACCURACY[2.0]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],CS[ellipsoidal,3],AXIS[\"geodetic latitude (Lat)\",north,ORDER[1],ANGLEUNIT[\"degree\",0.0174532925199433]],AXIS[\"geodetic longitude (Lon)\",east,ORDER[2],ANGLEUNIT[\"degree\",0.0174532925199433]],AXIS[\"ellipsoidal height (h)\",up,ORDER[3],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Geodesy. Navigation and positioning using GPS satellite system.\"],AREA[\"World\"],BBOX[-90,-180,90,180]],ID[\"EPSG\",4979]]"
+    },
+    "coordinates": [
+        35.6762,
+        139.6503,
+        40
+    ],
+    "sigmas": [
+        0.02,
+        0.02,
+        0.05
+    ]
+}
+```
+
+## Rigid transform with scaling
+
+This sub-object contains a rigid transformation with rotation, translation, and scaling. The Euler angle convention for the rotation is the same as the one for the rig relative rotation described above.
+
+
+
+---------------------------------------
+(auxiliary_objects-rigid-transformation-with-scaling)=
+### Rigid transformation with scaling
+
+Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p' via p' = scale * rotation * p + translation.
+
+**`Rigid transformation with scaling` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**rotation_deg**|`number` `[3]`|Rotation as Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))| &#10003; Yes|
+|**translation**|`number` `[3]`|Translation in units of the processing CRS.| &#10003; Yes|
+|**scale**|`number`|Scale| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+

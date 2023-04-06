@@ -1,0 +1,44 @@
+{
+    "format": "application/opf-camera-list+json",
+    "version": "1.0",
+    "uid_generator": {
+        "vendor": "pix4d",
+        "name": "image_content_hashing",
+        "scope": "global",
+        "version": 1
+    },
+    "cameras": [
+        {
+            "id": 47292894,
+            "uri": "IMG_160929_114101_0001_GRE.tif"
+        },
+        {
+            "id": 42727834,
+            "uri": "IMG_03849021.tiff#page=0"
+        },
+        {
+            "id": 84736329,
+            "uri": "IMG_03849021.jpg"
+        },
+        {
+            "id": 86930102,
+            "uri": "file:///c:/data/images/DJI_09572.jpg"
+        },
+        {
+            "id": 28493939,
+            "uri": "Image_09573.jpg"
+        },
+        {
+            "id": 28493939,
+            "uri": "Image_09573.jpg"
+        },
+        {
+            "id": 28436394,
+            "uri": "DepthMap_09573.tiff"
+        },
+        {
+            "id": 92742343,
+            "uri": "Confidence_09573.tiff"
+        }
+    ]
+}

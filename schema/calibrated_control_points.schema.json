@@ -1,0 +1,66 @@
+{
+    "$id": "calibrated_control_points.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": " Calibrated control points",
+    "version": "1.0",
+    "description": "Definition of calibrated control points, which are the optimised control points with coordinates expressed in the processing CRS.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-calibrated-control-points+json",
+            "type": "string",
+            "description": "Required to be `\"opf-calibrated-control-points+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "points": {
+            "type": "array",
+            "items": {
+                "$ref": "calibrated_control_points.schema.json#/$defs/calibrated_control_point"
+            },
+            "description": "List of calibrated control points."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "points"
+    ],
+    "$defs": {
+        "calibrated_control_point": {
+            "type": "object",
+            "title": "Calibrated control point",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "description": "A string identifier that matches the corresponding input control point.",
+                    "type": "string"
+                },
+                "coordinates": {
+                    "description": "Optimized 3D position in the processing CRS.",
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ]
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "coordinates"
+            ]
+        }
+    }
+}

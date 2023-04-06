@@ -1,0 +1,22 @@
+{
+    "format": "application/opf-calibrated-control-points+json",
+    "version": "1.0",
+    "points": [
+        {
+            "id": "gcp0",
+            "coordinates": [
+                3959232,
+                116595,
+                384
+            ]
+        },
+        {
+            "id": "mtp1",
+            "coordinates": [
+                3959500,
+                116595,
+                423
+            ]
+        }
+    ]
+}

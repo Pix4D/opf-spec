@@ -1,0 +1,39 @@
+{
+    "$id": "geolocation.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Geolocation",
+    "description": "Geolocation information",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "crs": {
+            "$ref": "crs.schema.json"
+        },
+        "coordinates": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are **not** always Easting-Northing."
+        },
+        "sigmas": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion)."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "crs",
+        "coordinates",
+        "sigmas"
+    ]
+}

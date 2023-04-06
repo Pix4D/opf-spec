@@ -1,0 +1,20 @@
+{
+    "format": "application/opf-scene-reference-frame+json",
+    "version": "1.0",
+    "crs": {
+        "definition": "ENGINEERINGCRS[\"Construction site\",\n  ENGINEERINGDATUM[\"Southwest corner\"],\n  CS[Cartesian,3],\n    AXIS[\"northing (X)\",north,ORDER[1]],\n    AXIS[\"easting (Y)\",east,ORDER[2]],\n    AXIS[\"up (Z)\",up,ORDER[3]],\n    LENGTHUNIT[\"metre\",1.0]]"
+    },
+    "base_to_canonical": {
+        "scale": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "shift": [
+            0,
+            0,
+            0
+        ],
+        "swap_xy": false
+    }
+}

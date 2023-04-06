@@ -1,0 +1,808 @@
+# Input camera format
+
+This format defines the input cameras, i.e. the data as provided by the user and camera database.
+It does not contain processed information, such as for example coordinates converted into the processing CRS.
+Those are handled separately.
+
+## Format specification
+
+| Specification format                                  | Version                               |
+| ----------------------------------------------------- | ------------------------------------- |
+| "application/opf-input-cameras+json" | "1.0" |
+
+
+
+---------------------------------------
+(input_cameras--input-cameras)=
+###  Input cameras
+
+Definition of the input cameras, i.e. the data as provided by the user and camera database.
+
+**` Input cameras` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|For input cameras it must be `"application/opf-input-cameras+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**sensors**|[`sensor`](input_cameras-sensor) `[]`|List of input sensors.| &#10003; Yes|
+|**captures**|[`capture`](input_cameras-capture) `[]`|List of input captures.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-band)=
+### Band information
+
+Information about a band
+
+**`Band information` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`||No|
+|**weight**|`number`|Weights to compute a luminance representation of the image| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-camera)=
+### Camera
+
+One camera in a capture. It is associated to a sensor via a sensor identifier.
+
+**`Camera` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**sensor_id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**model_source**|`string`|**Allowed values** :       `"database"`       `"generic_from_exif"`       `"generic"`       `"user"` | &#10003; Yes|
+|**pixel_type**|`string`|**Allowed values** :       `"uint8"`       `"uint12"`       `"uint16"`       `"float"` | &#10003; Yes|
+|**pixel_range**|`object`|Defines the range of valid pixel values. Values &le; min are considered underexposed and &ge; max overexposed. Can be a [static range](#pixel-range) or a [dynamic range](#dynamic-pixel-range).| &#10003; Yes|
+|**image_orientation**|`integer`|Specifies the image orientation following [EXIF, page 37](https://www.jeita.or.jp/japanese/standard/book/CP-3451E_E/#target/page_no=38). 1: no rotation, no mirror, 2: mirror horizontal, 3: rotate 180 degrees, 4: mirror vertical, 5: mirror horizontal and rotate 270 degrees CW, 6: rotate 90 degrees CW, 7: mirror horizontal and rotate 90 degrees CW, 8: rotate 270 degrees CW.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-capture)=
+### Capture element
+
+A collection of cameras and spatio-temporal information of an image acquisition event.
+
+**`Capture element` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**reference_camera_id**|`integer`|ID of the reference camera in a rig. Required also for single camera capture.| &#10003; Yes|
+|**cameras**|[`camera`](input_cameras-camera) `[]`|List of cameras in the capture.| &#10003; Yes|
+|**rig_model_source**|`string`|**Allowed values** :       `"database"`       `"generic"`       `"user"`       `"not_applicable"` | &#10003; Yes|
+|**geolocation**|[`geolocation`](input_cameras-geolocation)|Geolocation information|No|
+|**orientation**|`object`|One of [Yaw-Pitch-Roll](#yaw-pitch-roll-orientation) or [Omega-Phi-Kappa](#omega-phi-kappa-orientation) orientation.|No|
+|**height_above_takeoff_m**|`number`|Height above the take-off place in meters.|No|
+|**time**|`string`|The time of image acquisition formatted as [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). If the timezone is known then the time should be specified as UTC, if no timezone is given then it is unknown.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-crs)=
+### CRS
+
+Coordinate reference system
+
+**`CRS` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
+|**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-dynamic_pixel_range)=
+### Dynamic pixel range
+
+Dynamically inferred pixel range. The range needs to be derived from the data by looking at the image content, filtering extreme values at both ends with the given percentile.
+
+**`Dynamic pixel range` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**percentile**|`number`|Percentage of values ignored on both ends of the ordered list of values when computing the min/max. It must be a positive value and 0 means nothing is ignored.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-fisheye_internals)=
+### Fisheye internals
+
+Parameters of the fisheye camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label2).
+
+**`Fisheye internals` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**type**|`string`|Must be `"fisheye"`.| &#10003; Yes|
+|**principal_point_px**|[`principal_point`](input_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
+|**is_symmetric_affine**|`boolean`|If true, it is prior knowledge that the affine matrix is symmetric (that is, c=f and d=e=0) and should be kept symmetric.| &#10003; Yes|
+|**affine**|`number` `[4]`|Affine transformation parameters as [ c d; e f ]| &#10003; Yes|
+|**polynomial**|`number` `[]`|The coefficients of the distortion polynomial.| &#10003; Yes|
+|**is_p0_zero**|`boolean`|If true, it is prior knowledge that the first polynomial coefficient is equal to zero and should be kept zero.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-geolocation)=
+### Geolocation
+
+Geolocation information
+
+**`Geolocation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**crs**|[`crs`](input_cameras-crs)|Coordinate reference system| &#10003; Yes|
+|**coordinates**|`number` `[3]`|3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are **not** always Easting-Northing.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion).| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-input_rig_relatives)=
+### Input rig relatives
+
+Input rig relatives contain the a priori knowledge about the relative translation and rotation of secondary cameras. Since these values are supposedly coming from a sensor database, the units are always meters and degrees.
+
+**`Input rig relatives` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**translation**|[`translation`](input_cameras-translation)|Input camera rig translation relative to the reference camera.| &#10003; Yes|
+|**rotation**|[`rotation`](input_cameras-rotation)|Input camera rig rotation relative to the reference camera.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-sensor_internals)=
+### Internals
+
+One of [perspective](#perspective-internals), [fisheye](#fisheye-internals) or [spherical](#spherical-internals) internal. Parameters of the camera models are described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089).
+
+
+
+---------------------------------------
+(input_cameras-opk_orientation)=
+### Omega-Phi-Kappa orientation
+
+Omega-Phi-Kappa represent a rotation R_x(ω)R_y(ϕ)R_z(κ) from the image CS to a separately defined Cartesian CRS, where the image CS is right-top-back in image space.
+
+**`Omega-Phi-Kappa orientation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**type**|`string`|Must be `"omega_phi_kappa"`| &#10003; Yes|
+|**angles_deg**|`number` `[3]`|Omega, phi, kappa angles in degrees.| &#10003; Yes|
+|**sigmas_deg**|`number` `[3]`|Error estimation (standard deviation) in degrees.| &#10003; Yes|
+|**crs**|`string`|The target CRS of the rotation. A Cartesian horizontal CRS as WKT2 string or `"Auth:code"`.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+
+
+---------------------------------------
+(input_cameras-perspective_internals)=
+### Perspective internals
+
+Parameters of the perspective camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label1).
+
+**`Perspective internals` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**type**|`string`|Must be `"perspective"`.| &#10003; Yes|
+|**principal_point_px**|[`principal_point`](input_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
+|**focal_length_px**|`number`|Focal length in pixels.| &#10003; Yes|
+|**radial_distortion**|`number` `[3]`|The radial distortion coefficients (R1, R2, R3).| &#10003; Yes|
+|**tangential_distortion**|`number` `[2]`|The tangential distortion coefficients (T1, T2).| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-static_pixel_range)=
+### Pixel range
+
+Static pixel data range given by a minimum and maximum.
+
+**`Pixel range` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**min**|`number`|Minimum pixel value.| &#10003; Yes|
+|**max**|`number`|Maximum pixel value.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-principal_point)=
+### Principal point
+
+(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.
+
+
+
+---------------------------------------
+(input_cameras-rotation)=
+### Rig relative rotation
+
+Input camera rig rotation relative to the reference camera.
+
+**`Rig relative rotation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**angles_deg**|`number` `[3]`|Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives)).| &#10003; Yes|
+|**sigmas_deg**|`number` `[3]`|Measurement error (standard deviation) in degrees.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-translation)=
+### Rig relative translation
+
+Input camera rig translation relative to the reference camera.
+
+**`Rig relative translation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**values_m**|`number` `[3]`|Relative translation of the secondary sensor in the image CS of the reference sensor in meters.| &#10003; Yes|
+|**sigmas_m**|`number` `[3]`|Measurement error (standard deviation) in meters.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-sensor)=
+### Sensor element
+
+Specifies one sensor model of a physical camera unit, described by lens type, general parameters and internal optical parameters.
+
+**`Sensor element` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**name**|`string`|Sensor name.| &#10003; Yes|
+|**bands**|[`band`](input_cameras-band) `[]`|Image band properties. The number of items must be equal to the channel count. For example, an RGB image has the three bands `"Red", "Green", "Blue"`. The weights of all bands must be greater than or equal to 0 and sum to 1.| &#10003; Yes|
+|**image_size_px**|`number` `[2]`|Image width and height in pixels.| &#10003; Yes|
+|**pixel_size_um**|`number`|Pixel size in micrometers.| &#10003; Yes|
+|**internals**|[`sensor_internals`](input_cameras-sensor_internals)|One of [perspective](#perspective-internals), [fisheye](#fisheye-internals) or [spherical](#spherical-internals) internal. Parameters of the camera models are described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089).| &#10003; Yes|
+|**rig_relatives**|[`input_rig_relatives`](input_cameras-input_rig_relatives)|Input rig relatives contain the a priori knowledge about the relative translation and rotation of secondary cameras. Since these values are supposedly coming from a sensor database, the units are always meters and degrees.|No|
+|**shutter_type**|`string`|**Allowed values** :       `"global"`       `"rolling"` | &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-spherical_internals)=
+### Spherical internals
+
+**`Spherical internals` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**type**|`string`|Must be `"spherical"`.| &#10003; Yes|
+|**principal_point_px**|[`principal_point`](input_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-ypr_orientation)=
+### Yaw-Pitch-Roll orientation
+
+Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the image CS to navigation CRS base change, where the image CS is right-top-back in image space, the navigation CRS is East-North-Down and angles (0, 0, 0) represent the identity transformation.
+
+**`Yaw-Pitch-Roll orientation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**type**|`string`|Must be `"yaw_pitch_roll"`| &#10003; Yes|
+|**angles_deg**|`number` `[3]`|Yaw, pitch, roll angles in degrees.| &#10003; Yes|
+|**sigmas_deg**|`number` `[3]`|Error estimation (standard deviation) in degrees.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+## Example
+
+```json
+{
+    "format": "application/opf-input-cameras+json",
+    "version": "1.0",
+    "sensors": [
+        {
+            "id": 18493134,
+            "name": "Parrot_Sequoia_4_0_1280x960",
+            "bands": [
+                {
+                    "name": "Green",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                1280,
+                960
+            ],
+            "pixel_size_um": 3.75,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    640,
+                    480
+                ],
+                "affine": [
+                    1674.33,
+                    0.0,
+                    0.0,
+                    1674.33
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "is_p0_zero": true
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 21845677,
+            "name": "Parrot_Sequoia_4_0_1280x960",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                1280,
+                960
+            ],
+            "pixel_size_um": 3.75,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    640,
+                    480
+                ],
+                "affine": [
+                    1674.33,
+                    0.0,
+                    0.0,
+                    1674.33
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "is_p0_zero": true
+            },
+            "rig_relatives": {
+                "rotation": {
+                    "angles_deg": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "sigmas_deg": [
+                        0.05,
+                        0.05,
+                        0.05
+                    ]
+                },
+                "translation": {
+                    "values_m": [
+                        -0.015,
+                        0.015,
+                        0.0
+                    ],
+                    "sigmas_m": [
+                        0.001,
+                        0.001,
+                        0.001
+                    ]
+                }
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 65728243,
+            "name": "Parrot_AnafiThermal_1.9_298x224",
+            "bands": [
+                {
+                    "name": "TIR",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                298,
+                224
+            ],
+            "pixel_size_um": 1.9,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    150,
+                    112
+                ],
+                "affine": [
+                    496.084717,
+                    0.0,
+                    0.0,
+                    496.084717
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                ],
+                "is_p0_zero": true
+            },
+            "rig_relatives": {
+                "rotation": {
+                    "angles_deg": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "sigmas_deg": [
+                        0.05,
+                        0.05,
+                        0.05
+                    ]
+                },
+                "translation": {
+                    "values_m": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "sigmas_m": [
+                        0.001,
+                        0.001,
+                        0.001
+                    ]
+                }
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 86926181,
+            "name": "Parrot_AnafiThermal_4.0_3264x2448",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 0.2126
+                },
+                {
+                    "name": "Green",
+                    "weight": 0.7152
+                },
+                {
+                    "name": "Blue",
+                    "weight": 0.0722
+                }
+            ],
+            "image_size_px": [
+                3264,
+                2448
+            ],
+            "pixel_size_um": 1.5,
+            "internals": {
+                "type": "perspective",
+                "principal_point_px": [
+                    1632,
+                    1224
+                ],
+                "focal_length_px": 1643,
+                "radial_distortion": [
+                    -0.014393,
+                    0.0125235,
+                    -2.2309e-05
+                ],
+                "tangential_distortion": [
+                    0.00127711,
+                    0.000421167
+                ]
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 57282113,
+            "name": "DJI_FC6540_24.0_6016x4008",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 0.2126
+                },
+                {
+                    "name": "Green",
+                    "weight": 0.7152
+                },
+                {
+                    "name": "Blue",
+                    "weight": 0.0722
+                }
+            ],
+            "image_size_px": [
+                6016,
+                4008
+            ],
+            "pixel_size_um": 1.6,
+            "internals": {
+                "type": "perspective",
+                "principal_point_px": [
+                    3008,
+                    2004
+                ],
+                "focal_length_px": 5391,
+                "radial_distortion": [
+                    -0.014393,
+                    0.0125235,
+                    -2.2309e-05
+                ],
+                "tangential_distortion": [
+                    0.00127711,
+                    0.000421167
+                ]
+            },
+            "shutter_type": "rolling"
+        }
+    ],
+    "captures": [
+        {
+            "id": 19438547,
+            "rig_model_source": "database",
+            "cameras": [
+                {
+                    "sensor_id": 18493134,
+                    "id": 47292894,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 63000
+                    }
+                },
+                {
+                    "sensor_id": 21845677,
+                    "id": 57282923,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 63000
+                    },
+                    "image_orientation": 1
+                }
+            ],
+            "reference_camera_id": 47292894,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.69,
+                    1.69,
+                    2.4
+                ]
+            },
+            "orientation": {
+                "type": "yaw_pitch_roll",
+                "angles_deg": [
+                    117.31300354,
+                    9.7998399734,
+                    9.9201202393
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ]
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2016-09-29T11:41:21Z"
+        },
+        {
+            "id": 78291034,
+            "rig_model_source": "database",
+            "cameras": [
+                {
+                    "sensor_id": 65728243,
+                    "id": 42727834,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "percentile": 1
+                    }
+                },
+                {
+                    "sensor_id": 86926181,
+                    "id": 84736329,
+                    "model_source": "database",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    }
+                }
+            ],
+            "reference_camera_id": 42727834,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "omega_phi_kappa",
+                "angles_deg": [
+                    3.3432,
+                    -5.2849554,
+                    9.345113
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ],
+                "crs": "EPSG:32632"
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2016-09-29T11:41:21Z"
+        },
+        {
+            "id": 92840,
+            "rig_model_source": "not_applicable",
+            "cameras": [
+                {
+                    "sensor_id": 57282113,
+                    "id": 86930102,
+                    "model_source": "database",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    }
+                }
+            ],
+            "reference_camera_id": 86930102,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "yaw_pitch_roll",
+                "angles_deg": [
+                    113.128800287,
+                    10.52342304,
+                    9.9310087264
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ]
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2020-09-25T09:12:53Z"
+        },
+        {
+            "id": 39503,
+            "rig_model_source": "not_applicable",
+            "cameras": [
+                {
+                    "sensor_id": 57282113,
+                    "id": 28493939,
+                    "model_source": "generic",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    },
+                    "extensions": {
+                        "PIX4D_input_depth_map": {
+                            "version": "1.0-draft2",
+                            "id": 3347,
+                            "confidence": {
+                                "id": 238390,
+                                "min": 1,
+                                "max": 2,
+                                "threshold": 2
+                            }
+                        }
+                    }
+                }
+            ],
+            "reference_camera_id": 28493939,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4150"
+                },
+                "coordinates": [
+                    6.524116953632,
+                    6.550081187764,
+                    529.75
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "omega_phi_kappa",
+                "angles_deg": [
+                    21.1345409,
+                    3.331994,
+                    -1.129403
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ],
+                "crs": "EPSG:32632"
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2020-09-25T09:13:13Z"
+        }
+    ]
+}
+```

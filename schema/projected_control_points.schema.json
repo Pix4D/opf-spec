@@ -1,0 +1,75 @@
+{
+    "$id": "projected_control_points.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Projected control points",
+    "version": "1.0",
+    "description": "Definition of projected control points, which are the input control points with coordinates expressed in the processing CRS",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-projected-control-points+json",
+            "type": "string",
+            "description": "Required to be `\"opf-projected-control-points+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "projected_gcps": {
+            "type": "array",
+            "items": {
+                "$ref": "projected_control_points.schema.json#/$defs/projected_gcp"
+            },
+            "description": "List of projected GCPs."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "projected_gcps"
+    ],
+    "$defs": {
+        "projected_gcp": {
+            "type": "object",
+            "title": "Projected GCP",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "description": "A string identifier that matches the correspondent input GCP.",
+                    "type": "string"
+                },
+                "coordinates": {
+                    "description": "3D position in the processing CRS.",
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ]
+                },
+                "sigmas": {
+                    "description": "Standard deviation of the 3D position in processing CRS units.",
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ]
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "coordinates",
+                "sigmas"
+            ]
+        }
+    }
+}

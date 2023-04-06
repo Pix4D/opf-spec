@@ -1,0 +1,395 @@
+{
+    "$id": "input_cameras.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": " Input cameras",
+    "version": "1.0",
+    "description": "Definition of the input cameras, i.e. the data as provided by the user and camera database.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-input-cameras+json",
+            "type": "string",
+            "description": "For input cameras it must be `\"application/opf-input-cameras+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "sensors": {
+            "type": "array",
+            "items": {
+                "$ref": "input_cameras.schema.json#/$defs/sensor"
+            },
+            "description": "List of input sensors."
+        },
+        "captures": {
+            "type": "array",
+            "items": {
+                "$ref": "input_cameras.schema.json#/$defs/capture"
+            },
+            "description": "List of input captures."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "sensors",
+        "captures"
+    ],
+    "$defs": {
+        "sensor": {
+            "type": "object",
+            "title": "Sensor element",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "description": "Specifies one sensor model of a physical camera unit, described by lens type, general parameters and internal optical parameters.",
+            "properties": {
+                "id": {
+                    "$ref": "uid64.schema.json"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Sensor name."
+                },
+                "bands": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "input_cameras.schema.json#/$defs/band"
+                    },
+                    "description": "Image band properties. The number of items must be equal to the channel count. For example, an RGB image has the three bands `\"Red\", \"Green\", \"Blue\"`. The weights of all bands must be greater than or equal to 0 and sum to 1."
+                },
+                "image_size_px": {
+                    "allOf": [
+                        {
+                            "$ref": "vector2d.schema.json"
+                        }
+                    ],
+                    "description": "Image width and height in pixels."
+                },
+                "pixel_size_um": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Pixel size in micrometers."
+                },
+                "internals": {
+                    "$ref": "sensor_internals.schema.json"
+                },
+                "rig_relatives": {
+                    "$ref": "input_rig_relatives.schema.json"
+                },
+                "shutter_type": {
+                    "type": "string",
+                    "enum": [
+                        "global",
+                        "rolling"
+                    ]
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "name",
+                "bands",
+                "image_size_px",
+                "pixel_size_um",
+                "internals",
+                "shutter_type"
+            ]
+        },
+        "capture": {
+            "type": "object",
+            "title": "Capture element",
+            "description": "A collection of cameras and spatio-temporal information of an image acquisition event.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "uid64.schema.json"
+                },
+                "reference_camera_id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "ID of the reference camera in a rig. Required also for single camera capture."
+                },
+                "cameras": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "input_cameras.schema.json#/$defs/camera"
+                    },
+                    "description": "List of cameras in the capture."
+                },
+                "rig_model_source": {
+                    "type": "string",
+                    "enum": [
+                        "database",
+                        "generic",
+                        "user",
+                        "not_applicable"
+                    ]
+                },
+                "geolocation": {
+                    "$ref": "geolocation.schema.json"
+                },
+                "orientation": {
+                    "type": "object",
+                    "title": "orientation",
+                    "oneOf": [
+                        {
+                            "$ref": "input_cameras.schema.json#/$defs/ypr_orientation"
+                        },
+                        {
+                            "$ref": "input_cameras.schema.json#/$defs/opk_orientation"
+                        }
+                    ],
+                    "description": "One of [Yaw-Pitch-Roll](#yaw-pitch-roll-orientation) or [Omega-Phi-Kappa](#omega-phi-kappa-orientation) orientation."
+                },
+                "height_above_takeoff_m": {
+                    "type": "number",
+                    "description": "Height above the take-off place in meters."
+                },
+                "time": {
+                    "type": "string",
+                    "pattern": "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$",
+                    "description": "The time of image acquisition formatted as [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). If the timezone is known then the time should be specified as UTC, if no timezone is given then it is unknown."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "reference_camera_id",
+                "cameras",
+                "rig_model_source",
+                "time"
+            ]
+        },
+        "camera": {
+            "type": "object",
+            "title": "Camera",
+            "description": "One camera in a capture. It is associated to a sensor via a sensor identifier.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "sensor_id": {
+                    "$ref": "uid64.schema.json"
+                },
+                "id": {
+                    "$ref": "uid64.schema.json"
+                },
+                "model_source": {
+                    "type": "string",
+                    "enum": [
+                        "database",
+                        "generic_from_exif",
+                        "generic",
+                        "user"
+                    ]
+                },
+                "pixel_type": {
+                    "type": "string",
+                    "enum": [
+                        "uint8",
+                        "uint12",
+                        "uint16",
+                        "float"
+                    ]
+                },
+                "pixel_range": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "$ref": "input_cameras.schema.json#/$defs/static_pixel_range"
+                        },
+                        {
+                            "$ref": "input_cameras.schema.json#/$defs/dynamic_pixel_range"
+                        }
+                    ],
+                    "description": "Defines the range of valid pixel values. Values &le; min are considered underexposed and &ge; max overexposed. Can be a [static range](#pixel-range) or a [dynamic range](#dynamic-pixel-range)."
+                },
+                "image_orientation": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 8,
+                    "description": "Specifies the image orientation following [EXIF, page 37](https://www.jeita.or.jp/japanese/standard/book/CP-3451E_E/#target/page_no=38). 1: no rotation, no mirror, 2: mirror horizontal, 3: rotate 180 degrees, 4: mirror vertical, 5: mirror horizontal and rotate 270 degrees CW, 6: rotate 90 degrees CW, 7: mirror horizontal and rotate 90 degrees CW, 8: rotate 270 degrees CW."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "sensor_id",
+                "id",
+                "model_source",
+                "pixel_type",
+                "pixel_range"
+            ]
+        },
+        "band": {
+            "type": "object",
+            "title": "Band information",
+            "description": "Information about a band",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Weights to compute a luminance representation of the image"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "weight"
+            ]
+        },
+        "static_pixel_range": {
+            "type": "object",
+            "title": "Pixel range",
+            "description": "Static pixel data range given by a minimum and maximum.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "min": {
+                    "type": "number",
+                    "description": "Minimum pixel value."
+                },
+                "max": {
+                    "type": "number",
+                    "description": "Maximum pixel value."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "min",
+                "max"
+            ]
+        },
+        "dynamic_pixel_range": {
+            "type": "object",
+            "title": "Dynamic pixel range",
+            "description": "Dynamically inferred pixel range. The range needs to be derived from the data by looking at the image content, filtering extreme values at both ends with the given percentile.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "percentile": {
+                    "type": "number",
+                    "description": "Percentage of values ignored on both ends of the ordered list of values when computing the min/max. It must be a positive value and 0 means nothing is ignored."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "percentile"
+            ]
+        },
+        "ypr_orientation": {
+            "type": "object",
+            "title": "Yaw-Pitch-Roll orientation",
+            "description": "Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the image CS to navigation CRS base change, where the image CS is right-top-back in image space, the navigation CRS is East-North-Down and angles (0, 0, 0) represent the identity transformation.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "yaw_pitch_roll",
+                    "type": "string",
+                    "description": "Must be `\"yaw_pitch_roll\"`"
+                },
+                "angles_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Yaw, pitch, roll angles in degrees."
+                },
+                "sigmas_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Error estimation (standard deviation) in degrees."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "type",
+                "angles_deg",
+                "sigmas_deg"
+            ]
+        },
+        "opk_orientation": {
+            "type": "object",
+            "title": "Omega-Phi-Kappa orientation",
+            "description": "Omega-Phi-Kappa represent a rotation R_x(\u03c9)R_y(\u03d5)R_z(\u03ba) from the image CS to a separately defined Cartesian CRS, where the image CS is right-top-back in image space.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "omega_phi_kappa",
+                    "type": "string",
+                    "description": "Must be `\"omega_phi_kappa\"`"
+                },
+                "angles_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Omega, phi, kappa angles in degrees."
+                },
+                "sigmas_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Error estimation (standard deviation) in degrees."
+                },
+                "crs": {
+                    "type": "string",
+                    "description": "The target CRS of the rotation. A Cartesian horizontal CRS as WKT2 string or `\"Auth:code\"`."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "type",
+                "angles_deg",
+                "sigmas_deg",
+                "crs"
+            ]
+        }
+    }
+}

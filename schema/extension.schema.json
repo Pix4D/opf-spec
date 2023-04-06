@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "extension.schema.json",
+    "title": "Extension",
+    "type": "object",
+    "description": "JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team\u2758product)]_extname",
+    "properties": {},
+    "propertyNames": {
+        "pattern": "^([A-Z]+[A-Z0-9]*)_[a-z][a-z0-9_]+$"
+    },
+    "additionalProperties": {
+        "type": "object"
+    }
+}

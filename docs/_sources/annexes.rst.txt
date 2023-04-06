@@ -1,0 +1,8 @@
+Annexes
+=======
+
+.. toctree::
+   :maxdepth: 1
+
+   specification/auxiliary_objects.md
+   specification/glossary.md
