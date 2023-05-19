@@ -1,0 +1,128 @@
+{
+    "$id": "constraints.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "1.0",
+    "title": "Constraints",
+    "description": "Scale and orientation constraints",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-constraints+json",
+            "type": "string",
+            "description": "Required to be `\"opf-constraints+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "scale_constraints": {
+            "type": "array",
+            "items": {
+                "$ref": "constraints.schema.json#/$defs/scale_constraint"
+            },
+            "description": "List of scale constraints."
+        },
+        "orientation_constraints": {
+            "type": "array",
+            "items": {
+                "$ref": "constraints.schema.json#/$defs/orientation_constraint"
+            },
+            "description": "List of orientation constraints."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "scale_constraints",
+        "orientation_constraints"
+    ],
+    "$defs": {
+        "scale_constraint": {
+            "type": "object",
+            "title": "Scale constraint",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "description": "A unique string that identifies the constraint.",
+                    "type": "string"
+                },
+                "id_from": {
+                    "description": "A string identifier that matches the correspondent input control point.",
+                    "type": "string"
+                },
+                "id_to": {
+                    "description": "A string identifier that matches the correspondent input control point.",
+                    "type": "string"
+                },
+                "distance": {
+                    "type": "number",
+                    "description": "Distance between the two control points in the processing CRS."
+                },
+                "sigma": {
+                    "type": "number",
+                    "description": "Distance accuracy in the processing CRS."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "id_from",
+                "id_to",
+                "distance",
+                "sigma"
+            ]
+        },
+        "orientation_constraint": {
+            "type": "object",
+            "title": "Orientation constraint",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "description": "A unique string that identifies the constraint.",
+                    "type": "string"
+                },
+                "id_from": {
+                    "description": "A string identifier that matches the correspondent input control point.",
+                    "type": "string"
+                },
+                "id_to": {
+                    "description": "A string identifier that matches the correspondent input control point.",
+                    "type": "string"
+                },
+                "unit_vector": {
+                    "description": "Direction in which the to-from vector has to point given as a unit vector in the processing CRS.",
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ]
+                },
+                "sigma_deg": {
+                    "type": "number",
+                    "description": "Accuracy of the alignment expressed as the angle between the unit_vector and the to-from vector in degrees."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "id_from",
+                "id_to",
+                "unit_vector",
+                "sigma_deg"
+            ]
+        }
+    }
+}

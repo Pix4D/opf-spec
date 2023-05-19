@@ -1,0 +1,35 @@
+{
+    "$id": "mark.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Mark",
+    "description": "2D image mark",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "camera_id": {
+            "$ref": "uid64.schema.json"
+        },
+        "position_px": {
+            "description": "(x,y) pixel location, (0,0) is the top left corner of the top left pixel.",
+            "allOf": [
+                {
+                    "$ref": "vector2d.schema.json"
+                }
+            ]
+        },
+        "accuracy": {
+            "type": "number",
+            "description": "A number representing the accuracy of the click, it is used by the calibration algorithm to estimate the position error of the mark."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "camera_id",
+        "position_px",
+        "accuracy"
+    ]
+}

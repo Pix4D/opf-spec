@@ -1,0 +1,35 @@
+{
+    "$id": "projected_rig_translation.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Projected rig translation",
+    "description": "Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "values": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Relative translation in processing CRS units."
+        },
+        "sigmas": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Measurement error (standard deviation) in processing CRS units."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "values",
+        "sigmas"
+    ]
+}

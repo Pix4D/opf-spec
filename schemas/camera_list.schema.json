@@ -1,0 +1,106 @@
+{
+    "$id": "camera_list.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": " Camera list",
+    "version": "1.0",
+    "description": "List of primitive camera data files",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-camera-list+json",
+            "type": "string",
+            "description": "For a camera list it must be `\"application/opf-camera-list+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "uid_generator": {
+            "$ref": "camera_list.schema.json#/$defs/uid_generator"
+        },
+        "cameras": {
+            "type": "array",
+            "items": {
+                "$ref": "camera_list.schema.json#/$defs/camera"
+            },
+            "description": "List of all cameras in all captures."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "cameras"
+    ],
+    "$defs": {
+        "uid_generator": {
+            "type": "object",
+            "title": "UID generator",
+            "description": "The UID generator used to generate the UIDs of the cameras in the list. The OPF specification does not mandate a particular ID generation mechanism, but the mapping between camera IDs and cameras must be unique at the specified scope. Note that it is required that all `camera_list` items from a given OPF project use the same uid_generator.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "vendor": {
+                    "type": "string",
+                    "description": "The vendor of the UID generator. The string should be lower case."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the UID generator."
+                },
+                "scope": {
+                    "type": "string",
+                    "enum": [
+                        "global",
+                        "project"
+                    ],
+                    "description": "In `project` scope the UIDs <-> cameras mapping is guaranteed to be unique within the OPF project. In `global` scope the UID <-> camera mapping is required to be unique beyond the project boundaries."
+                },
+                "version": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "The version of the UID generator."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "vendor",
+                "name",
+                "scope",
+                "version"
+            ]
+        },
+        "camera": {
+            "type": "object",
+            "title": "Camera",
+            "description": "All data files associated with one camera in a capture",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "uid64.schema.json"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri-reference",
+                    "description": "The location of the image file given as a URI-reference. For multi-page images, only one page shall be considered. By default, that page will be the first one unless the URI refers to a different one in a fragment part with the syntax \"page=n\", e.g. \"image.tiff#page=1\"."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "uri"
+            ]
+        }
+    }
+}

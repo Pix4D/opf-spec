@@ -1,0 +1,45 @@
+{
+    "$id": "plane.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "3D Bounded Planar Surface",
+    "type": "object",
+    "properties": {
+        "normal_vector": {
+            "description": "Plane normal direction.",
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ]
+        },
+        "vertices3d": {
+            "type": "array",
+            "description": "List of 3D vertices.",
+            "items": {
+                "$ref": "vector3d.schema.json"
+            }
+        },
+        "outer_boundary": {
+            "type": "array",
+            "description": "List of indices in the 3D vertices array.",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "inner_boundaries": {
+            "type": "array",
+            "description": "List of inner boundaries.",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "required": [
+        "normal_vector",
+        "vertices3d",
+        "outer_boundary"
+    ]
+}
