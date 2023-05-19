@@ -1,0 +1,43 @@
+# Scene reference frame project item
+
+A scene reference frame project item identifies and describes the coordinate system and reference frame used by other project items.
+In most cases the project item will contain a single resource pointing to a JSON file, but the resource list could also be empty.
+
+* Item type `scene_reference_frame`
+* Neither required nor optional source item types.
+* Resource formats:
+  | required | optional |
+  | -------- | -------- |
+  |  | [`application/opf-scene-reference-frame+json`](application/opf-scene-reference-frame+json-format)<br> |
+
+An empty resource list indicates that nothing is known about the coordinate system and reference frame, i.e. neither the geolocation nor the scale of the axes are known.
+When the scale is known but the reference frame is arbitrary, it is preferable to include a description that contains an <a href="https://docs.ogc.org/is/18-010r7/18-010r7.html#88">engineering coordinate reference system </a> in its definition as described in the resource format specification.
+Notice that many other items still require a scene reference frame as a source item.
+The purpose of linking project items to an empty scene reference frame is to denote that all items linked to the same frame have consistent coordinates.
+This is possible because every scene reference frame item has a different UUID that identifies it.
+
+## Examples
+
+```json
+{
+    "id": "4049924c-5fed-440d-bae3-1b54869fb4e2",
+    "type": "scene_reference_frame",
+    "name": "Unknown reference frame for dataset X",
+    "sources": [],
+    "resources": []
+}
+```
+
+```json
+{
+    "id": "ea9c18a5-3c7a-4f16-b54c-b122bc413e68",
+    "type": "scene_reference_frame",
+    "sources": [],
+    "resources": [
+        {
+            "uri": "processing_spatial_reference.json",
+            "format": "application/opf-scene-reference-frame+json"
+        }
+    ]
+}
+```

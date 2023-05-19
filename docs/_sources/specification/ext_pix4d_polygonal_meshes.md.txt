@@ -1,0 +1,386 @@
+# Polygonal meshes
+
+This page specifies the data model and format for polygonal meshes.
+
+Project item type: `ext_pix4d_polygonal_meshes`.
+
+Resource format string: `application/ext-pix4d-polygonal-meshes+json`.
+
+Required sources for the `pix4d_polygonal_meshes` item in the project container:
+* scene_reference_frame
+
+Optional sources for the `pix4d_polygonal_meshes` item in the project container:
+* input_cameras
+* calibration
+
+## Definitions
+
+### Geometry
+
+A **polygonal mesh** is a surface defined by:
+* vertices with a required attribute "position"
+* edges as an undirected link between two vertices
+* faces as:
+  * An ordered collection of at least 3 edges forming the outer loop
+  * A collection of collections of edges forming the inner loops
+  * A face triangulation as a collection of vertex indices triplets
+
+The polygonal mesh thus represented must be an orientable manifold surface. It follows that so must be the triangulation.
+
+The data model does not enforce planarity constraints.
+
+In addition, any object may be extended with user-specific data.
+
+### Image marks
+
+Image marks are associated to vertices and edges. A mark refers to a camera by its unique id.
+
+A vertex mark has in addition a 2D image point associated to the referred camera image. It is an indication to where a given vertex of the polygonal mesh is expected to reproject.
+
+An edge mark has in addition a 2D image segment associated to the referred camera image. It is an indication to where a portion of a given edge of the polygonal mesh is expected to reproject.
+
+## Schema
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-polygonal-meshes+json" | "1.0-draft1" |
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-edge)=
+### Edge
+
+Undirected edge connecting two vertices
+
+**`Edge` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**vertex_indices**|`integer` `[2]`|The indices of the two vertices connected by the edge| &#10003; Yes|
+|**marks**|[`edge_mark`](ext_pix4d_polygonal_meshes-edge_mark) `[]`|List of edge image marks|No|
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-edge_loop_indices)=
+### Edge loop indices
+
+Ordered edge indices forming a loop
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-edge_mark)=
+### Edge mark
+
+Edge image mark
+
+**`Edge mark` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_uid**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**segment_px**|[`array`](ext_pix4d_polygonal_meshes-array) `[2]`|the mark segment extremities| &#10003; Yes|
+
+
+
+
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-face)=
+### Face
+
+Face given as an ordered collection of edges. The face winding is given by the edges order
+
+**`Face` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**outer_edge_indices**|[`edge_loop_indices`](ext_pix4d_polygonal_meshes-edge_loop_indices)|Ordered edge indices forming a loop| &#10003; Yes|
+|**inner_edge_indices**|[`array`](ext_pix4d_polygonal_meshes-array) `[]`|The indices of the (undirected) edges forming the polygonal face inner loops, if any|No|
+
+
+
+
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-polygonal-meshes)=
+### Polygonal meshes
+
+Definition of polygonal mesh collection
+
+**`Polygonal meshes` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-polygonal-meshes+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**meshes**|`object` `[1-*]`|Collection of meshes| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-vertex)=
+### Vertex
+
+Vertex of the mesh
+
+**`Vertex` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**marks**|[`vertex_mark`](ext_pix4d_polygonal_meshes-vertex_mark) `[]`|List of vertex image marks|No|
+|**position**|`number` `[3]`|`[number, number, number]`| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_polygonal_meshes-vertex_mark)=
+### Vertex mark
+
+Vertex image mark
+
+**`Vertex mark` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_uid**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**position_px**|`number` `[2]`|`[number, number]`| &#10003; Yes|
+
+
+
+
+
+
+### Example
+
+```json
+{
+    "format": "application/ext-pix4d-polygonal-meshes+json",
+    "version": "1.0-draft1",
+    "meshes": [
+        {
+            "vertices": [
+                {
+                    "position": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "marks": [
+                        {
+                            "camera_uid": 0,
+                            "position_px": [
+                                512,
+                                512
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "position": [
+                        1,
+                        0,
+                        0
+                    ]
+                },
+                {
+                    "position": [
+                        0,
+                        1,
+                        0
+                    ]
+                },
+                {
+                    "position": [
+                        0,
+                        0,
+                        1
+                    ]
+                },
+                {
+                    "position": [
+                        0.25,
+                        0.25,
+                        0
+                    ]
+                },
+                {
+                    "position": [
+                        0.75,
+                        0.25,
+                        0
+                    ]
+                },
+                {
+                    "position": [
+                        0.25,
+                        0.75,
+                        0
+                    ]
+                }
+            ],
+            "edges": [
+                {
+                    "vertex_indices": [
+                        0,
+                        1
+                    ],
+                    "marks": [
+                        {
+                            "camera_uid": 0,
+                            "segment_px": [
+                                [
+                                    512,
+                                    512
+                                ],
+                                [
+                                    512,
+                                    1024
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        0,
+                        2
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        0,
+                        3
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        1,
+                        3
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        1,
+                        2
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        2,
+                        3
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        4,
+                        6
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        6,
+                        5
+                    ]
+                },
+                {
+                    "vertex_indices": [
+                        5,
+                        4
+                    ]
+                }
+            ],
+            "faces": [
+                {
+                    "outer_edge_indices": [
+                        0,
+                        1,
+                        4
+                    ],
+                    "inner_edge_indices": [
+                        [
+                            6,
+                            7,
+                            8
+                        ]
+                    ]
+                },
+                {
+                    "outer_edge_indices": [
+                        1,
+                        2,
+                        5
+                    ]
+                },
+                {
+                    "outer_edge_indices": [
+                        0,
+                        3,
+                        2
+                    ]
+                },
+                {
+                    "outer_edge_indices": [
+                        3,
+                        4,
+                        5
+                    ]
+                }
+            ],
+            "triangulation": [
+                [
+                    0,
+                    1,
+                    5
+                ],
+                [
+                    0,
+                    4,
+                    6
+                ],
+                [
+                    0,
+                    6,
+                    2
+                ],
+                [
+                    1,
+                    5,
+                    4
+                ],
+                [
+                    1,
+                    5,
+                    2
+                ],
+                [
+                    2,
+                    6,
+                    5
+                ],
+                [
+                    0,
+                    3,
+                    2
+                ],
+                [
+                    0,
+                    1,
+                    3
+                ],
+                [
+                    1,
+                    3,
+                    2
+                ]
+            ]
+        }
+    ]
+}
+```

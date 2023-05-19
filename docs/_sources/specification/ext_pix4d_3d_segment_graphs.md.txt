@@ -1,0 +1,176 @@
+# 3D Segment Graphs
+
+This page specifies the data model and format for 3D segment graphs.
+
+Project item type: `ext_pix4d_3d_segment_graphs`.
+
+Resource format string: `application/ext-pix4d-3d-segment-graphs+json`.
+
+Required sources for the `pix4d_3d_segment_graphs` item in the project container:
+* `camera_list`
+* `calibration`
+* `scene_reference_frame`
+* `ext_pix4d_2d_segment_graphs`
+
+## Definitions
+
+A **3D Segment Graph** is a graph of 3D vertices and 3D edges in the scene.
+
+A **3D Vertex** indicates a 3D position in the scene, representing, for example, a point like a corner. The position
+is given in the processing CRS.
+
+A **3D Edge** links two vertices, representing, for example, a real-world segment in the scene.
+
+Note: Not every vertex has to be referenced by an edge, the format allows for orphan vertices.
+
+## File Format
+
+The 3D Segment Graphs are stored in the JSON file format.
+
+## Schema
+
+| Specification format                                                | Version                                              |
+|---------------------------------------------------------------------|------------------------------------------------------|
+| "application/ext-pix4d-3d-segment-graphs+json" | "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_3d_segment_graphs-edge)=
+### 3D Edge
+
+`[integer, integer]`: Indices of the vertices representing the edge's endpoints
+
+
+
+---------------------------------------
+(ext_pix4d_3d_segment_graphs-3d-segment-graphs)=
+### 3D Segment Graphs
+
+Definition of 3D Segment Graphs
+
+**`3D Segment Graphs` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-3d-segment-graphs+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**vertices**|[`vertex`](ext_pix4d_3d_segment_graphs-vertex) `[]`|List of 3D vertices| &#10003; Yes|
+|**edges**|[`array`](ext_pix4d_3d_segment_graphs-array) `[]`|List of 3D edges| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_3d_segment_graphs-vertex)=
+### 3D Vertex
+
+**`3D Vertex` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**position**|`number` `[3]`|Position of the 3D vertex expressed in the processing CRS.| &#10003; Yes|
+|**marks**|[`mark`](ext_pix4d_3d_segment_graphs-mark) `[]`|List of marks corresponding to this 3D vertex| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_3d_segment_graphs-mark)=
+### Vertex mark
+
+**`Vertex mark` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_id**|`integer`|Camera ID for the image on which the vertex mark is present.| &#10003; Yes|
+|**position**|`number` `[2]`|Pixel location of the mark.| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "version": "1.0-draft2",
+    "format": "application/ext-pix4d-3d-segment-graphs+json",
+    "vertices": [
+        {
+            "position": [
+                1.0,
+                2.0,
+                3.0
+            ],
+            "marks": [
+                {
+                    "camera_id": 2244,
+                    "position": [
+                        1.0,
+                        5.0
+                    ]
+                },
+                {
+                    "camera_id": 9501,
+                    "position": [
+                        3.0,
+                        5.0
+                    ]
+                },
+                {
+                    "camera_id": 1241,
+                    "position": [
+                        2.0,
+                        25.0
+                    ]
+                }
+            ]
+        },
+        {
+            "position": [
+                3.0,
+                5.0,
+                22.0
+            ],
+            "marks": []
+        },
+        {
+            "position": [
+                -1.0,
+                2.0,
+                5.0
+            ],
+            "marks": []
+        },
+        {
+            "position": [
+                -1.0,
+                2.0,
+                5.0
+            ],
+            "marks": [
+                {
+                    "camera_id": 92011,
+                    "position": [
+                        3.0,
+                        2.0
+                    ]
+                },
+                {
+                    "camera_id": 535021,
+                    "position": [
+                        10.0,
+                        4.0
+                    ]
+                }
+            ]
+        }
+    ],
+    "edges": [
+        [
+            0,
+            1
+        ],
+        [
+            1,
+            2
+        ]
+    ]
+}
+```

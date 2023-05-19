@@ -1,0 +1,102 @@
+# Computed Depth Maps
+
+This page specifies the storage mechanism of computed depth maps.
+
+Project item type: `ext_pix4d_computed_depth_map`.
+
+Resource format string: `application/ext-pix4d-computed-depth-map+json`.
+
+Optional source types:
+* `point_cloud` or
+* `calibration`
+
+## Example use case
+
+Computed depth maps, or synthetic depth maps, are depth maps typically computed from calibrated cameras and/or a point cloud.
+They are synthetic in the sense that they are not a direct measurement (e.g. from a time of flight camera), but rather determined
+based on the imagery or secondary data like a point cloud.
+For example they may be obtained using dense stereo matching algorithms, or by projecting a 3D point cloud into cameras and
+performing depth completion.
+Each pixel of the depth map represents the depth for that pixel or an unknown value.
+
+## File Format
+
+The format consists of two elements:
+- A JSON file that associates a camera UID to the URI reference pointing to the depth map
+- The depth maps themselves, typically stored as image files.
+
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-computed-depth-map+json" | "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_computed_depth_map-computed-depth-maps)=
+### Computed Depth Maps
+
+Definition of Computed Depth Maps
+
+**`Computed Depth Maps` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-computed-depth-map+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**depth_maps**|[`depth_map`](ext_pix4d_computed_depth_map-depth_map) `[]`|List of all computed depth maps with their associated camera uids.| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_computed_depth_map-depth_map)=
+### Depth map
+
+In a depth map, each pixel represents the estimated distance from the device to its environment on the camera principal axis. A depth map image is aligned with an RGB image but it may have a different resolution. Values of zero are considered invalid/missing or unknown. An optional confidence map may be provided as well.
+
+**`Depth map` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**unit_to_meters**|`number`|Multiply this scale factor with depth maps values in order to obtain values in meters. For example, if the depth map values represent millimeters the scale factor is 0.001 (e.g. a value of 1000mm corresponds to 1m).  If not specified, defaults to 1.|No, default: `1`|
+|**uri**|`string`|The location of the image file given as a URI-reference.| &#10003; Yes|
+|**confidence**|[`confidence`](ext_pix4d_computed_depth_map-confidence)|A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).|No|
+
+
+
+---------------------------------------
+(ext_pix4d_computed_depth_map-confidence)=
+### Depth map confidence
+
+A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).
+
+**`Depth map confidence` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**uri**|`string`|The location of the depth map image file given as a URI-reference.| &#10003; Yes|
+|**min**|`number`|Minimum confidence value to consider a depth measurement valid. Note that low confidence values while considered valid may be unreliable.| &#10003; Yes|
+|**max**|`number`|Maximum confidence value to consider a depth measurement valid.| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "version": "1.0-draft2",
+    "format": "application/ext-pix4d-computed-depth-map+json",
+    "depth_maps": [
+        {
+            "camera_id": 124356789,
+            "uri": "computed_depth_maps/0x124356789ABCDEF_depth.tif",
+            "unit_to_meters": 1,
+            "confidence": {
+                "uri": "computed_depth_maps/0x124356789ABCDEF_conf.tif",
+                "min": 0,
+                "max": 1
+            }
+        }
+    ]
+}
+```

@@ -1,0 +1,1755 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OPF-glTF point cloud &mdash; Open Photogrammetry Format Specification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Extensions" href="../extensions.html" />
+    <link rel="prev" title="Calibration sparse point cloud" href="sparse_point_cloud.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="globalNav">
+      <a class="homeLogo" href="../index.html">
+            
+            <li>Open Photogrammetry Format</li>
+      </a>
+      <ul>
+          <li class="version-switcher-placeholder"></li>
+      </ul>
+  </div>
+
+
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          </a>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <img class="searchIcon" src="../_static/search_icon.svg"/>
+    <input type="text" name="q" placeholder="Search docs..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project format specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="project.html#goal">Goal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#big-picture">Big picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-items">Project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#extension-mechanism-for-item-types-and-resource-formats">Extension mechanism for Item types and Resource formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="project.html#naming-convention">Naming convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#extension-example">Extension example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-specification">Project specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project">Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-item">Project Item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-resource">Project Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-source">Project Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#the-generator-of-this-project">The generator of this project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#top-level-scene-reference-frame">Top level scene reference frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#ids">IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cameras.html">Cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="camera_list.html">Camera list format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#image-uid-generator-registry">Image UID Generator registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera-list">Camera list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#uid-generator">UID generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input_cameras.html">Input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-cameras">Input cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#band-information">Band information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#capture-element">Capture element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#dynamic-pixel-range">Dynamic pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#geolocation">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#omega-phi-kappa-orientation">Omega-Phi-Kappa orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#pixel-range">Pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#sensor-element">Sensor element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#spherical-internals">Spherical internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#yaw-pitch-roll-orientation">Yaw-Pitch-Roll orientation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="projected_input_cameras.html">Projected input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-input-camera">Projected input camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#capture">Capture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-geolocation">Projected geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-orientation">Projected orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#sensor">Sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="control_points.html">Control Points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#file-format">File format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-input-control-points">Format specification: Input control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-input-control-points">Input control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#crs">CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#gcp">GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#geolocation">Geolocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#mark">Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#mtp">MTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-projected-control-points">Format specification: Projected control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-projected-control-points">Projected control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#projected-gcp">Projected GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-calibrated-control-points">Format specification: Calibrated control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#calibrated-control-points">Calibrated control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id4">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-scale-and-orientation-constraints">Format specification: Scale and orientation constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#control-points-constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#orientation-constraint">Orientation constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#scale-constraint">Scale constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id6">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scene_reference_frame.html">Scene reference frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame.html">Scene reference frame project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame_format.html">Scene reference frame format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#base-to-translated-canonical-crs-transform">Base to translated canonical CRS transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame">Scene reference frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calibration.html">Calibration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">Calibration project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gps_bias.html">GPS bias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#gps-bias-gps-bias">GPS bias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OPF-glTF point cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#format-structure">Format structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-layout">Data layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-gltf-point-cloud-extensions">OPF-glTF point cloud extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-asset-version">OPF_asset_version</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-opf-asset-version">OPF_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-mesh-primitive-partitioning-extension">OPF_mesh_primitive_partitioning extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opf-mesh-primitive-partitioning">OPF_mesh_primitive_partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-mesh-primitive-matches-extension">OPF_mesh_primitive_matches extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opf-mesh-primitive-matches">OPF_mesh_primitive_matches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-mesh-primitive-custom-attributes-extension">OPF_mesh_primitive_custom_attributes extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opf-mesh-primitive-custom-attributes">OPF_mesh_primitive_custom_attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-gltf-point-cloud-parser-support">OPF-glTF point cloud parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#material">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions.html">Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html">2D Segment Graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#d-edge">2D Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#ext-pix4d-2d-segment-graphs-2d-segment-graphs">2D Segment Graphs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#d-vertex">2D Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_2d_segment_graphs.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html">3D Segment Graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#d-edge">3D Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#ext-pix4d-3d-segment-graphs-3d-segment-graphs">3D Segment Graphs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#d-vertex">3D Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#vertex-mark">Vertex mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_3d_segment_graphs.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_computed_depth_map.html">Computed Depth Maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#example-use-case">Example use case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#file-format">File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#ext-pix4d-computed-depth-map-computed-depth-maps">Computed Depth Maps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#depth-map">Depth map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#depth-map-confidence">Depth map confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_computed_depth_map.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_input_depth_map.html">Input depth maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_input_depth_map.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_input_depth_map.html#depth-map-confidence">Depth map confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_input_depth_map.html#input-camera-depth-map">Input camera depth map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_input_depth_map.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html">Intersection Tie Points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#example-use-case">Example use case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#schema-input-intersection-tie-points">Schema: Input Intersection Tie Points</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#intersection-tie-point-itp">Intersection Tie Point (ITP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#ext-pix4d-intersection-tie-points-intersection-tie-points">Intersection Tie Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#mark-with-segments">Mark with Segments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#schema-calibrated-intersection-tie-points">Schema: Calibrated Intersection Tie Points</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#ext-pix4d-intersection-tie-points-calibrated-intersection-tie-points">Calibrated Intersection Tie Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_intersection_tie_points.html#id3">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_planes.html">Planes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_planes.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_planes.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_planes.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_planes.html#d-bounded-planar-surface">3D Bounded Planar Surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_planes.html#ext-pix4d-planes-planes">Planes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_planes.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html">Polygonal meshes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#geometry">Geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#image-marks">Image marks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#edge">Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#edge-loop-indices">Edge loop indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#edge-mark">Edge mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#face">Face</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#ext-pix4d-polygonal-meshes-polygonal-meshes">Polygonal meshes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#vertex">Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#vertex-mark">Vertex mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_polygonal_meshes.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_region_of_interest.html">Region of interest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_region_of_interest.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_region_of_interest.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_region_of_interest.html#d-bounded-planar-surface">3D Bounded Planar Surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_region_of_interest.html#ext-pix4d-region-of-interest-region-of-interest">Region of interest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_region_of_interest.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ext_pix4d_vanishing_points.html">Vanishing points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_vanishing_points.html#definition">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_vanishing_points.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext_pix4d_vanishing_points.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_vanishing_points.html#ext-pix4d-vanishing-points-vanishing-points">Vanishing points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ext_pix4d_vanishing_points.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../annexes.html">Annexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary_objects.html">Auxiliary objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#coordinate-reference-system-definition">Coordinate reference system definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#crs">CRS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#geolocation">Geolocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#id1">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#auxiliary-objects-geolocation">Geolocation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rigid-transform-with-scaling">Rigid transform with scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#canonical-reference-system">Canonical reference system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#coordinate-reference-system-crs">Coordinate reference system (CRS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#processing-crs">Processing CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#scene-reference-frame">Scene reference frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#spatial-reference-system">Spatial reference system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#acronyms">Acronyms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Open Photogrammetry Format Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li>OPF /</li>
+
+      <li>
+        Version  /
+      </li>
+
+      <li class="dateInfo">None</li>
+
+        
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/point_cloud.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="opf-gltf-point-cloud">
+<span id="application-gltf-buffer-bin-format"></span><span id="model-gltf-json-format"></span><span id="opf-gltf-format"></span><h1>OPF-glTF point cloud<a class="headerlink" href="#opf-gltf-point-cloud" title="Permalink to this heading">¶</a></h1>
+<p>The OPF-glTF point cloud file format aims at storing spatially partitioned point clouds such as the photogrammetric sparse point cloud (tracks) or the densified point cloud. In particular:</p>
+<ul class="simple">
+<li><p>The data is all memory-mappable</p></li>
+<li><p>The data is spatially partitioned</p></li>
+<li><p>The layout enables efficient partial rendering (LOD)</p></li>
+<li><p>The layout enables efficient processing (octree data structure)</p></li>
+<li><p>The data can be expanded with new runtime-defined attributes</p></li>
+<li><p>The points attributes can be mutated with the exception of points positions</p></li>
+<li><p>To each point can be associated a variable number of image matches, for instance detected features</p></li>
+</ul>
+<p>The format uses a strict subset the <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html">glTF file format</a> specification and adds definitions of custom glTF extensions. Thus an OPF glTF pointcloud is a fully valid glTF file. However any glTF file is not necessarily a valid OPF glTF pointcloud.</p>
+<p>The format allows to store various pieces of information attached to a point cloud:</p>
+<ul class="simple">
+<li><p>Spatial partitioning</p></li>
+<li><p>Point attributes, both specified or custom.</p></li>
+</ul>
+<p>Specified point attributes are:</p>
+<ul class="simple">
+<li><p>positions - the only required attribute</p></li>
+<li><p>normals</p></li>
+<li><p>colors</p></li>
+<li><p>matches</p></li>
+</ul>
+<p>Matches associate points to a set of cameras where the points were matched. The match information comprises:</p>
+<ul class="simple">
+<li><p>The range of indices of the matches associated to the point.</p></li>
+<li><p>A camera per match.</p></li>
+<li><p>Optionally an image point per match.</p></li>
+</ul>
+<p>An image point comprises:</p>
+<ul class="simple">
+<li><p>pixel coordinates: the position of the image point feature on the image</p></li>
+<li><p>feature index: an index of the detected feature</p></li>
+<li><p>scale: the diameter of the feature descriptor neighborhood</p></li>
+<li><p>optionally the depth</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version of the format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“model/gltf+json”</p></td>
+<td><p>“1.0-draft7”</p></td>
+</tr>
+</tbody>
+</table>
+<section id="format-structure">
+<h2>Format structure<a class="headerlink" href="#format-structure" title="Permalink to this heading">¶</a></h2>
+<p>The OPF-glTF point cloud file format is a valid <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-gltf">glTF model</a>. The format specifies the expected content. An OPF point cloud glTF file contains:</p>
+<ul class="simple">
+<li><p>A <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-scene">scene</a> referenced by the <code class="docutils literal notranslate"><span class="pre">scene</span></code> root glTF property.</p></li>
+<li><p>A collection of <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#nodes-and-hierarchy">root nodes</a> referenced in the <code class="docutils literal notranslate"><span class="pre">nodes</span></code> array property of the glTF scene. Each node may have a spatial transform attached by the nodes <code class="docutils literal notranslate"><span class="pre">matrix</span></code> property that transforms from the node internal coordinate system to the global scene one.</p></li>
+<li><p>A collection of <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh">meshes</a> each referenced by the <code class="docutils literal notranslate"><span class="pre">mesh</span></code> property of the root nodes. Note that in glTF the geometric content is always referred as a “mesh”, even if the geometry has no connectivity as is the case for a pointcloud. The collection of nodes and associated meshes corresponds to a collection of pointclouds.</p></li>
+<li><p>For each mesh a unique <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> corresponding to the full point cloud contained within the mesh. The mesh primitive <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_mode">mode</a> must be set to <code class="docutils literal notranslate"><span class="pre">POINTS</span> <span class="pre">(0)</span></code>. There are no restriction on the size of the mesh primitives.</p></li>
+<li><p><em>[optional]</em> An <a class="reference download internal" download="" href="../_downloads/6593851c78751143b8a58f693126153f/point_cloud_mesh_primitive_partitioning.schema.json"><span class="xref download myst">OPF_mesh_primitive_partitioning</span></a> extension appended to the mesh primitive extensions containing the spatial partitioning data.</p></li>
+<li><p><em>[optional]</em> An <a class="reference download internal" download="" href="../_downloads/d5db0a497b815d82c33a7e74e9c0e913/point_cloud_mesh_primitive_matches.schema.json"><span class="xref download myst">OPF_mesh_primitive_matches</span></a> extension appended to the mesh primitives extensions containing the image matches associated to the points.</p></li>
+<li><p><em>[optional]</em> An <a class="reference download internal" download="" href="../_downloads/f4276d0ad05e46a0d55f1c8a03da1316/point_cloud_mesh_primitive_custom_attributes.schema.json"><span class="xref download myst">OPF_mesh_primitive_custom_attributes</span></a> extension appended to the mesh primitives extensions containing extra point custom attributes accessors.</p></li>
+</ul>
+</section>
+<section id="data-layout">
+<h2>Data layout<a class="headerlink" href="#data-layout" title="Permalink to this heading">¶</a></h2>
+<p>Each node in the glTF file may have a different spatial transform attached allowing to store pointclouds in spatially separated portions. An example use-case for this is to allow the storage of pointclouds with very large spatial extent without precision loss due to single precision position storage, as the transforms may incorporate a spatial offset.</p>
+<p>If a glTF node contains spatial partitioning, then the points are expected to be written in a specific layout. Below is an illustration of the expected data layout and partitioning in 1D.
+<img alt="" src="../_images/chunked_spatial_partitioning.png" /></p>
+<p>The node of the tree are indicated as grey boxes. The points are sampled in several “chunks”, corresponding in the illustration to the 4 rows of points at the bottom. Each chunk is a uniform sample of the whole point cloud without repetition. The chunks are stored contiguously one after the other in the data referred by the unique <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a>. Points within a chunk are Morton-ordered such that a range of points belonging to a node is embedded into the range of points belonging to its parent node. This layout is meant to allow efficient partial rendering and efficient processing.</p>
+<p>Given an octree structure, the process of ordering the points as above consists in partitioning the points belonging to a node into the 8 octants of the node children, and recursively perform the same operation for those. The process starts from the root node, to which all points belong.</p>
+<p>The above partitioning is stored into the <a class="reference download internal" download="" href="../_downloads/6593851c78751143b8a58f693126153f/point_cloud_mesh_primitive_partitioning.schema.json"><span class="xref download myst">OPF_mesh_primitive_partitioning</span></a> extension.</p>
+</section>
+<section id="gltf-version-restrictions-and-constraints">
+<span id="opf-gltf-restrictions"></span><h2>glTF version, restrictions and constraints<a class="headerlink" href="#gltf-version-restrictions-and-constraints" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>The glTF asset.version property <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></li>
+<li><p>The glTF asset.extensions property <strong>must</strong> include the <a class="reference download internal" download="" href="../_downloads/5a5b91c534b40b7de61f2270784c16e2/point_cloud_asset_version.schema.json"><span class="xref download myst">OPF_asset_version</span></a> extension</p></li>
+<li><p>The <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification">GLB</a> format, also known as <code class="docutils literal notranslate"><span class="pre">binary-gltf</span></code> is not supported.</p></li>
+<li><p>The glTF file <strong>shall not</strong> embed base-64 encoded data blobs.</p></li>
+<li><p>The glTF data buffers <strong>must</strong> reside in separate binary files and be referenced by <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#uris">relative path URIs</a> within the top-level glTF file. It follows that glTF buffer <strong>must</strong> have the <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_buffer_uri">uri</a> property set.</p></li>
+<li><p>The glTF specification mandates that all referenced buffers <strong>must</strong> be in little-endian byte order.</p></li>
+<li><p>glTF accessors with the <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-accessor-sparse">accessor.sparse</a> property set are not supported.</p></li>
+<li><p>glTF accessors <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_accessor_type">type</a> <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">SCALAR</span></code>, <code class="docutils literal notranslate"><span class="pre">VEC2</span></code>, <code class="docutils literal notranslate"><span class="pre">VEC3</span></code> or <code class="docutils literal notranslate"><span class="pre">VEC4</span></code>, <em>i. e.</em> matrix types are not supported.</p></li>
+<li><p>glTF buffer views <strong>shall not</strong> have the <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_bufferview_bytestride">byteStride</a> property and <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-accessor">glTF accessor</a> <strong>shall not</strong> have the <code class="docutils literal notranslate"><span class="pre">byteOffset</span></code> property, <em>i. e.</em> heterogeneous types interleaved fields are forbidden.</p></li>
+<li><p>The glTF specification restricts data types to 32-bit or less integers. Floating point numbers are also constrained to single precision. In this specification we do need unsigned 64-bit integers. Those are simply represented as a vector of 2 unsigned 32-bit integers in little-endian byte order. The restriction on floating point precision has no impact on this specification.</p></li>
+<li><p>Only a single <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> is supported per mesh.</p></li>
+<li><p>The OPF point cloud glTF file <strong>must</strong> use and <strong>must</strong> require the <code class="docutils literal notranslate"><span class="pre">KHR_materials_unlit</span></code> extension.</p></li>
+<li><p>An OPF point cloud mesh primitive <code class="docutils literal notranslate"><span class="pre">mode</span></code> <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">POINTS</span></code>.</p></li>
+<li><p>An OPF point cloud mesh primitive material <strong>must</strong> reference a material using the <code class="docutils literal notranslate"><span class="pre">KHR_material_unlit</span></code> extension.</p></li>
+<li><p>An OPF point cloud mesh primitive <strong>must</strong> have an attribute <code class="docutils literal notranslate"><span class="pre">POSITION</span></code>.</p></li>
+<li><p>The accessor referenced by an OPF point cloud mesh primitive <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> attribute <strong>must</strong> have the type <code class="docutils literal notranslate"><span class="pre">VEC3</span></code> and component type <code class="docutils literal notranslate"><span class="pre">FLOAT</span></code>.</p></li>
+<li><p>The OPF point cloud mesh primitives <strong>may</strong> have the following attributes in addition to the positions:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>attribute</p></th>
+<th class="head"><p>accessor</p></th>
+<th class="head"><p>meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>COLOR_0</p></td>
+<td><p><strong>type</strong>: <code class="docutils literal notranslate"><span class="pre">VEC4</span></code><br><strong>component type</strong>: <code class="docutils literal notranslate"><span class="pre">UNSIGNED_BYTE</span></code></p></td>
+<td><p>The points color in RGBA quadruplet</p></td>
+</tr>
+<tr class="row-odd"><td><p>NORMAL</p></td>
+<td><p><strong>type</strong>: <code class="docutils literal notranslate"><span class="pre">VEC3</span></code><br><strong>component type</strong>: <code class="docutils literal notranslate"><span class="pre">FLOAT</span></code></p></td>
+<td><p>The points normals</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="opf-gltf-point-cloud-extensions">
+<h2>OPF-glTF point cloud extensions<a class="headerlink" href="#opf-gltf-point-cloud-extensions" title="Permalink to this heading">¶</a></h2>
+<p>The OPF-glTF point cloud uses extensions to store extra data in glTF format.</p>
+</section>
+<section id="opf-asset-version">
+<h2>OPF_asset_version<a class="headerlink" href="#opf-asset-version" title="Permalink to this heading">¶</a></h2>
+<p>The extension stores the OPF format specification version</p>
+<hr class="docutils" />
+<section id="point-cloud-opf-asset-version">
+<span id="id1"></span><h3>OPF_asset_version<a class="headerlink" href="#point-cloud-opf-asset-version" title="Permalink to this heading">¶</a></h3>
+<p>glTF extension storing the OPF specification version</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">OPF_asset_version</span></code> Properties</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The OPF version in the form of <code class="docutils literal notranslate"><span class="pre">&lt;major&gt;.&lt;minor&gt;</span></code> that this asset targets.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="opf-mesh-primitive-partitioning-extension">
+<h2>OPF_mesh_primitive_partitioning extension<a class="headerlink" href="#opf-mesh-primitive-partitioning-extension" title="Permalink to this heading">¶</a></h2>
+<p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object storing the octree spatial data structure and point cloud chunks information:</p>
+<ul class="simple">
+<li><p>The root bounding box, in the same coordinate system than the points stored in the mesh referenced by the node.</p></li>
+<li><p>The octree node indices (level, i, j ,k) where level is the octree level and i, j and k correspond to the node integer coordinates in the x, y and z directions respectively.</p></li>
+<li><p>The octree node children. The actual tree.</p></li>
+<li><p>For each node and each chunk, the range of indices of the points belonging to the chunk and the bounded space corresponding to the node.</p></li>
+</ul>
+<p>The nodes are stored contiguously by level following a breadth-first-search order. An additional array of indices provides the index of the first node from each level, allowing to partially read the tree up to some level.</p>
+<hr class="docutils" />
+<section id="opf-mesh-primitive-partitioning">
+<span id="point-cloud-opf-mesh-primitive-partitioning"></span><h3>OPF_mesh_primitive_partitioning<a class="headerlink" href="#opf-mesh-primitive-partitioning" title="Permalink to this heading">¶</a></h3>
+<p>glTF extension storing the spatial partitioning data structure</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_partitioning</span></code> Properties</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>nodeIndices</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>The index of the accessor to the nodes indices. The referenced accessor type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">VEC4</span></code> and the component type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">UNSIGNED</span> <span class="pre">INT</span></code>. The elements are the octree nodes integer coordinates (level, x, y, z) stored contiguously by level following a breadth-first-search order. The accessor count field corresponds to the number of nodes within the octree. Nodes a hereby referred to by their index within this sequence.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>boundingBox</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>minimum and maximum 3D coordinates</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>childrenIndexing</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>The index of the accessor to the nodes children indexing. The referred accessor type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">VEC2</span></code> and the component type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">UNSIGNED</span> <span class="pre">INT</span></code>. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor <code class="docutils literal notranslate"><span class="pre">count</span></code> property <strong>MUST</strong> equal the <code class="docutils literal notranslate"><span class="pre">count</span></code> property of the <code class="docutils literal notranslate"><span class="pre">nodeCoordinates</span></code> accessor plus 1. The indexing is defined such that the range <code class="docutils literal notranslate"><span class="pre">[childrenIndexing[i],</span> <span class="pre">childrenIndexing[i]</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">childrenIndexing[i+1]</span> <span class="pre">-</span> <span class="pre">1]</span></code> corresponds to the i’th node children ids</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>nodeLevelIndexing</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>The indexing of octree node levels. For a level <code class="docutils literal notranslate"><span class="pre">l</span></code>, the range <code class="docutils literal notranslate"><span class="pre">[nodeLevelIndexing[l],</span> <span class="pre">nodeIndexing[l]</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nodeIndexing[l</span> <span class="pre">+</span> <span class="pre">1]</span> <span class="pre">-</span> <span class="pre">1]</span></code> corresponds to the indices of all nodes belonging to this level. The size of this array <strong>MUST</strong> match the number of levels plus one</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>perNodeChunkIndexRanges</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>The accessor index corresponding the spatial partitioning point ranges. The referred accessor type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">VEC4</span></code>, the component type <code class="docutils literal notranslate"><span class="pre">UNSIGNED_INT</span></code>. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The <code class="docutils literal notranslate"><span class="pre">count</span></code> property must be a multiple of the <code class="docutils literal notranslate"><span class="pre">nodeCoordinates</span></code> property referred accessor <code class="docutils literal notranslate"><span class="pre">count</span></code>. The multiple is the number of chunks. The ranges are ordered such that, for a node <code class="docutils literal notranslate"><span class="pre">n</span></code> and a chunk <code class="docutils literal notranslate"><span class="pre">c</span></code>, the corresponding range is found at the position <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">*</span> <span class="pre">chunkCount</span> <span class="pre">+</span> <span class="pre">c</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>nodeAttributes</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor <code class="docutils literal notranslate"><span class="pre">count</span></code> property <strong>MUST</strong> match the <code class="docutils literal notranslate"><span class="pre">count</span></code> property of the <code class="docutils literal notranslate"><span class="pre">nodeCoordinates</span></code> referenced accessor. If the component type is <code class="docutils literal notranslate"><span class="pre">UNSIGNED</span> <span class="pre">INT</span></code>, then the type <strong>MUST</strong> be either <code class="docutils literal notranslate"><span class="pre">VEC2</span></code> or <code class="docutils literal notranslate"><span class="pre">VEC4</span></code> in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively.</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="opf-mesh-primitive-matches-extension">
+<h2>OPF_mesh_primitive_matches extension<a class="headerlink" href="#opf-mesh-primitive-matches-extension" title="Permalink to this heading">¶</a></h2>
+<p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object associating, to each point, a group of image matches. The group of matches is given as a packed pair of a 40-bit and a 24-bit unsigned integers. The first integer refers to the match offset index within the collection of matches. The second integer is the number of matches in the range.</p>
+<hr class="docutils" />
+<section id="opf-mesh-primitive-matches">
+<span id="point-cloud-opf-mesh-primitive-matches"></span><h3>OPF_mesh_primitive_matches<a class="headerlink" href="#opf-mesh-primitive-matches" title="Permalink to this heading">¶</a></h3>
+<p>glTF extension storing the point matches</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_matches</span></code> Properties</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>cameraUids</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>The camera UIDs referenced by the match camera ids</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>cameraIds</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>The index of the accessor to the match camera ids. The referenced accessor type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">SCALAR</span></code> and the component type <code class="docutils literal notranslate"><span class="pre">UNSIGNED</span> <span class="pre">INT</span></code>. Each value is not a camera UID, but an index referring a UID from the <code class="docutils literal notranslate"><span class="pre">cameraUids</span></code> array.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>pointIndexRanges</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>The index of the match index ranges accessor. The referred accessor type <strong>MUST</strong> be <code class="docutils literal notranslate"><span class="pre">VEC2</span></code> and the component type <code class="docutils literal notranslate"><span class="pre">UNSIGNED_INT</span></code>. Together the two 32-bit unsigned integers form a packed pair of 40-bit and 24-bit unsigned integers in little-endian order. The first integer of the pair is the match offset index within the matches. The second integer is the number of matches in the range. The referred accessor <code class="docutils literal notranslate"><span class="pre">count</span></code> must match that of the corresponding mesh primitive attribute <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> referred accessor.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>imagePoints</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>Collection of attributes for image points</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="opf-mesh-primitive-custom-attributes-extension">
+<h2>OPF_mesh_primitive_custom_attributes extension<a class="headerlink" href="#opf-mesh-primitive-custom-attributes-extension" title="Permalink to this heading">¶</a></h2>
+<p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object used to store any extra attribute, with any type as supported by glTF (note that any custom attribute added directly to the mesh primitive attribute would be required to be 4-bytes aligned which is too constraining).</p>
+<hr class="docutils" />
+<section id="opf-mesh-primitive-custom-attributes">
+<span id="point-cloud-opf-mesh-primitive-custom-attributes"></span><h3>OPF_mesh_primitive_custom_attributes<a class="headerlink" href="#opf-mesh-primitive-custom-attributes" title="Permalink to this heading">¶</a></h3>
+<p>Extension storing extra custom point attribute</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_custom_attributes</span></code> Properties</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>attributes</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>The collection of attribute name and corresponding accessor index containing the custom attribute. The referred accessor <code class="docutils literal notranslate"><span class="pre">count</span></code> property <strong>MUST</strong> match that of the corresponding mesh primitive <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> attribute</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="opf-gltf-point-cloud-parser-support">
+<h2>OPF-glTF point cloud parser support<a class="headerlink" href="#opf-gltf-point-cloud-parser-support" title="Permalink to this heading">¶</a></h2>
+<p>To parse an OPF-glTF point cloud, a parser is not required to support the whole glTF specification. We expose below what level of support is expected. Each field is marked as either <em>required</em>, <em>ignored</em>, <em>supported</em>, <em>unsupported</em> or <em>constrained</em>. The meaning of these is described below:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>keyword</p></th>
+<th class="head"><p>parser behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>glTF-required</em></p></td>
+<td><p>The field is required by the glTF specification. The parser <strong>must</strong> fail with an error if the field is not found</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>required</em></p></td>
+<td><p>The parser <strong>may</strong> fail with an error if the field is not found</p></td>
+</tr>
+<tr class="row-even"><td><p><em>ignored</em></p></td>
+<td><p>The parser <strong>may</strong> ignore the field completely</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>supported</em></p></td>
+<td><p>The parser <strong>must</strong> parse the field, yielding the field intended effect</p></td>
+</tr>
+<tr class="row-even"><td><p><em>unsupported</em></p></td>
+<td><p>The parser <strong>may</strong> choose to fail with an error if the field is encountered</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>constrained</em></p></td>
+<td><p>The parser <strong>may</strong> choose to fail with an error if the constraint is not met</p></td>
+</tr>
+</tbody>
+</table>
+<p>With those definitions, any parser supporting the full glTF specification is a valid OPF-glTF point cloud parser. On the other hand, a valid OPF-glTF point cloud parser may choose to ignore some input or fail upon encountering glTF content outside of the subset specified hereby.</p>
+<section id="asset">
+<h3>Asset<a class="headerlink" href="#asset" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>version</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> be “2.0”</p></td>
+</tr>
+<tr class="row-odd"><td><p>generator</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>minVersion</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>copyright</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> include the <a class="reference download internal" download="" href="../_downloads/5a5b91c534b40b7de61f2270784c16e2/point_cloud_asset_version.schema.json"><span class="xref download myst">OPF_asset_version</span></a> extension</p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="material">
+<h3>Material<a class="headerlink" href="#material" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> include the <code class="docutils literal notranslate"><span class="pre">KHR_material_unlit</span></code> extension, this is the only material supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>pbrMetallicRoughness</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>normalTexture</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>occlusionTexture</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>emissiveTexture</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>emissiveFactor</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>alphaMode</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>alphaCutoff</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>doubleSided</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scene">
+<h3>Scene<a class="headerlink" href="#scene" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nodes</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p>Each node corresponds to a pointcloud</p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="node">
+<h3>Node<a class="headerlink" href="#node" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>mesh</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>camera</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>children</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>skin</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>matrix</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p>Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion with the following anti-clockwise rotation around the x-axis [[1, 0, 0, 0], [0, 0, -1, 0],[0, 1, 0, 0], [0, 0, 0 0]] defined here.</p></td>
+</tr>
+<tr class="row-even"><td><p>rotation</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>rotation support is covered by the affine matrix transform</p></td>
+</tr>
+<tr class="row-odd"><td><p>translation</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>translation support is covered by the affine matrix transform</p></td>
+</tr>
+<tr class="row-even"><td><p>weights</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mesh-primitive">
+<h3>Mesh primitive<a class="headerlink" href="#mesh-primitive" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>attributes</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>- <strong>must</strong> include <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> <br> - <strong>may</strong> include <code class="docutils literal notranslate"><span class="pre">COLOR_0</span></code> <br> - <strong>may</strong> include <code class="docutils literal notranslate"><span class="pre">NORMAL</span></code> <br> - Any other field is ignored</p></td>
+</tr>
+<tr class="row-odd"><td><p>material</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>The referred material extensions <strong>must</strong> contain the <code class="docutils literal notranslate"><span class="pre">KHR_material_unlit</span></code> extensions</p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p>- <strong>may</strong> include <code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_matches</span></code><br> - <strong>may</strong> include <code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_custom_attributes</span></code> <br> - <strong>may</strong> include the <code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_partitioning</span></code> extension <br> - Any other extension is <strong>ignored</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>mode</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> be 1 (<code class="docutils literal notranslate"><span class="pre">POINTS</span></code> topology)</p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>indices</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>targets</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mesh">
+<h3>Mesh<a class="headerlink" href="#mesh" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>primitives</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>- <strong>must</strong> contain a single mesh primitive<br></p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>weights</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="accessor">
+<h3>Accessor<a class="headerlink" href="#accessor" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bufferView</p></td>
+<td><p><strong>required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>componentType</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>count</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>type</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>min</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>The glTF specification mandates this field to be set for the accessor referred by the mesh primitives <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> attribute.</p></td>
+</tr>
+<tr class="row-odd"><td><p>max</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>The glTF specification mandates this field to be set for the accessor referred by the mesh primitives <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> attribute.</p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>byteOffset</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>Interleaved attribute layout is not supported</p></td>
+</tr>
+<tr class="row-even"><td><p>sparse</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>normalized</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> for the color accessor, <strong>must</strong> be set to false or be absent for any other accessor</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bufferview">
+<h3>BufferView<a class="headerlink" href="#bufferview" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>buffer</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>byteLength</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>target</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">34962</span></code> (<code class="docutils literal notranslate"><span class="pre">ARRAY_ELEMENT</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>byteOffset</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>byteStride</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>Only packed contiguous data layout is supported</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="buffer">
+<h3>Buffer<a class="headerlink" href="#buffer" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>uri</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>must</strong> be a relative path URI (see <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#uris">relative path URI</a> from the glTF specification)</p></td>
+</tr>
+<tr class="row-odd"><td><p>byteLength</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gltf">
+<h3>glTF<a class="headerlink" href="#gltf" title="Permalink to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>asset</p></td>
+<td><p><strong>glTF-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensionsUsed</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensionsRequired</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>materials</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>scenes</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>scene</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>nodes</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>meshes</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>accessors</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>bufferViews</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>buffers</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>animations</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>cameras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>images</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>samples</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>textures</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>skins</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference download internal" download="" href="../_downloads/4f0fae28953977749f51aa5513ce38ef/point_cloud.gltf"><span class="xref download myst">point_cloud.gltf</span></a></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;accessors&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5126</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;max&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="mf">0.9978801608085632</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.9999374747276306</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.999092161655426</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;min&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="mf">-0.9999937415122986</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">-0.9994049668312073</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">-0.9999921917915344</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC3&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5126</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC3&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5121</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;normalized&quot;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC4&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5126</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5126</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5126</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC4&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC4&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;VEC2&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5123</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5125</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;bufferView&quot;</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;componentType&quot;</span><span class="p">:</span><span class="mi">5121</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;SCALAR&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;asset&quot;</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">&quot;extensions&quot;</span><span class="p">:{</span>
+<span class="w">         </span><span class="nt">&quot;OPF_asset_version&quot;</span><span class="p">:{</span>
+<span class="w">            </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;1.0&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="s2">&quot;Pix4D&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="s2">&quot;2.0&quot;</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">&quot;bufferViews&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">36888</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">36888</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">12296</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">24592</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">144</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span><span class="mi">144</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">288</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span><span class="mi">296</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">72</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteOffset&quot;</span><span class="p">:</span><span class="mi">224</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">6148</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">12296</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;buffer&quot;</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="mi">34962</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;buffers&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">36888</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;positions.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">36888</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;normals.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">12296</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;colors.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchCameraIds.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">24592</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchPointIndexRanges.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchPixelCoordinates.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchFeatureIds.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchScales.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;matchDepths.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">584</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;partitioning.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">6148</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;classes.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">12296</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;tags.bin&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;byteLength&quot;</span><span class="p">:</span><span class="mi">3074</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="s2">&quot;flags.bin&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;extensionsRequired&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="s2">&quot;KHR_materials_unlit&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;extensionsUsed&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="s2">&quot;KHR_materials_unlit&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;OPF_asset_version&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;OPF_mesh_primitive_custom_attributes&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;OPF_mesh_primitive_matches&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;OPF_mesh_primitive_partitioning&quot;</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;materials&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;extensions&quot;</span><span class="p">:{</span>
+<span class="w">            </span><span class="nt">&quot;KHR_materials_unlit&quot;</span><span class="p">:{</span>
+
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;meshes&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;primitives&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">&quot;attributes&quot;</span><span class="p">:{</span>
+<span class="w">                  </span><span class="nt">&quot;COLOR_0&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;NORMAL&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">&quot;POSITION&quot;</span><span class="p">:</span><span class="mi">0</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">               </span><span class="nt">&quot;extensions&quot;</span><span class="p">:{</span>
+<span class="w">                  </span><span class="nt">&quot;OPF_mesh_primitive_custom_attributes&quot;</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">&quot;attributes&quot;</span><span class="p">:{</span>
+<span class="w">                        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;flag&quot;</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="mi">14</span>
+<span class="w">                     </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="nt">&quot;OPF_mesh_primitive_matches&quot;</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">&quot;cameraIds&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;cameraUids&quot;</span><span class="p">:[</span>
+<span class="w">                        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">3</span>
+<span class="w">                     </span><span class="p">],</span>
+<span class="w">                     </span><span class="nt">&quot;imagePoints&quot;</span><span class="p">:{</span>
+<span class="w">                        </span><span class="nt">&quot;depths&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;featureIds&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;pixelCoordinates&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;scales&quot;</span><span class="p">:</span><span class="mi">7</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="nt">&quot;pointIndexRanges&quot;</span><span class="p">:</span><span class="mi">4</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="nt">&quot;OPF_mesh_primitive_partitioning&quot;</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">&quot;boundingBox&quot;</span><span class="p">:{</span>
+<span class="w">                        </span><span class="nt">&quot;max&quot;</span><span class="p">:[</span>
+<span class="w">                           </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">                           </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">                           </span><span class="mf">1.0</span>
+<span class="w">                        </span><span class="p">],</span>
+<span class="w">                        </span><span class="nt">&quot;min&quot;</span><span class="p">:[</span>
+<span class="w">                           </span><span class="mf">-1.0</span><span class="p">,</span>
+<span class="w">                           </span><span class="mf">-1.0</span><span class="p">,</span>
+<span class="w">                           </span><span class="mf">-1.0</span>
+<span class="w">                        </span><span class="p">]</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="nt">&quot;childrenIndexing&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;nodeAttributes&quot;</span><span class="p">:{</span>
+<span class="w">                        </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="mi">12</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="nt">&quot;nodeCoordinates&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;nodeLevelIndexing&quot;</span><span class="p">:[</span>
+<span class="w">                        </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">9</span>
+<span class="w">                     </span><span class="p">],</span>
+<span class="w">                     </span><span class="nt">&quot;perNodeChunkIndexRanges&quot;</span><span class="p">:</span><span class="mi">11</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">               </span><span class="nt">&quot;material&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="mi">0</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;nodes&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;matrix&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">-1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span>
+<span class="w">         </span><span class="p">],</span>
+<span class="w">         </span><span class="nt">&quot;mesh&quot;</span><span class="p">:</span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">],</span>
+<span class="w">   </span><span class="nt">&quot;scene&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;scenes&quot;</span><span class="p">:[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">&quot;nodes&quot;</span><span class="p">:[</span>
+<span class="w">            </span><span class="mi">0</span>
+<span class="w">         </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../extensions.html" class="btn btn-neutral float-right" title="Extensions" accesskey="n" rel="next">Next</a>
+      
+      
+        <a href="sparse_point_cloud.html" class="btn btn-neutral" title="Calibration sparse point cloud" accesskey="p" rel="prev">Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Pix4D.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+  
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  <script type="text/javascript" src="/server/switcher.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

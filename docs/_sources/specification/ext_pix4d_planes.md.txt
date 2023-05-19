@@ -1,0 +1,169 @@
+# Planes
+
+This page specifies the data model and format for planes.
+
+Project item type: `ext_pix4d_planes`.
+
+Resource format string: `application/ext-pix4d-planes+json`.
+
+Required sources for the `pix4d_planes` item in the project container:
+* `calibration`
+* `scene_reference_frame`
+
+Optional sources for the `pix4d_planes` item in the project container:
+* `ext_pix4d_3d_segment_graphs`
+* `ext_pix4d_vanishing_points`
+
+## Definitions
+
+A **plane** is a surface defined by:
+* a normal vector,
+* an outer boundary,
+* optionally, inner boundaries, representing holes in the plane,
+* optionally, a list of cameras that see the plane, or part of the plane,
+* optionally, a flag stating if the normal vector is oriented or not.
+
+A **normal vector** defines the plane normal direction. It must be a unit vector.
+
+An **outer boundary** is a closed polygon formed of 3D vertices. The last vertex of the polygon must be identical to the first vertex. The polygon must not be degenerated.
+
+A **degenerate polygon** is a polygon where either:
+* two consecutive edges coincide even partially
+* some edge has a zero length
+* the angle between 2 consecutive edges is 180°
+* vertices count does not reach 4
+
+An **inner boundary** is a closed polygon formed of 3D vertices. The last vertex of the polygon must be identical to the first vertex. The polygon must not be degenerated.
+
+A **3D vertex** indicates a 3D position in the scene, assumed to be in the translated canonical coordinate system specified by the `scene_reference_frame`.
+
+Inner boundaries must not be nested: they may not be located within each other. They should not intersect to each other, or intersect the outer boundary.
+Inner and outer boundaries must not be self intersecting.
+
+The optional flag is stating if the plane is oriented or not. An oriented plane partition the space in a visible and a non-visible half-space. The normal vector must point towards the visible half-space so that for an observer at position x element of the visible half space and a point p0 on the plane the dot product between the vector (p0-x) and the normal vector must be negative.
+
+## File Format
+
+The planes are stored in the JSON file format.
+
+## Schema
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-planes+json" | "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_planes-plane)=
+### 3D Bounded Planar Surface
+
+**`3D Bounded Planar Surface` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**normal_vector**|`number` `[3]`|Plane normal direction.| &#10003; Yes|
+|**vertices3d**|[`array`](ext_pix4d_planes-array) `[]`|List of 3D vertices.| &#10003; Yes|
+|**outer_boundary**|`integer` `[]`|List of indices in the 3D vertices array.| &#10003; Yes|
+|**inner_boundaries**|[`array`](ext_pix4d_planes-array) `[]`|List of inner boundaries.|No|
+
+
+
+---------------------------------------
+(ext_pix4d_planes-planes)=
+### Planes
+
+Definition of planes
+
+**`Planes` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-planes+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**planes**|[`plane`](ext_pix4d_planes-plane) `[]`|List of Planes| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "format": "application/ext-pix4d-planes+json",
+    "version": "1.0-draft2",
+    "planes": [
+        {
+            "normal_vector": [
+                0.0,
+                0.0,
+                1.0
+            ],
+            "vertices3d": [
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    24.0,
+                    2.0,
+                    0.0
+                ],
+                [
+                    7.0,
+                    7.0,
+                    0.0
+                ],
+                [
+                    -4.0,
+                    2.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0,
+                    0.0
+                ],
+                [
+                    3.0,
+                    2.0,
+                    0.0
+                ],
+                [
+                    3.0,
+                    3.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    3.0,
+                    0.0
+                ]
+            ],
+            "outer_boundary": [
+                0,
+                1,
+                2,
+                3,
+                0
+            ],
+            "inner_boundaries": [
+                [
+                    4,
+                    7,
+                    6,
+                    5,
+                    4
+                ]
+            ],
+            "viewing_cameras": [
+                1234,
+                1234,
+                1234,
+                1234,
+                1234
+            ],
+            "is_plane_oriented": true
+        }
+    ]
+}
+```

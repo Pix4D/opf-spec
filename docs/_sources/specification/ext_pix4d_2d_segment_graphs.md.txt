@@ -1,0 +1,123 @@
+# 2D Segment Graphs
+
+This page specifies the data model and format for 2D segment graphs per image.
+
+Project item type: `ext_pix4d_2d_segment_graphs`.
+
+Resource format string: `application/ext-pix4d-2d-segment-graphs+json`.
+
+Required sources for the `pix4d_2d_segment_graphs` item in the project container:
+* `camera_list`
+
+## Definitions
+
+A **2D Segment Graph** is a graph of 2D vertices and 2D edges on a single image.
+
+A **2D Vertex** indicates a 2D position on the image, representing, for example, a point like a corner.
+
+A **2D Edge** links two vertices, representing, for example, an observation of a real-world segment that is seen in the image.
+
+Note: Not every vertex has to be referenced by an edge, the format allows for orphan vertices.
+
+## File Format
+
+The 2D Segment Graphs are stored in the JSON file format.
+
+## Schema
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-2d-segment-graphs+json" | "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_2d_segment_graphs-edge)=
+### 2D Edge
+
+**`2D Edge` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**v1**|`integer`|The index of the first vertex of this 2D edge| &#10003; Yes|
+|**v2**|`integer`|The index of the second vertex of this 2D edge| &#10003; Yes|
+|**confidence**|`number`|Confidence of a predictive model for this edge.| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_2d_segment_graphs-2d-segment-graphs)=
+### 2D Segment Graphs
+
+Definition of 2D Segment Graphs per camera
+
+**`2D Segment Graphs` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-2d-segment-graphs+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**graphs**|`object` `[]`|List of 2D Segment Graphs, with one entry for each camera| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_2d_segment_graphs-vertex)=
+### 2D Vertex
+
+**`2D Vertex` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**position**|`number` `[2]`|Pixel location of the vertex.| &#10003; Yes|
+|**confidence**|`number`|Confidence of a predictive model for this vertex.| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "version": "1.0-draft2",
+    "format": "application/ext-pix4d-2d-segment-graphs+json",
+    "graphs": [
+        {
+            "camera_id": 2244,
+            "vertices": [
+                {
+                    "position": [
+                        1.0,
+                        2.0
+                    ],
+                    "confidence": 0.9
+                },
+                {
+                    "position": [
+                        5.0,
+                        10.2
+                    ],
+                    "confidence": 0.34
+                },
+                {
+                    "position": [
+                        24.0,
+                        20.0
+                    ],
+                    "confidence": 0.94
+                }
+            ],
+            "edges": [
+                {
+                    "v1": 0,
+                    "v2": 1,
+                    "confidence": 0.89
+                },
+                {
+                    "v1": 1,
+                    "v2": 2,
+                    "confidence": 0.56
+                }
+            ]
+        }
+    ]
+}
+```

@@ -1,0 +1,15 @@
+Extensions
+==========
+
+.. toctree::
+   :maxdepth: 1
+
+   specification/ext_pix4d_2d_segment_graphs.md
+   specification/ext_pix4d_3d_segment_graphs.md
+   specification/ext_pix4d_computed_depth_map.md
+   specification/ext_pix4d_input_depth_map.md
+   specification/ext_pix4d_intersection_tie_points.md
+   specification/ext_pix4d_planes.md
+   specification/ext_pix4d_polygonal_meshes.md
+   specification/ext_pix4d_region_of_interest.md
+   specification/ext_pix4d_vanishing_points

@@ -1,0 +1,9 @@
+@import url("theme.css");
+
+.wy-nav-content {
+  max-width: none;
+}
+
+.wy-table-responsive table td {
+  white-space: normal;
+}

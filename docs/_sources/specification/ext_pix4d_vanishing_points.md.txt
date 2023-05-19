@@ -1,0 +1,84 @@
+# Vanishing points
+
+This page specifies the data model and format for vanishing points.
+
+Project item type: `ext_pix4d_vanishing_points`.
+
+Resource format string: `application/ext-pix4d-vanishing-points+json`.
+
+Required sources for the `pix4d_vanishing_points` item in the project container:
+* `camera_list`
+* `calibration`
+* `scene_reference_frame`
+
+## Definition
+
+A **vanishing point** is defined by its 3D coordinates only, expressed in the [processing CRS](glossary.md#processing-crs).
+An image may contain many vanishing points.
+
+A group of parallel lines in 3D projected on an image under a pinhole camera model intersect in a common point. This point
+is a **vanishing point**.
+
+In many scenes, structurally important lines have the same vanishing point because they are
+parallel in 3D. Examples of such lines are horizontal and vertical building edges, railways tracks, doors and windows, etc.
+
+Please refer to [Computer Vision: Algorithms and Applications](https://www.cs.ccu.edu.tw/~damon/tmp/SzeliskiBook_20100903_draft.pdf)
+section 4.3.3 for more information about vanishing points and their uses.
+
+## File Format
+
+The vanishing points are stored in the JSON file format.
+
+## Schema
+
+| Specification format                                               | Version |
+|--------------------------------------------------------------------| --- |
+| "application/ext-pix4d-vanishing-points+json" | "1.0-draft1" |
+
+
+
+---------------------------------------
+(ext_pix4d_vanishing_points-vanishing-points)=
+### Vanishing points
+
+Definition of vanishing points
+
+**`Vanishing points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-vanishing-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**vanishing_points**|[`array`](ext_pix4d_vanishing_points-array) `[]`|List of vanishing points| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "format": "application/ext-pix4d-vanishing-points+json",
+    "version": "1.0-draft1",
+    "vanishing_points": [
+        [
+            0.1,
+            0.3,
+            1
+        ],
+        [
+            -0.2,
+            0.8,
+            0.6
+        ],
+        [
+            0.5,
+            0.7,
+            -0.2
+        ],
+        [
+            0.8,
+            0.2,
+            0.2
+        ]
+    ]
+}
+```

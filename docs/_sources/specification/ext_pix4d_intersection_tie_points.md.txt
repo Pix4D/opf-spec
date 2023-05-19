@@ -1,0 +1,276 @@
+# Intersection Tie Points
+
+This page specifies the input and calibrated intersection tie point format.
+
+The input intersection tie points are specified by:
+
+Project item type: `ext_pix4d_input_intersection_tie_points`.
+
+Resource format string: `application/ext-pix4d-input-intersection-tie-points+json`.
+
+Required source types:
+* `camera_list`
+
+When available, the input intersection tie points are included as a source in the `calibration` project item.
+
+The calibrated intersection tie points are included as a resource in the `calibration` project item. They are specified by:
+
+Resource format string: `application/ext-pix4d-calibrated-intersection-tie-points+json`.
+
+## Example use case
+
+An Intersection Tie Point (ITP) is a control point that is at the intersection of multiple 3D lines. On an image, this is
+observed by a set of intersecting line segments. The intersection of those line segments is a mark, representing an
+observation of that tie point.
+
+An example method to generate ITPs is to establish matches among intersecting line segments across multiple viewpoints,
+and create an ITP at their intersections. The line segments can be detected by a machine learning model that attempts
+to annotate structural lines. A structural line is a line that is important in defining the structure of a scene
+according to human perception. The ambiguity in matching line segments across views is thus minimised and a descriptor
+based method is able to yield acceptable performance matching the line segments.
+
+The additional tie points are beneficial in indoor environments where typically featureless walls will lead to a
+deficit in automated tie points and poses a challenge to the traditional photogrammetry pipeline.
+
+It is expected that users will be able to review and correct intersection tie points.
+
+## Definitions
+
+An **intersection tie point (ITP)** is a control point whose marks are the result of the intersection of line segments that intersect in a single point.
+
+A **line segment** is the observation of a section of a line on an image and is defined by two image points.
+
+## File Format
+
+The intersection tie points are stored in the JSON file format.
+
+They exist in two variations:
+
+- [input intersection tie points](#schema-input-intersection-tie-points): input intersection tie points.
+- [calibrated intersection tie points](#schema-calibrated-intersection-tie-points): calibrated intersection tie points with coordinates expressed in the [processing CRS](glossary.md#processing-crs).
+
+(input_intersection_tie_points)=
+## Schema: Input Intersection Tie Points
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-input-intersection-tie-points+json" | "1.0-draft3" |
+
+
+
+---------------------------------------
+(ext_pix4d_intersection_tie_points-itp)=
+### Intersection Tie Point (ITP)
+
+**`Intersection Tie Point (ITP)` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A unique string that identifies the ITP amongst all control points.| &#10003; Yes|
+|**marks**|[`mark_with_segments`](ext_pix4d_intersection_tie_points-mark_with_segments) `[]`|List of marks with line segments in the images that correspond to the projections of a 3D point.| &#10003; Yes|
+|**modified_by_user**|`boolean`|If true, indicates that the ITP was modified by the user.| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_intersection_tie_points-intersection-tie-points)=
+### Intersection Tie Points
+
+Definition of Intersection Tie Points
+
+**`Intersection Tie Points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-input-intersection-tie-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**itps**|[`itp`](ext_pix4d_intersection_tie_points-itp) `[]`|List of input ITPs.| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_intersection_tie_points-mark_with_segments)=
+### Mark with Segments
+
+2D image mark, defined as the intersection of a set of line segments.
+
+**`Mark with Segments` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_id**|`integer`|Camera ID for the image on which the mark is defined.| &#10003; Yes|
+|**common_endpoint_px**|`number` `[2]`|Pixel location of the common endpoint of all intersecting segments marked on this image.| &#10003; Yes|
+|**other_endpoints_px**|[`array`](ext_pix4d_intersection_tie_points-array) `[2-*]`|Array of pixel locations, each of these endpoints and common_endpoint_px defines a segment.| &#10003; Yes|
+|**creation_method**|`object`|The method that was used to create the mark. A mark that is edited by a user should be defined as manual.| &#10003; Yes|
+|**accuracy**|`number`|A number representing the accuracy of the mark, used by the calibration algorithm to estimate the position error of the mark.|No|
+
+
+### Example
+
+```json
+{
+    "version": "1.0-draft3",
+    "format": "application/ext-pix4d-input-intersection-tie-points+json",
+    "itps": [
+        {
+            "id": "itp_1",
+            "marks": [
+                {
+                    "camera_id": 1234,
+                    "common_endpoint_px": [
+                        1.0,
+                        2.0
+                    ],
+                    "other_endpoints_px": [
+                        [
+                            3.0,
+                            4.0
+                        ],
+                        [
+                            5.0,
+                            6.0
+                        ]
+                    ],
+                    "creation_method": {
+                        "type": "manual"
+                    },
+                    "accuracy": 1.0
+                },
+                {
+                    "camera_id": 5678,
+                    "common_endpoint_px": [
+                        2.0,
+                        1.0
+                    ],
+                    "other_endpoints_px": [
+                        [
+                            4.0,
+                            3.0
+                        ],
+                        [
+                            6.0,
+                            5.0
+                        ]
+                    ],
+                    "creation_method": {
+                        "type": "automatic"
+                    },
+                    "accuracy": 2.0
+                }
+            ],
+            "modified_by_user": true
+        },
+        {
+            "id": "itp_2",
+            "marks": [
+                {
+                    "camera_id": 1234,
+                    "common_endpoint_px": [
+                        5.0,
+                        6.0
+                    ],
+                    "other_endpoints_px": [
+                        [
+                            8.0,
+                            6.0
+                        ],
+                        [
+                            5.0,
+                            9.0
+                        ]
+                    ],
+                    "creation_method": {
+                        "type": "automatic"
+                    }
+                },
+                {
+                    "camera_id": 5678,
+                    "common_endpoint_px": [
+                        6.0,
+                        5.0
+                    ],
+                    "other_endpoints_px": [
+                        [
+                            6.0,
+                            8.0
+                        ],
+                        [
+                            9.0,
+                            5.0
+                        ]
+                    ],
+                    "creation_method": {
+                        "type": "automatic"
+                    }
+                }
+            ],
+            "modified_by_user": false
+        }
+    ]
+}
+```
+
+(calibrated_intersection_tie_points)=
+## Schema: Calibrated Intersection Tie Points
+
+| Specification format                                                                 | Version |
+|--------------------------------------------------------------------------------------| --- |
+| "application/ext-pix4d-calibrated-intersection-tie-points+json" | "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_intersection_tie_points-calibrated_control_point)=
+### Calibrated control point
+
+**`Calibrated control point` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A string identifier that matches the corresponding input control point.| &#10003; Yes|
+|**coordinates**|`number` `[3]`|Optimized 3D position in the processing CRS.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(ext_pix4d_intersection_tie_points-calibrated-intersection-tie-points)=
+### Calibrated Intersection Tie Points
+
+Definition of calibrated intersection tie points, which are the optimised intersection tie points with coordinates expressed in the processing CRS.
+
+**`Calibrated Intersection Tie Points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"ext-pix4d-calibrated-intersection-tie-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**points**|[`calibrated_control_point`](ext_pix4d_intersection_tie_points-calibrated_control_point) `[]`|List of calibrated intersection tie points.| &#10003; Yes|
+
+
+### Example
+
+```json
+{
+    "format": "application/ext-pix4d-calibrated-intersection-tie-points+json",
+    "version": "1.0-draft2",
+    "points": [
+        {
+            "id": "itp0",
+            "coordinates": [
+                3959232,
+                116595,
+                384
+            ]
+        },
+        {
+            "id": "itp1",
+            "coordinates": [
+                3959500,
+                116595,
+                423
+            ]
+        }
+    ]
+}
+```

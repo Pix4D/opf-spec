@@ -1,0 +1,139 @@
+# Region of interest
+
+This page specifies the data model and format for the region of interest.
+
+Project item type: `ext_pix4d_region_of_interest`.
+
+Resource format string: `application/ext-pix4d-region-of-interest+json`.
+
+Required sources for the `pix4d_region_of_interest` item in the project container:
+* scene_reference_frame
+
+## Definitions
+
+A **region of interest** is a 3D volume defined by:
+* an oriented plane - see the `PIX4D_planes` extension for details,
+* an optional height
+
+Note that, as in the case of the `PIX4D_plane` extension, a plane is geometrically an oriented 3D bounded polygon (optionally, with holes).
+The plane is restricted to be parallel to the horizontal plane.
+
+If **height** is specified, the Region of Interest volume takes the shape of a right prism, one of the bases being the specified plane.
+The other base will be on the same side of the plane as the normal.
+
+If **height** is not specified, the Region of Interest is unbounded on both sides of the plane.
+This implies that all points in the space which project inside the plane are considered within the Region of Interest, regardless of the normal orientation.
+
+## Schema
+
+| Specification format | Version |
+| --- | --- |
+| "application/ext-pix4d-region-of-interest+json" | "1.0-draft1" |
+
+
+
+---------------------------------------
+(ext_pix4d_region_of_interest-plane)=
+### 3D Bounded Planar Surface
+
+**`3D Bounded Planar Surface` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**normal_vector**|`number` `[3]`|Plane normal direction.| &#10003; Yes|
+|**vertices3d**|[`array`](ext_pix4d_region_of_interest-array) `[]`|List of 3D vertices.| &#10003; Yes|
+|**outer_boundary**|`integer` `[]`|List of indices in the 3D vertices array.| &#10003; Yes|
+|**inner_boundaries**|[`array`](ext_pix4d_region_of_interest-array) `[]`|List of inner boundaries.|No|
+
+
+
+---------------------------------------
+(ext_pix4d_region_of_interest-region-of-interest)=
+### Region of interest
+
+Definition of a region of interest: a planar polygon with holes and an optional thickness, defined as a the distance from the plane in the normal direction. All the points on the hemispace where the normal lies that project inside the polygon and is at a distance less than the thickness of the ROI, is considered to be within.
+
+**`Region of interest` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"application/ext-pix4d-region-of-interest+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**plane**|[`plane`](ext_pix4d_region_of_interest-plane)|| &#10003; Yes|
+|**thickness**|`number`|The thickness of the ROI volume, defined as a limit distance from the plane in the normal direction. If not specified, the thickness is assumed to be infinite.|No|
+
+
+### Example
+
+```json
+{
+    "format": "application/ext-pix4d-region-of-interest+json",
+    "version": "1.0-draft1",
+    "plane": {
+        "normal_vector": [
+            0,
+            0,
+            1
+        ],
+        "vertices3d": [
+            [
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                24.0,
+                2.0,
+                0.0
+            ],
+            [
+                7.0,
+                7.0,
+                0.0
+            ],
+            [
+                -4.0,
+                2.0,
+                0.0
+            ],
+            [
+                1.0,
+                1.0,
+                0.0
+            ],
+            [
+                3.0,
+                2.0,
+                0.0
+            ],
+            [
+                3.0,
+                3.0,
+                0.0
+            ],
+            [
+                1.0,
+                3.0,
+                0.0
+            ]
+        ],
+        "outer_boundary": [
+            0,
+            1,
+            2,
+            3,
+            0
+        ],
+        "inner_boundaries": [
+            [
+                4,
+                7,
+                6,
+                5,
+                4
+            ]
+        ]
+    },
+    "thickness": 10
+}
+```

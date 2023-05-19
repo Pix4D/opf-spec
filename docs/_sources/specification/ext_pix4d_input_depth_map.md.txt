@@ -1,0 +1,63 @@
+# Input depth maps
+
+This page describes the data model for the input depth map extension.
+
+This extension may be used in `input_cameras` project items to attach additional information about depth sensors to each captured camera.
+This extension is only allowed as a property of the `camera` subobjects inside a capture list. The extension must be named `PIX4D_input_depth_map`
+
+## Schema
+
+| Version |
+| --- |
+| "1.0-draft2" |
+
+
+
+---------------------------------------
+(ext_pix4d_input_depth_map-confidence)=
+### Depth map confidence
+
+A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).
+
+**`Depth map confidence` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|The confidence map UID in the camera list.| &#10003; Yes|
+|**min**|`number`|Minimum confidence value to consider a depth measurement valid. Note that low confidence values while considered valid may be unreliable.| &#10003; Yes|
+|**threshold**|`number`|Hint on the minimum (inclusive) confidence value to consider a depth measurement reliable.| &#10003; Yes|
+|**max**|`number`|Maximum confidence value to consider a depth measurement valid.| &#10003; Yes|
+
+
+
+---------------------------------------
+(ext_pix4d_input_depth_map-input-camera-depth-map)=
+### Input camera depth map
+
+Reference to depth information for input cameras, for example for RGB-D type sensors. In a depth map, each pixel represents the estimated distance from the device to its environment on the camera depth axis. A depth map image is aligned with an RGB image but it may have a different resolution. An optional confidence map may be provided as well.
+
+**`Input camera depth map` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**id**|`integer`|The depth map UID in the camera list.| &#10003; Yes|
+|**unit_to_meters**|`number`|Multiply this scale factor with depth maps values in order to obtain values in meters. For example, if the depth map values represent millimeters the scale factor is 0.001 (e.g. a value of 1000mm corresponds to 1m).  If not specified, defaults to 1.|No, default: `1`|
+|**confidence**|[`confidence`](ext_pix4d_input_depth_map-confidence)|A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).|No|
+
+
+### Example
+
+```json
+{
+    "version": "1.0-draft2",
+    "id": 1019209284612,
+    "unit_to_meters": 0.01,
+    "confidence": {
+        "id": 12298877710234,
+        "min": 0,
+        "max": 2,
+        "threshold": 2
+    }
+}
+```
