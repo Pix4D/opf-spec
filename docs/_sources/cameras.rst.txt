@@ -1,0 +1,10 @@
+Cameras
+=======
+
+.. toctree::
+   :maxdepth: 1
+
+   specification/camera_list.md
+   specification/input_cameras.md
+   specification/projected_input_cameras.md
+   specification/calibrated_cameras.md

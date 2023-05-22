@@ -1,0 +1,83 @@
+Open Photogrammetry Format (OPF) Specification
+==================================================================
+
+*Primary Authors: Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha*
+
+Welcome to the OPF Specification! Here you will find the official documentation and resources for the Open Photogrammetry Format (OPF).
+
+What is OPF?
+==============
+
+OPF is the specification for a standardized file format designed for photogrammetry data.
+The specification is open and free and aims at making it easy to store, exchange, and collaborate on photogrammetric data between different parties and software products.
+
+Features
+==========
+
+- Based as much as possible on simple human readable JSON files, leverage efficient binary formats where a text-based representation would be impractical (for example for the point cloud data)
+- OPF organizes photogrammetry data in a structured manner, allowing for easy access and retrieval of information.
+- The data model includes information on both input and output of the photogrametry process:
+   - The input data include information about input cameras (camera list, input camera parameters), coordinate reference system, control points, scale and orientation constraints, etc.
+   - The output data include information about camera calibration (sparse point cloud, calibrated cameras) and the dense reconstructed point clouds.
+- Efficient Storage of point clouds: The point cloud format for ATPs (sparse point cloud) and dense point cloud included in this specification is based on the open standard `GlTF <https://www.khronos.org/gltf/>`_ and is designed to be memory-mappable and spatially partitioned, enabling both efficient processing and progressive rendering of massive point clouds. The format retains information on the point visibiliy on images, normals, custom attributes, and more.
+- Flexible Extension System: OPF is designed to be highly extensible and customizable, allowing for easy expansion of data representation as needed.
+- OPF will be improved on an on-going basis to support additional photogrammetric outputs.
+- OPF is a stable format: it has strict schema semantic versioning rules, giving strong compatibility guarantee and peace of mind for the implementers. JSON schemas are provided for validation.
+
+Content of the specification
+===============================
+.. toctree::
+   :maxdepth: 1
+
+   specification/project.md
+
+   cameras
+
+   specification/control_points.md
+
+   scene_reference_frame
+
+   calibration
+
+   specification/point_cloud.md
+
+   extensions
+
+   annexes
+
+Existing tooling
+==================
+
+We try to maintain here a non-comprehensive list of tools that implement the OPF specification. If you have a tool that implements OPF and  you would like it to be listed here, please reach out to us!
+
+- The `OPF GitHub <https://github.com/Pix4D/opf-spec>`_ repository, containing
+   - the source of the `the OPF specification and documentation <https://github.com/Pix4D/opf-spec/tree/main/docs>`_.
+   - JSON `schemas <https://github.com/Pix4D/opf-spec/tree/main/schema>`_.
+- `Pix4Dmatic <https://www.pix4d.com/download/pix4dmatic/>`_ (commercial software). Minimum version required: v1.46.
+
+Citation
+==========
+
+If you use the OPF specification in your research or projects, we kindly request that you cite it as follows:
+
+`The Open Photogrammetry Format Specification, Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha, Pix4D, 2023, retrived from http://developer.pix4d.com/opf-spec/`
+
+
+License
+=========
+
+Copyright (c) 2023 Pix4D SA
+
+This specification, including but not limited to: all markdown files, json schemas and any automatically produced HTML and PDF files are licensed under the Creative Commons Attribution 4.0 International License (CC BY-SA 4.0).
+
+All scripts and/or code contained in this repository are licensed under Apache License 2.0.
+
+Third party documents or tools that are used or referred to in this specification are licensed under their own terms by their respective copyright owners.
+
+Contact
+=========
+
+If you have any questions, feedback, or suggestions regarding the OPF specification, please feel free to reach out to us or create an issue here: https://github.com/Pix4D/opf-spec/issues.  We would love to hear from you!
+To report issues related to specific Pix4D product support, please reach out through Pix4D support pages https://support.pix4d.com/hc/en-us
+
+Thank you for your interest in OPF! We hope it helps streamline and enhance your photogrammetry workflows.

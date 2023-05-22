@@ -1,0 +1,521 @@
+| Specification format                            | Version                         |
+| ----------------------------------------------- | ------------------------------- |
+| "application/opf-project+json" | "1.0" |
+
+(project-format)=
+# Project format specification
+
+## Goal
+
+The goal of this page is to specify the project/data container format that is used to reference the different files and metadata of a project.
+
+## Big picture
+
+A `project` is essentially a container. As such it is composed of different items (cameras, control points, calibration, ...) that are glued together in a coherent structure.
+
+```{mermaid}
+flowchart LR
+    SpatialReference --> ProjectedInputCameras
+    InputCameras --> ProjectedInputCameras
+    GCPs --> ProjectedGCPs
+    SpatialReference --> ProjectedGCPs
+    MTPs --> Calibration
+    ProjectedInputCameras --> Calibration
+    ProjectedGCPs --> Calibration
+    Calibration --> PointCloud
+```
+
+Figure: The calibration inputs and pipeline
+
+## Definitions
+
+- A `project` is composed of any number of project `items`
+- Each `item` has a `type` and an `id`, that allows the consumer to identify what it is. Example of item types: `input_cameras`, `scene_reference_frame`, `calibration`, etc.
+- An _item_ is composed of any number of `resources` and `sources` :
+- `resources` references content belonging to the current `item`. As such a `resource` has a `uri` to point to the actual content and a `format` that identifies the content format.
+- `sources` represent the list of `items` that were used to generate the current _item_. The link between the `source` and `item` is done through the `id` field.
+- `labels` is an array of (string) labels that can be attached to the item.
+
+**Notes**:
+
+1. It is not required that there is an item `id` that matches the source `id`.
+2. Circular dependencies are not allowed between items and sources.
+3. The `version` attribute of the project refers to the version of the specification, not
+   the project JSON schema.
+4. The extension of this specific file ("project container") shall be `.opf`. This extension is reserved for the project container and should not be used for any other file in this specification.
+
+## Project items
+
+The table below describes which `resource format` and `source types` an item _may_ contain depending on its `type`.
+
+| item type | required resource formats | optional resource formats |
+| --------- | ------------------------- | ------------------------- |
+| `camera_list` | `application/opf-camera-list+json`<br>  |  |
+| `input_cameras` | `application/opf-input-cameras+json`<br>  |  |
+| `projected_input_cameras` | `application/opf-projected-input-cameras+json`<br>  |  |
+| `scene_reference_frame` |  | `application/opf-scene-reference-frame+json`<br>  |
+| `input_control_points` | `application/opf-input-control-points+json`<br>  |  |
+| `projected_control_points` | `application/opf-projected-control-points+json`<br>  |  |
+| `constraints` | `application/opf-constraints+json`<br>  |  |
+| `calibration` | `application/opf-calibrated-cameras+json`<br>  | `application/opf-calibrated-control-points+json`<br> `application/opf-gps-bias+json`<br> `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  |
+| `point_cloud` | `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  | `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  |
+| \<extension-name\> (must start with `ext_` see [naming convention](naming-convention)) | Defined by the extension | Defined by the extension |
+
+
+| item type | required source types | optional source types |
+| --------- | --------------------- | --------------------- |
+| `camera_list` |  |  |
+| `input_cameras` | `camera_list`<br>  |  |
+| `projected_input_cameras` | `scene_reference_frame`<br> `input_cameras`<br>  |  |
+| `scene_reference_frame` |  |  |
+| `input_control_points` | `camera_list`<br>  |  |
+| `projected_control_points` | `scene_reference_frame`<br> `input_control_points`<br>  |  |
+| `constraints` | `input_control_points`<br>  |  |
+| `calibration` | `input_cameras`<br> `scene_reference_frame`<br>  | `constraints`<br> `projected_input_cameras`<br> `input_control_points`<br> `projected_control_points`<br>  |
+| `point_cloud` | `scene_reference_frame`<br>  | `calibration`<br>  |
+| \<extension-name\> (must start with `ext_` see [naming convention](naming-convention)) | Defined by the extension | Defined by the extension |
+
+## Extension mechanism for Item types and Resource formats
+
+(naming-convention)=
+### Naming convention
+
+This specification allows for extensions for _item types_ and _resource formats_. To avoid possible clashes and ambiguities, such extensions must follow the following naming conventions:
+
+- Extension names shall be of the form `"<UPPERCASE vendor>_[<myteam/myBU/myproject>_]<my_type_name>"`
+- Extensions for item types shall of the form `"ext_<vendor>_[<myteam/myBU/myproduct>_]<my_type_name>"`
+- Extensions for resource formats shall be of the form `"application/ext-<vendor>-[<myteam/myBU/myproduct>-]<my_resource_name>+<ext>"`
+
+For extensions that are intended to be shared it is recommended they are accompagnied with a specification.
+
+Extensions should be designed such that tooling that do not recognize them can safely ignore them and still interpret the other parts of the project correctly. In other words an extension may not change the semantic of other parts of the projects.
+
+### Extension example
+
+|                         |                                                                     |
+| ----------------------- |---------------------------------------------------------------------|
+| Extension name          | PIX4D_myteam_myalgo_settings                                        |
+| Description             | This extension allow the storage of the settings for myalgo         |
+| New item type(s)        | `ext_pix4d_myteam_myalgo_settings`                                  |
+| New ressource type used | `application/ext-pix4d-myteam-myalgo-settings+json` (defined below) |
+
+| Extension format                        | Version |
+| --------------------------------------- | ------- |
+| "ext-pix4d-myteam-myalgo-settings+json" | "0.1"   |
+
+The extension author should provide the specification for _application/ext-pix4d-myteam-myalgo-settings+json_ including its _schema_ definition.
+
+For brevity we just describe an hypothetical example of ext-pix4d-myteam-myalgo-settings.json:
+
+```json
+{
+  "format": "ext-pix4d-myteam-myalgo-settings+json",
+  "version": "0.1",
+  "threshold": "14.2"
+}
+```
+
+## Project specification
+
+The project is an item catalog. It is stored in the JSON format.
+
+
+
+---------------------------------------
+(project-project)=
+### Project
+
+Project Structure
+
+**`Project` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Must be application/opf-project+json| &#10003; Yes|
+|**version**|`string`|The version of this specification as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**name**|`string`|The name of the project| &#10003; Yes|
+|**description**|`string`|The description of the project| &#10003; Yes|
+|**generator**|[`generator`](project-generator)||No|
+|**id**|`string`|A UUID string| &#10003; Yes|
+|**items**|[`item`](project-item) `[]`|The items contained in this project| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(project-item)=
+### Project Item
+
+**`Project Item` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A UUID string| &#10003; Yes|
+|**name**|`string`|The name of this item|No|
+|**type**|`string`|Define the type of data represented by the item. Can be one of ['camera_list', 'input_cameras', 'projected_input_cameras', 'scene_reference_frame', 'input_control_points', 'projected_control_points', 'constraints', 'calibration', 'point_cloud'] or an extension type (starting with `ext_` see [naming convention](naming-convention))<br>**Allowed values** :       `"camera_list"` | &#10003; Yes|
+|**resources**|[`resource`](project-resource) `[]`|The resources that constitute this item| &#10003; Yes|
+|**sources**|[`source`](project-source) `[]`|The sources of this item, that is the set of items this item depends on| &#10003; Yes|
+|**labels**|`string` `[]`|Labels associated to the item in the format `<vendor>-key:value`. The `<vendor>` prefix should be lower case. The specification reserves the `opf` vendor prefix. In this version of the specification, the only specified key is `opf-origin` which indicates the origin of the data. Allowed values for the key `opf-origin` are `images` and `depth` which indicate that the corresponding item is derived from images and depth maps respectively.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(project-resource)=
+### Project Resource
+
+**`Project Resource` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**uri**|`string`|URI reference of the resource file as specified by [RFC3986](https://www.rfc-editor.org/rfc/rfc3986). If the reference is relative, it is relative to the folder containing the present file| &#10003; Yes|
+|**format**|`string`|The storage format of this resource. Can be one of ['application/opf-scene-reference-frame+json', 'application/opf-camera-list+json', 'application/opf-input-cameras+json', 'application/opf-projected-input-cameras+json', 'application/opf-input-control-points+json', 'application/opf-projected-control-points+json', 'application/opf-calibrated-control-points+json', 'application/opf-constraints+json', 'application/opf-calibrated-cameras+json', 'application/opf-gps-bias+json', 'model/gltf+json', 'application/gltf-buffer+bin'] or an extension type (starting with `application/ext-` see [naming convention](naming-convention))<br>**Allowed values** :       `"application/opf-scene-reference-frame+json"` | &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(project-source)=
+### Project Source
+
+**`Project Source` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A UUID string| &#10003; Yes|
+|**type**|`string`|| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(project-generator)=
+### The generator of this project
+
+**`The generator of this project` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**name**|`string`|The name of the generator| &#10003; Yes|
+|**version**|`string`|The version of the generator`| &#10003; Yes|
+
+
+## Top level scene reference frame
+
+One of the top level data item of a project may be a scene reference frame. This item represents the _Project CRS_ and its transformation to the _Processing CRS_. The Project CRS is the CRS that must be implicitly used for presentation purpose (e.g. an application displaying coordinates to a user) of any projected coordinate present in the project's data items. However, this representation is not suitable for processing and visualization, so the canonical equivalent of the Project CRS, i.e. the Processing CRS, is the implicit coordinate reference system used for storage of all projected coordinates of a project.
+
+A scene reference frame must be present at the top level whenever a project contains data items with projected coordinates, otherwise the project is malformed. Projected coordinates are present, for example, in the [projected cameras](projected_input_cameras.md) and [projected control points](control_points.md#format-specification-projected-control-points).
+
+For additional details see the generic specification of a [scene reference frame](scene_reference_frame.md).
+
+## IDs
+
+For some object, a unique ID may be assigned to the object when it is created.
+
+There are multiple types of IDs throughout this specification, for example:
+
+- Sensor UIDs, Camera UIDs, and Capture UIDs. These are 64 bit unsigned integers that identify the sensor, camera or capture uniquely.
+In the JSON representation they are stored as numbers.
+- Other objects that require global identification scope may use a standard UUID
+- Objects that require project scope identification only may use any other kind of id, e.g. GCP names as ID for GCPs, etc.
+
+(pcl-naming-convention)=
+## point_cloud project item
+
+The point cloud in the project is represented as a `glTF` file of type `model/gltf+json`, which, in turn, refers to binary buffers of type `application/gltf-buffer+bin` (see [here](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#file-extensions-and-media-types)). These files must be included as resources in the OPF project item of the point cloud. Further details on the format can be found in [OPF-glTF point cloud](opf-gltf-format).
+
+## Example
+
+```json
+{
+    "version": "1.0",
+    "format": "application/opf-project+json",
+    "id": "caa7754e-90dc-11ec-b909-0242ac120002",
+    "name": "Example of a calibration project",
+    "description": "Show an example of a calibration project",
+    "generator": {
+        "name": "PIX4Dmatic",
+        "version": "1.41.0"
+    },
+    "items": [
+        {
+            "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
+            "type": "ext_pix4d_myteam_myalgo_settings",
+            "resources": [
+                {
+                    "uri": "myalgo-settings.json",
+                    "format": "application/ext-pix4d-myteam-myalgo-settings"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+            "type": "camera_list",
+            "resources": [
+                {
+                    "uri": "cameras.json",
+                    "format": "application/opf-camera-list+json"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "57608ca8-912d-4fee-b097-2648651474c4",
+            "type": "input_cameras",
+            "resources": [
+                {
+                    "uri": "input_cameras.json",
+                    "format": "application/opf-input-cameras+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+                    "type": "camera_list"
+                }
+            ]
+        },
+        {
+            "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+            "type": "input_control_points",
+            "resources": [
+                {
+                    "uri": "input_control_points.json",
+                    "format": "application/opf-input-control-points+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+                    "type": "camera_list"
+                }
+            ]
+        },
+        {
+            "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+            "type": "scene_reference_frame",
+            "resources": [
+                {
+                    "uri": "processing_spatial_reference.json",
+                    "format": "application/opf-scene-reference-frame+json"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+            "type": "projected_input_cameras",
+            "resources": [
+                {
+                    "uri": "projected_input_cameras.json",
+                    "format": "application/opf-projected-input-cameras+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
+                    "type": "input_cameras"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+            "type": "projected_control_points",
+            "resources": [
+                {
+                    "uri": "projected_control_points.json",
+                    "format": "application/opf-projected-control-points+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+            "type": "calibration",
+            "sources": [
+                {
+                    "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
+                    "type": "ext_pix4d_myteam_myalgo_settings"
+                },
+                {
+                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
+                    "type": "input_cameras"
+                },
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
+                },
+                {
+                    "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+                    "type": "projected_input_cameras"
+                },
+                {
+                    "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+                    "type": "projected_control_points"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "tracks/tracks.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "tracks/track-positions.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchPointIndexRanges.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchCameraIds.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointPixelCoordinates.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointFeatureIds.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointScales.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointDepths.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "calibrated_cameras.json",
+                    "format": "application/opf-calibrated-cameras+json"
+                },
+                {
+                    "uri": "gps_bias.json",
+                    "format": "application/opf-gps-bias+json"
+                },
+                {
+                    "uri": "some_additional_calib_data.json",
+                    "format": "application/ext-pix4d-myteam-myalgo-settings"
+                }
+            ]
+        },
+        {
+            "id": "f99cfd9a-eb41-4af9-a9e9-d60f4bd383c5",
+            "type": "point_cloud",
+            "name": "Corridor",
+            "labels": [
+                "opf-origin:images",
+                "opf-origin:depth"
+            ],
+            "sources": [
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "pcl.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "partition.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "positions.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "normals.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "colors.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-groups.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-visibility-index-ranges.bin",
+                    "format": "application/gltf-buffer+bin"
+                }
+            ]
+        },
+        {
+            "id": "df2694f3-105a-4ee7-ba6e-86e2accd0fd6",
+            "type": "point_cloud",
+            "name": "Living room",
+            "labels": [
+                "opf-origin:images"
+            ],
+            "sources": [
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "pcl2.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "partition2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "positions2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "normals2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "colors2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-groups2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-visibility-index-ranges2.bin",
+                    "format": "application/gltf-buffer+bin"
+                }
+            ]
+        }
+    ]
+}
+```

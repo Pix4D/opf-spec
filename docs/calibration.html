@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Calibration &mdash; Open Photogrammetry Format Specification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="_static/css/pix4d_theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/pix4d_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Calibration project item" href="specification/calibration.html" />
+    <link rel="prev" title="Scene reference frame format" href="specification/scene_reference_frame_format.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="globalNav">
+      <a class="homeLogo" href="index.html">
+            
+            <li>Open Photogrammetry Format</li>
+      </a>
+      <ul>
+          <li class="version-switcher-placeholder"></li>
+      </ul>
+  </div>
+
+
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          </a>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <img class="searchIcon" src="_static/search_icon.svg"/>
+    <input type="text" name="q" placeholder="Search docs..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="specification/project.html">Project format specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#goal">Goal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#big-picture">Big picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#project-items">Project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#extension-mechanism-for-item-types-and-resource-formats">Extension mechanism for Item types and Resource formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#naming-convention">Naming convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#extension-example">Extension example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#project-specification">Project specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#project">Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#project-item">Project Item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#project-resource">Project Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#project-source">Project Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/project.html#the-generator-of-this-project">The generator of this project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#top-level-scene-reference-frame">Top level scene reference frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#ids">IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/project.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cameras.html">Cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/camera_list.html">Camera list format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/camera_list.html#image-uid-generator-registry">Image UID Generator registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/camera_list.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/camera_list.html#camera-list">Camera list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/camera_list.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/camera_list.html#uid-generator">UID generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/camera_list.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/input_cameras.html">Input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#input-cameras">Input cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#band-information">Band information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#capture-element">Capture element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#dynamic-pixel-range">Dynamic pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#geolocation">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#omega-phi-kappa-orientation">Omega-Phi-Kappa orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#pixel-range">Pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#sensor-element">Sensor element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#spherical-internals">Spherical internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/input_cameras.html#yaw-pitch-roll-orientation">Yaw-Pitch-Roll orientation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/projected_input_cameras.html">Projected input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/projected_input_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/projected_input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#projected-input-camera">Projected input camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#capture">Capture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#projected-geolocation">Projected geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#projected-orientation">Projected orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/projected_input_cameras.html#sensor">Sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/projected_input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="specification/control_points.html">Control Points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#file-format">File format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#format-specification-input-control-points">Format specification: Input control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#control-points-input-control-points">Input control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#crs">CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#gcp">GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#geolocation">Geolocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#mark">Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#mtp">MTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#format-specification-projected-control-points">Format specification: Projected control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#control-points-projected-control-points">Projected control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#projected-gcp">Projected GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#format-specification-calibrated-control-points">Format specification: Calibrated control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#calibrated-control-points">Calibrated control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#id4">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/control_points.html#format-specification-scale-and-orientation-constraints">Format specification: Scale and orientation constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#control-points-constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#orientation-constraint">Orientation constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#scale-constraint">Scale constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/control_points.html#id6">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scene_reference_frame.html">Scene reference frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/scene_reference_frame.html">Scene reference frame project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/scene_reference_frame.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/scene_reference_frame_format.html">Scene reference frame format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/scene_reference_frame_format.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/scene_reference_frame_format.html#base-to-translated-canonical-crs-transform">Base to translated canonical CRS transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/scene_reference_frame_format.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/scene_reference_frame_format.html#scene-reference-frame">Scene reference frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/scene_reference_frame_format.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Calibration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/calibration.html">Calibration project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/gps_bias.html">GPS bias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/gps_bias.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/gps_bias.html#gps-bias-gps-bias">GPS bias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/gps_bias.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/gps_bias.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="specification/point_cloud.html">OPF-glTF point cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#format-structure">Format structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#data-layout">Data layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-gltf-point-cloud-extensions">OPF-glTF point cloud extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-asset-version">OPF_asset_version</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#point-cloud-opf-asset-version">OPF_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-partitioning-extension">OPF_mesh_primitive_partitioning extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-partitioning">OPF_mesh_primitive_partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-matches-extension">OPF_mesh_primitive_matches extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-matches">OPF_mesh_primitive_matches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-custom-attributes-extension">OPF_mesh_primitive_custom_attributes extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#opf-mesh-primitive-custom-attributes">OPF_mesh_primitive_custom_attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#opf-gltf-point-cloud-parser-support">OPF-glTF point cloud parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#material">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/point_cloud.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/point_cloud.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html">2D Segment Graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#d-edge">2D Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#ext-pix4d-2d-segment-graphs-2d-segment-graphs">2D Segment Graphs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#d-vertex">2D Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_2d_segment_graphs.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html">3D Segment Graphs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#d-edge">3D Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#ext-pix4d-3d-segment-graphs-3d-segment-graphs">3D Segment Graphs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#d-vertex">3D Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#vertex-mark">Vertex mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_3d_segment_graphs.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html">Computed Depth Maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#example-use-case">Example use case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#file-format">File Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#ext-pix4d-computed-depth-map-computed-depth-maps">Computed Depth Maps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#depth-map">Depth map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#depth-map-confidence">Depth map confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_computed_depth_map.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_input_depth_map.html">Input depth maps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_input_depth_map.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_input_depth_map.html#depth-map-confidence">Depth map confidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_input_depth_map.html#input-camera-depth-map">Input camera depth map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_input_depth_map.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html">Intersection Tie Points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#example-use-case">Example use case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#schema-input-intersection-tie-points">Schema: Input Intersection Tie Points</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#intersection-tie-point-itp">Intersection Tie Point (ITP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#ext-pix4d-intersection-tie-points-intersection-tie-points">Intersection Tie Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#mark-with-segments">Mark with Segments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#schema-calibrated-intersection-tie-points">Schema: Calibrated Intersection Tie Points</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#ext-pix4d-intersection-tie-points-calibrated-intersection-tie-points">Calibrated Intersection Tie Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_intersection_tie_points.html#id3">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_planes.html">Planes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_planes.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_planes.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_planes.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_planes.html#d-bounded-planar-surface">3D Bounded Planar Surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_planes.html#ext-pix4d-planes-planes">Planes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_planes.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html">Polygonal meshes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#geometry">Geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#image-marks">Image marks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#edge">Edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#edge-loop-indices">Edge loop indices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#edge-mark">Edge mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#face">Face</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#ext-pix4d-polygonal-meshes-polygonal-meshes">Polygonal meshes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#vertex">Vertex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#vertex-mark">Vertex mark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_polygonal_meshes.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html">Region of interest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html#d-bounded-planar-surface">3D Bounded Planar Surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html#ext-pix4d-region-of-interest-region-of-interest">Region of interest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_region_of_interest.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html">Vanishing points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html#definition">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html#file-format">File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html#schema">Schema</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html#ext-pix4d-vanishing-points-vanishing-points">Vanishing points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/ext_pix4d_vanishing_points.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="annexes.html">Annexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="specification/auxiliary_objects.html">Auxiliary objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/auxiliary_objects.html#coordinate-reference-system-definition">Coordinate reference system definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#crs">CRS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/auxiliary_objects.html#geolocation">Geolocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#id1">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#auxiliary-objects-geolocation">Geolocation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/auxiliary_objects.html#rigid-transform-with-scaling">Rigid transform with scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/auxiliary_objects.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="specification/glossary.html">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="specification/glossary.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="specification/glossary.html#canonical-reference-system">Canonical reference system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/glossary.html#coordinate-reference-system-crs">Coordinate reference system (CRS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/glossary.html#processing-crs">Processing CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/glossary.html#scene-reference-frame">Scene reference frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="specification/glossary.html#spatial-reference-system">Spatial reference system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="specification/glossary.html#acronyms">Acronyms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Open Photogrammetry Format Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li>OPF /</li>
+
+      <li>
+        Version  /
+      </li>
+
+      <li class="dateInfo">None</li>
+
+        
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/calibration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="calibration">
+<h1>Calibration<a class="headerlink" href="#calibration" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="specification/calibration.html">Calibration project item</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/calibrated_cameras.html">Calibrated camera format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/gps_bias.html">GPS bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="specification/sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="specification/calibration.html" class="btn btn-neutral float-right" title="Calibration project item" accesskey="n" rel="next">Next</a>
+      
+      
+        <a href="specification/scene_reference_frame_format.html" class="btn btn-neutral" title="Scene reference frame format" accesskey="p" rel="prev">Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Pix4D.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+  
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+  <script type="text/javascript" src="/server/switcher.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

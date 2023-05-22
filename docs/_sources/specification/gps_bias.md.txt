@@ -1,0 +1,66 @@
+# GPS bias
+
+For projects processed with both camera GPS and GCPs, the GPS bias describes a transform from the (GCP-adjusted) camera output positions to the prior camera GPS positions.
+
+## Format specification
+
+| Specification format                                  | Version                               |
+| ----------------------------------------------------- | ------------------------------------- |
+| "application/opf-gps-bias+json" | "1.0" |
+
+
+
+---------------------------------------
+(gps_bias-gps-bias)=
+### GPS bias
+
+For projects processed with both camera GPS and GCPs, the GPS bias describes a transform from the (GCP-adjusted) camera output positions to the prior camera GPS positions. For an output camera point p, a camera GPS point p' is computed as p' = RigidTransformation(p). Note that both the GPS and camera positions are in the processing CRS. A GPS bias is a rigid transformation with rotation, translation, and scaling.
+
+**`GPS bias` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|For the GPS bias it must be `"application/opf-gps-bias+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**transform**|[`rigid_transform`](gps_bias-rigid_transform)|Rigid transform| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(gps_bias-rigid_transform)=
+### Rigid transformation with scaling
+
+Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p' via p' = scale * rotation * p + translation.
+
+**`Rigid transformation with scaling` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**rotation_deg**|`number` `[3]`|Rotation as Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))| &#10003; Yes|
+|**translation**|`number` `[3]`|Translation in units of the processing CRS.| &#10003; Yes|
+|**scale**|`number`|Scale| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+## Example
+
+```json
+{
+    "format": "application/opf-gps-bias+json",
+    "version": "1.0",
+    "transform": {
+        "rotation_deg": [
+            1.3256,
+            -2.1467,
+            1.6216
+        ],
+        "translation": [
+            5.302,
+            3.089,
+            -35.246
+        ],
+        "scale": 1.0
+    }
+}
+```
