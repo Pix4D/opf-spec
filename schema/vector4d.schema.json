@@ -1,0 +1,12 @@
+{
+    "$id": "vector4d.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "4D Vector",
+    "description": "`[number, number, number, number]`",
+    "type": "array",
+    "items": {
+        "type": "number"
+    },
+    "minItems": 4,
+    "maxItems": 4
+}

@@ -1,0 +1,154 @@
+{
+    "$id": "sensor_internals.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Internals",
+    "description": "One of [perspective](#perspective-internals), [fisheye](#fisheye-internals) or [spherical](#spherical-internals) internal. Parameters of the camera models are described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089).",
+    "type": "object",
+    "oneOf": [
+        {
+            "$ref": "sensor_internals.schema.json#/$defs/perspective_internals"
+        },
+        {
+            "$ref": "sensor_internals.schema.json#/$defs/fisheye_internals"
+        },
+        {
+            "$ref": "sensor_internals.schema.json#/$defs/spherical_internals"
+        }
+    ],
+    "$defs": {
+        "perspective_internals": {
+            "type": "object",
+            "title": "Perspective internals",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "description": "Parameters of the perspective camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label1).",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "perspective",
+                    "description": "Must be `\"perspective\"`."
+                },
+                "principal_point_px": {
+                    "$ref": "sensor_internals.schema.json#/$defs/principal_point"
+                },
+                "focal_length_px": {
+                    "type": "number",
+                    "description": "Focal length in pixels."
+                },
+                "radial_distortion": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "The radial distortion coefficients (R1, R2, R3)."
+                },
+                "tangential_distortion": {
+                    "allOf": [
+                        {
+                            "$ref": "vector2d.schema.json"
+                        }
+                    ],
+                    "description": "The tangential distortion coefficients (T1, T2)."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "type",
+                "principal_point_px",
+                "focal_length_px",
+                "radial_distortion",
+                "tangential_distortion"
+            ]
+        },
+        "fisheye_internals": {
+            "type": "object",
+            "title": "Fisheye internals",
+            "description": "Parameters of the fisheye camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label2).",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "fisheye",
+                    "description": "Must be `\"fisheye\"`."
+                },
+                "principal_point_px": {
+                    "$ref": "sensor_internals.schema.json#/$defs/principal_point"
+                },
+                "is_symmetric_affine": {
+                    "type": "boolean",
+                    "description": "If true, it is prior knowledge that the affine matrix is symmetric (that is, c=f and d=e=0) and should be kept symmetric."
+                },
+                "affine": {
+                    "allOf": [
+                        {
+                            "$ref": "vector4d.schema.json"
+                        }
+                    ],
+                    "description": "Affine transformation parameters as [ c d; e f ]"
+                },
+                "polynomial": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "description": "The coefficients of the distortion polynomial."
+                },
+                "is_p0_zero": {
+                    "type": "boolean",
+                    "description": "If true, it is prior knowledge that the first polynomial coefficient is equal to zero and should be kept zero."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "type",
+                "principal_point_px",
+                "is_symmetric_affine",
+                "affine",
+                "polynomial",
+                "is_p0_zero"
+            ]
+        },
+        "spherical_internals": {
+            "type": "object",
+            "title": "Spherical internals",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "spherical",
+                    "description": "Must be `\"spherical\"`."
+                },
+                "principal_point_px": {
+                    "$ref": "sensor_internals.schema.json#/$defs/principal_point"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "type",
+                "principal_point_px"
+            ]
+        },
+        "principal_point": {
+            "type:": "object",
+            "title": "Principal point",
+            "allOf": [
+                {
+                    "$ref": "vector2d.schema.json"
+                }
+            ],
+            "description": "(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel."
+        }
+    }
+}

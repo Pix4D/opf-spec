@@ -1,0 +1,26 @@
+{
+    "$id": "crs.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "CRS",
+    "description": "Coordinate reference system",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "definition": {
+            "description": "One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.",
+            "type": "string"
+        },
+        "geoid_height": {
+            "description": "Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.",
+            "type": "number"
+        },
+        "extensions": {}
+    },
+    "required": [
+        "definition"
+    ]
+}

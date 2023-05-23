@@ -1,0 +1,9 @@
+{
+    "$id": "uid64.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "UID64",
+    "description": "Unique identifier as unsigned 64 bit integer.",
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 18446744073709551615
+}

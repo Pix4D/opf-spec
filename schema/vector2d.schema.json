@@ -1,0 +1,12 @@
+{
+    "$id": "vector2d.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "2D Vector",
+    "description": "`[number, number]`",
+    "type": "array",
+    "items": {
+        "type": "number"
+    },
+    "minItems": 2,
+    "maxItems": 2
+}

@@ -1,0 +1,174 @@
+{
+    "$id": "projected_input_cameras.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": " Projected input camera",
+    "version": "1.0",
+    "description": "Definition of the input cameras data in the processing CRS, which is a projected right-handed isometric CS.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-projected-input-cameras+json",
+            "type": "string",
+            "description": "For projected input cameras it must be `\"application/opf-projected-input-cameras+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "sensors": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/sensor"
+            },
+            "description": "Sensors for which there are processing CRS dependent parameters, for example rigs. May contain fewer elements than the sensor list from the corresponding input cameras (or none if there are no rigs)."
+        },
+        "captures": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/capture"
+            },
+            "description": "Captures for which there are processing CRS dependent parameters."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "captures",
+        "sensors"
+    ],
+    "$defs": {
+        "geolocation": {
+            "type": "object",
+            "title": "Projected geolocation",
+            "description": "Input geolocation in the processing CRS axes and units.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "position": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Coordinates in the processing CRS."
+                },
+                "sigmas": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Standard deviation in the processing CRS units."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "position",
+                "sigmas"
+            ]
+        },
+        "sigmas": {
+            "title": "Position standard deviation",
+            "description": "Standard deviation in the processing CRS units.",
+            "$ref": "vector3d.schema.json"
+        },
+        "orientation": {
+            "type": "object",
+            "title": "Projected orientation",
+            "description": "Input orientation in the processing CRS axes.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "angles_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Omega-Phi-Kappa angles in degree representing a rotation R_x(\u03c9)R_y(\u03d5)R_z(\u03ba) from the image CS to the processing CRS."
+                },
+                "sigmas_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Standard deviation of Omega-Phi-Kappa angles in degree."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "angles_deg",
+                "sigmas_deg"
+            ]
+        },
+        "sensor": {
+            "type": "object",
+            "title": "Sensor",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "Unique identifier pointing to a sensor element in the input cameras."
+                },
+                "rig_translation": {
+                    "$ref": "projected_rig_translation.schema.json"
+                },
+                "extensions": {}
+            },
+            "description": "Processing CRS dependent parameters of an input sensor.",
+            "required": [
+                "id"
+            ]
+        },
+        "capture": {
+            "type": "object",
+            "title": "Capture",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "Unique identifier pointing to a capture element in the input cameras."
+                },
+                "geolocation": {
+                    "$ref": "#/$defs/geolocation"
+                },
+                "orientation": {
+                    "$ref": "#/$defs/orientation"
+                },
+                "extensions": {}
+            },
+            "description": "Processing CRS dependent parameters of a capture sensor.",
+            "required": [
+                "id"
+            ]
+        }
+    }
+}

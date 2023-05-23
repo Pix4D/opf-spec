@@ -1,0 +1,75 @@
+{
+    "$id": "scene_reference_frame.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Scene reference frame",
+    "version": "1.0",
+    "description": "An object that specifies a base Cartesian CRS and the transformation parameters to a translated canonical form suitable for processing and visualization.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "type": "string",
+            "description": "For scene reference frame it must be `\"application/opf-scene-reference-frame+json\"`",
+            "const": "application/opf-scene-reference-frame+json"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "crs": {
+            "$ref": "crs.schema.json"
+        },
+        "base_to_canonical": {
+            "$ref": "#/$defs/base_to_canonical"
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "crs",
+        "base_to_canonical"
+    ],
+    "$defs": {
+        "base_to_canonical": {
+            "type": "object",
+            "title": "Base to translated canonical CRS transform",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "shift": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Translation from the canonical CRS to a recentered reference frame suitable for processing and visualization."
+                },
+                "scale": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Per axis scaling factors to make the base CRS isometric."
+                },
+                "swap_xy": {
+                    "type": "boolean",
+                    "description": "true if and only if the base CRS is left-handed."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "shift",
+                "scale",
+                "swap_xy"
+            ]
+        }
+    }
+}

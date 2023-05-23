@@ -1,0 +1,97 @@
+{
+    "$id": "input_rig_relatives.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Input rig relatives",
+    "description": "Input rig relatives contain the a priori knowledge about the relative translation and rotation of secondary cameras. Since these values are supposedly coming from a sensor database, the units are always meters and degrees.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "translation": {
+            "$ref": "input_rig_relatives.schema.json#/$defs/translation"
+        },
+        "rotation": {
+            "$ref": "input_rig_relatives.schema.json#/$defs/rotation"
+        },
+        "extensions": {}
+    },
+    "required": [
+        "translation",
+        "rotation"
+    ],
+    "$defs": {
+        "translation": {
+            "type": "object",
+            "title": "Rig relative translation",
+            "description": "Input camera rig translation relative to the reference camera.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "values_m": {
+                    "description": "Relative translation of the secondary sensor in the image CS of the reference sensor in meters.",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                },
+                "sigmas_m": {
+                    "description": "Measurement error (standard deviation) in meters.",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                },
+                "extensions": {}
+            },
+            "required": [
+                "values_m",
+                "sigmas_m"
+            ]
+        },
+        "rotation": {
+            "type": "object",
+            "title": "Rig relative rotation",
+            "description": "Input camera rig rotation relative to the reference camera.",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "angles_deg": {
+                    "type": "array",
+                    "description": "Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives)).",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                },
+                "sigmas_deg": {
+                    "description": "Measurement error (standard deviation) in degrees.",
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    },
+                    "minItems": 3,
+                    "maxItems": 3
+                },
+                "extensions": {}
+            },
+            "required": [
+                "angles_deg",
+                "sigmas_deg"
+            ]
+        }
+    }
+}
