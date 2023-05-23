@@ -1,0 +1,12 @@
+# Calibration sparse point cloud
+
+The calibration sparse point cloud is stored into the [OPF-glTF point cloud format](point_cloud.md).
+
+It must contain, in addition to 3D positions, extra matching information that is:
+* The match index range for each point
+* The match camera ids
+* The match image point with content:
+  * The image point pixel coordinates
+  * The image point feature index
+  * The image point scale
+  * Optionally if the calibration used depth information, the image point depth

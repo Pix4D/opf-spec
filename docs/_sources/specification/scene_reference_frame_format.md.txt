@@ -1,0 +1,124 @@
+# Scene reference frame format
+
+This object describes a _scene reference frame_, which is defined as a base coordinate reference system and a linear transformation to convert coordinates in this base system to a translated canonical reference system which is suitable for algorithmic processing and visualization.
+
+The base coordinate reference system must be Cartesian, and more specifically, it must be: a projected, a compound of projected plus vertical or a 3D engineering reference frame.
+However, there are no other restrictions about its axes, which means that the vertical component could have a different unit than the horizontal and the labeling of the X and Y axis does not necessarily follow a right-handed convention (e.g. Easting-Northing).
+
+The canonical reference frame is the right-handed, isometric equivalent of the base coordinate reference system.
+Right handed means that the vector base of the coordinate system is equivalent to the standard base of ℝ³.
+The canonical reference frame is translated for recentering all coordinates of interest close to 0, 0, 0, which avoids numerical errors caused by working with numbers with many significant digits.
+
+The steps to transform a coordinate from the base to the translated canonical reference systems are, in this order:
+
+- scale the coordinates axes to ensure the canonical coordinate system is isometric,
+- swap X and Y if the base coordinate system is left handed,
+- add the shift for recentering.
+
+The transformation is provided to allow the transformation between the base and translated canonical reference systems without requiring the consumer to have any knowledge about coordinate reference systems. This introduces some redundancy in the representation, as the scale and swap flag can be derived from the CRS definition, therefore, it is mandatory to make the transformation definition consistent with the base coordinate reference system definition.
+
+Scene reference frames may be explicitly or implicitly attached to any artifact susceptible of being visualized or processed algorithmically.
+
+## Format specification
+
+| Specification format                                          | Version                                       |
+| ------------------------------------------------------------- | --------------------------------------------- |
+| "application/opf-scene-reference-frame+json" | "1.0" |
+
+
+
+---------------------------------------
+(scene_reference_frame_format-base_to_canonical)=
+### Base to translated canonical CRS transform
+
+**`Base to translated canonical CRS transform` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**shift**|`number` `[3]`|Translation from the canonical CRS to a recentered reference frame suitable for processing and visualization.| &#10003; Yes|
+|**scale**|`number` `[3]`|Per axis scaling factors to make the base CRS isometric.| &#10003; Yes|
+|**swap_xy**|`boolean`|true if and only if the base CRS is left-handed.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(scene_reference_frame_format-crs)=
+### CRS
+
+Coordinate reference system
+
+**`CRS` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
+|**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(scene_reference_frame_format-scene-reference-frame)=
+### Scene reference frame
+
+An object that specifies a base Cartesian CRS and the transformation parameters to a translated canonical form suitable for processing and visualization.
+
+**`Scene reference frame` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|For scene reference frame it must be `"application/opf-scene-reference-frame+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**crs**|[`crs`](scene_reference_frame_format-crs)|Coordinate reference system| &#10003; Yes|
+|**base_to_canonical**|[`base_to_canonical`](scene_reference_frame_format-base_to_canonical)|| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+## Examples
+
+```json
+{
+    "format": "application/opf-scene-reference-frame+json",
+    "version": "1.0",
+    "crs": {
+        "definition": "PROJCRS[\"WGS 84 / UTM zone 16N\",\n    BASEGEOGCRS[\"WGS 84\",\n        ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n            MEMBER[\"World Geodetic System 1984 (Transit)\"],\n            MEMBER[\"World Geodetic System 1984 (G730)\"],\n            MEMBER[\"World Geodetic System 1984 (G873)\"],\n            MEMBER[\"World Geodetic System 1984 (G1150)\"],\n            MEMBER[\"World Geodetic System 1984 (G1674)\"],\n            MEMBER[\"World Geodetic System 1984 (G1762)\"],\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ENSEMBLEACCURACY[2.0]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4326]],\n    CONVERSION[\"UTM zone 16N\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",-87,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9996,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",500000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    ID[\"EPSG\",32616]]"
+    },
+    "base_to_canonical": {
+        "scale": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "shift": [
+            -746308.1230880459,
+            -3714810.972981808,
+            -268.74755556838863
+        ],
+        "swap_xy": false
+    }
+}
+```
+
+```json
+{
+    "format": "application/opf-scene-reference-frame+json",
+    "version": "1.0",
+    "crs": {
+        "definition": "ENGINEERINGCRS[\"Construction site\",\n  ENGINEERINGDATUM[\"Southwest corner\"],\n  CS[Cartesian,3],\n    AXIS[\"northing (X)\",north,ORDER[1]],\n    AXIS[\"easting (Y)\",east,ORDER[2]],\n    AXIS[\"up (Z)\",up,ORDER[3]],\n    LENGTHUNIT[\"metre\",1.0]]"
+    },
+    "base_to_canonical": {
+        "scale": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "shift": [
+            0,
+            0,
+            0
+        ],
+        "swap_xy": false
+    }
+}
+```

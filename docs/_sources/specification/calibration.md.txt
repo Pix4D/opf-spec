@@ -1,0 +1,95 @@
+# Calibration project item
+
+A calibration is a project item that bundles together the resources that are produced by a calibration algorithm.
+This item type, allowed resource formats and allowed source types are:
+
+* Item type `calibration`
+* Source item types:
+  | required | optional |
+  | -------- | -------- |
+  | [`input_cameras`](input_cameras)<br>[`scene_reference_frame`](scene_reference_frame)<br> | [`constraints`](constraints)<br>[`projected_input_cameras`](projected_input_cameras)<br>[`input_control_points`](input_control_points)<br>[`projected_control_points`](projected_control_points)<br> |
+* Resource formats:
+  | required | optional |
+  | -------- | -------- |
+  | [`application/opf-calibrated-cameras+json`](application/opf-calibrated-cameras+json-format)<br> | [`application/opf-calibrated-control-points+json`](application/opf-calibrated-control-points+json-format)<br>[`application/opf-gps-bias+json`](application/opf-gps-bias+json-format)<br>[`model/gltf+json`](model/gltf+json-format)<br>[`application/gltf-buffer+bin`](application/gltf-buffer+bin-format)<br> |
+
+## Example
+
+```json
+{
+    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+    "type": "calibration",
+    "sources": [
+        {
+            "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
+            "type": "ext_pix4d_myteam_myalgo_settings"
+        },
+        {
+            "id": "57608ca8-912d-4fee-b097-2648651474c4",
+            "type": "input_cameras"
+        },
+        {
+            "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+            "type": "input_control_points"
+        },
+        {
+            "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+            "type": "projected_input_cameras"
+        },
+        {
+            "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+            "type": "projected_control_points"
+        },
+        {
+            "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+            "type": "scene_reference_frame"
+        }
+    ],
+    "resources": [
+        {
+            "uri": "tracks.gltf",
+            "format": "model/gltf+json"
+        },
+        {
+            "uri": "track-positions.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchPointIndexRanges.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchCameraIds.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchImagePointPixelCoordinates.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchImagePointFeatureIds.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchImagePointScales.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "track-matchImagePointDepths.glbin",
+            "format": "application/gltf-buffer+bin"
+        },
+        {
+            "uri": "calibrated_cameras.json",
+            "format": "application/opf-calibrated-cameras+json"
+        },
+        {
+            "uri": "some_additional_calib_data.json",
+            "format": "application/ext-pix4d-myteam-myalgo-settings"
+        }
+    ]
+}
+```
+
+Note that this example is not valid as a stand alone file accepted by any of the formats of this specification.
+This piece of JSON must be contained inside the `items` attribute of a file with format `application/opf-project+json`.
+See the [project format specification](project-format) for details.

@@ -1,0 +1,33 @@
+# Glossary
+
+## Definitions
+
+### Canonical reference system
+
+A right-handed, isometric variation of a Cartesian coordinate reference system.
+
+### Coordinate reference system (CRS)
+
+Following the EPSG definition, a coordinate reference system or CRS "consists of one coordinate system that is related to an object through one datum".
+It allows describing spatial positions on the object of interest unambiguously.
+
+### Processing CRS
+
+A canonical CRS plus a translation defined by a project's scene reference frame.
+The translation is meant to move the centroid of the project close to (0, 0, 0) for numerical stability during processing and visualization.
+
+### Scene reference frame
+
+A base CRS and a transformation to its translated canonical form.
+
+### Spatial reference system
+
+See coordinate reference system.
+
+## Acronyms
+
+- CRS: Coordinate reference system
+
+- GCP: Ground control point
+
+- MTP: Manual tie point
