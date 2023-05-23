@@ -1,0 +1,475 @@
+{
+    "format": "application/opf-input-cameras+json",
+    "version": "1.0",
+    "sensors": [
+        {
+            "id": 18493134,
+            "name": "Parrot_Sequoia_4_0_1280x960",
+            "bands": [
+                {
+                    "name": "Green",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                1280,
+                960
+            ],
+            "pixel_size_um": 3.75,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    640,
+                    480
+                ],
+                "affine": [
+                    1674.33,
+                    0.0,
+                    0.0,
+                    1674.33
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "is_p0_zero": true
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 21845677,
+            "name": "Parrot_Sequoia_4_0_1280x960",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                1280,
+                960
+            ],
+            "pixel_size_um": 3.75,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    640,
+                    480
+                ],
+                "affine": [
+                    1674.33,
+                    0.0,
+                    0.0,
+                    1674.33
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "is_p0_zero": true
+            },
+            "rig_relatives": {
+                "rotation": {
+                    "angles_deg": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "sigmas_deg": [
+                        0.05,
+                        0.05,
+                        0.05
+                    ]
+                },
+                "translation": {
+                    "values_m": [
+                        -0.015,
+                        0.015,
+                        0.0
+                    ],
+                    "sigmas_m": [
+                        0.001,
+                        0.001,
+                        0.001
+                    ]
+                }
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 65728243,
+            "name": "Parrot_AnafiThermal_1.9_298x224",
+            "bands": [
+                {
+                    "name": "TIR",
+                    "weight": 1
+                }
+            ],
+            "image_size_px": [
+                298,
+                224
+            ],
+            "pixel_size_um": 1.9,
+            "internals": {
+                "type": "fisheye",
+                "principal_point_px": [
+                    150,
+                    112
+                ],
+                "affine": [
+                    496.084717,
+                    0.0,
+                    0.0,
+                    496.084717
+                ],
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0
+                ],
+                "is_p0_zero": true
+            },
+            "rig_relatives": {
+                "rotation": {
+                    "angles_deg": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "sigmas_deg": [
+                        0.05,
+                        0.05,
+                        0.05
+                    ]
+                },
+                "translation": {
+                    "values_m": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "sigmas_m": [
+                        0.001,
+                        0.001,
+                        0.001
+                    ]
+                }
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 86926181,
+            "name": "Parrot_AnafiThermal_4.0_3264x2448",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 0.2126
+                },
+                {
+                    "name": "Green",
+                    "weight": 0.7152
+                },
+                {
+                    "name": "Blue",
+                    "weight": 0.0722
+                }
+            ],
+            "image_size_px": [
+                3264,
+                2448
+            ],
+            "pixel_size_um": 1.5,
+            "internals": {
+                "type": "perspective",
+                "principal_point_px": [
+                    1632,
+                    1224
+                ],
+                "focal_length_px": 1643,
+                "radial_distortion": [
+                    -0.014393,
+                    0.0125235,
+                    -2.2309e-05
+                ],
+                "tangential_distortion": [
+                    0.00127711,
+                    0.000421167
+                ]
+            },
+            "shutter_type": "global"
+        },
+        {
+            "id": 57282113,
+            "name": "DJI_FC6540_24.0_6016x4008",
+            "bands": [
+                {
+                    "name": "Red",
+                    "weight": 0.2126
+                },
+                {
+                    "name": "Green",
+                    "weight": 0.7152
+                },
+                {
+                    "name": "Blue",
+                    "weight": 0.0722
+                }
+            ],
+            "image_size_px": [
+                6016,
+                4008
+            ],
+            "pixel_size_um": 1.6,
+            "internals": {
+                "type": "perspective",
+                "principal_point_px": [
+                    3008,
+                    2004
+                ],
+                "focal_length_px": 5391,
+                "radial_distortion": [
+                    -0.014393,
+                    0.0125235,
+                    -2.2309e-05
+                ],
+                "tangential_distortion": [
+                    0.00127711,
+                    0.000421167
+                ]
+            },
+            "shutter_type": "rolling"
+        }
+    ],
+    "captures": [
+        {
+            "id": 19438547,
+            "rig_model_source": "database",
+            "cameras": [
+                {
+                    "sensor_id": 18493134,
+                    "id": 47292894,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 63000
+                    }
+                },
+                {
+                    "sensor_id": 21845677,
+                    "id": 57282923,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 63000
+                    },
+                    "image_orientation": 1
+                }
+            ],
+            "reference_camera_id": 47292894,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.69,
+                    1.69,
+                    2.4
+                ]
+            },
+            "orientation": {
+                "type": "yaw_pitch_roll",
+                "angles_deg": [
+                    117.31300354,
+                    9.7998399734,
+                    9.9201202393
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ]
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2016-09-29T11:41:21Z"
+        },
+        {
+            "id": 78291034,
+            "rig_model_source": "database",
+            "cameras": [
+                {
+                    "sensor_id": 65728243,
+                    "id": 42727834,
+                    "model_source": "database",
+                    "pixel_type": "uint16",
+                    "pixel_range": {
+                        "percentile": 1
+                    }
+                },
+                {
+                    "sensor_id": 86926181,
+                    "id": 84736329,
+                    "model_source": "database",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    }
+                }
+            ],
+            "reference_camera_id": 42727834,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "omega_phi_kappa",
+                "angles_deg": [
+                    3.3432,
+                    -5.2849554,
+                    9.345113
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ],
+                "crs": "EPSG:32632"
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2016-09-29T11:41:21Z"
+        },
+        {
+            "id": 92840,
+            "rig_model_source": "not_applicable",
+            "cameras": [
+                {
+                    "sensor_id": 57282113,
+                    "id": 86930102,
+                    "model_source": "database",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    }
+                }
+            ],
+            "reference_camera_id": 86930102,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4326+5773"
+                },
+                "coordinates": [
+                    46.522838638888885,
+                    6.549273638888889,
+                    531.239990234375
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "yaw_pitch_roll",
+                "angles_deg": [
+                    113.128800287,
+                    10.52342304,
+                    9.9310087264
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ]
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2020-09-25T09:12:53Z"
+        },
+        {
+            "id": 39503,
+            "rig_model_source": "not_applicable",
+            "cameras": [
+                {
+                    "sensor_id": 57282113,
+                    "id": 28493939,
+                    "model_source": "generic",
+                    "pixel_type": "uint8",
+                    "pixel_range": {
+                        "min": 0,
+                        "max": 255
+                    },
+                    "extensions": {
+                        "PIX4D_input_depth_map": {
+                            "version": "1.0-draft2",
+                            "id": 3347,
+                            "confidence": {
+                                "id": 238390,
+                                "min": 1,
+                                "max": 2,
+                                "threshold": 2
+                            }
+                        }
+                    }
+                }
+            ],
+            "reference_camera_id": 28493939,
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4150"
+                },
+                "coordinates": [
+                    6.524116953632,
+                    6.550081187764,
+                    529.75
+                ],
+                "sigmas": [
+                    1.6900000572,
+                    1.6900000572,
+                    2.4010000229
+                ]
+            },
+            "orientation": {
+                "type": "omega_phi_kappa",
+                "angles_deg": [
+                    21.1345409,
+                    3.331994,
+                    -1.129403
+                ],
+                "sigmas_deg": [
+                    5.0,
+                    5.0,
+                    5.0
+                ],
+                "crs": "EPSG:32632"
+            },
+            "height_above_takeoff_m": 100.5,
+            "time": "2020-09-25T09:13:13Z"
+        }
+    ]
+}

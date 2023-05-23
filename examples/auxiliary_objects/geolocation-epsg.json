@@ -1,0 +1,16 @@
+{
+    "crs": {
+        "definition": "EPSG:4265+5214",
+        "geoid_height": 52.12
+    },
+    "coordinates": [
+        45.7345725,
+        7.3205342,
+        583
+    ],
+    "sigmas": [
+        5,
+        5,
+        10
+    ]
+}

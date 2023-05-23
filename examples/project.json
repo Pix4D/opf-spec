@@ -1,0 +1,291 @@
+{
+    "version": "1.0",
+    "format": "application/opf-project+json",
+    "id": "caa7754e-90dc-11ec-b909-0242ac120002",
+    "name": "Example of a calibration project",
+    "description": "Show an example of a calibration project",
+    "generator": {
+        "name": "PIX4Dmatic",
+        "version": "1.41.0"
+    },
+    "items": [
+        {
+            "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
+            "type": "ext_pix4d_myteam_myalgo_settings",
+            "resources": [
+                {
+                    "uri": "myalgo-settings.json",
+                    "format": "application/ext-pix4d-myteam-myalgo-settings"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+            "type": "camera_list",
+            "resources": [
+                {
+                    "uri": "cameras.json",
+                    "format": "application/opf-camera-list+json"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "57608ca8-912d-4fee-b097-2648651474c4",
+            "type": "input_cameras",
+            "resources": [
+                {
+                    "uri": "input_cameras.json",
+                    "format": "application/opf-input-cameras+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+                    "type": "camera_list"
+                }
+            ]
+        },
+        {
+            "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+            "type": "input_control_points",
+            "resources": [
+                {
+                    "uri": "input_control_points.json",
+                    "format": "application/opf-input-control-points+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
+                    "type": "camera_list"
+                }
+            ]
+        },
+        {
+            "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+            "type": "scene_reference_frame",
+            "resources": [
+                {
+                    "uri": "processing_spatial_reference.json",
+                    "format": "application/opf-scene-reference-frame+json"
+                }
+            ],
+            "sources": []
+        },
+        {
+            "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+            "type": "projected_input_cameras",
+            "resources": [
+                {
+                    "uri": "projected_input_cameras.json",
+                    "format": "application/opf-projected-input-cameras+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
+                    "type": "input_cameras"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+            "type": "projected_control_points",
+            "resources": [
+                {
+                    "uri": "projected_control_points.json",
+                    "format": "application/opf-projected-control-points+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+            "type": "calibration",
+            "sources": [
+                {
+                    "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
+                    "type": "ext_pix4d_myteam_myalgo_settings"
+                },
+                {
+                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
+                    "type": "input_cameras"
+                },
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
+                },
+                {
+                    "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+                    "type": "projected_input_cameras"
+                },
+                {
+                    "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+                    "type": "projected_control_points"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "tracks/tracks.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "tracks/track-positions.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchPointIndexRanges.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchCameraIds.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointPixelCoordinates.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointFeatureIds.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointScales.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "tracks/track-matchImagePointDepths.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "calibrated_cameras.json",
+                    "format": "application/opf-calibrated-cameras+json"
+                },
+                {
+                    "uri": "gps_bias.json",
+                    "format": "application/opf-gps-bias+json"
+                },
+                {
+                    "uri": "some_additional_calib_data.json",
+                    "format": "application/ext-pix4d-myteam-myalgo-settings"
+                }
+            ]
+        },
+        {
+            "id": "f99cfd9a-eb41-4af9-a9e9-d60f4bd383c5",
+            "type": "point_cloud",
+            "name": "Corridor",
+            "labels": [
+                "opf-origin:images",
+                "opf-origin:depth"
+            ],
+            "sources": [
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "pcl.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "partition.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "positions.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "normals.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "colors.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-groups.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-visibility-index-ranges.bin",
+                    "format": "application/gltf-buffer+bin"
+                }
+            ]
+        },
+        {
+            "id": "df2694f3-105a-4ee7-ba6e-86e2accd0fd6",
+            "type": "point_cloud",
+            "name": "Living room",
+            "labels": [
+                "opf-origin:images"
+            ],
+            "sources": [
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "pcl2.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "partition2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "positions2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "normals2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "colors2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-groups2.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "camera-visibility-index-ranges2.bin",
+                    "format": "application/gltf-buffer+bin"
+                }
+            ]
+        }
+    ]
+}

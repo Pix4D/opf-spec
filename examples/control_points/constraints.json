@@ -1,0 +1,26 @@
+{
+    "format": "application/opf-constraints+json",
+    "version": "1.0",
+    "scale_constraints": [
+        {
+            "id": "sc1",
+            "id_from": "gcp0",
+            "id_to": "gcp1",
+            "distance": 1.23,
+            "sigma": 0.1
+        }
+    ],
+    "orientation_constraints": [
+        {
+            "id": "oc1",
+            "id_from": "gcp0",
+            "id_to": "gcp1",
+            "unit_vector": [
+                0,
+                0,
+                1
+            ],
+            "sigma_deg": 1.0
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "format": "application/opf-input-control-points+json",
+    "version": "1.0",
+    "gcps": [
+        {
+            "id": "gcp0",
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4265+5214",
+                    "geoid_height": 123
+                },
+                "coordinates": [
+                    1,
+                    2,
+                    3
+                ],
+                "sigmas": [
+                    5,
+                    5,
+                    10
+                ]
+            },
+            "marks": [
+                {
+                    "camera_id": 10000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 1.0
+                },
+                {
+                    "camera_id": 20000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 10.0
+                },
+                {
+                    "camera_id": 30000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 20.0
+                }
+            ],
+            "is_checkpoint": true
+        }
+    ],
+    "mtps": [
+        {
+            "id": "mtp0",
+            "marks": [
+                {
+                    "camera_id": 10000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 1.0
+                },
+                {
+                    "camera_id": 20000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 10.0
+                },
+                {
+                    "camera_id": 30000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 20.0
+                }
+            ],
+            "is_checkpoint": false
+        }
+    ]
+}

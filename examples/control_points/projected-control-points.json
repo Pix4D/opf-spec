@@ -1,0 +1,19 @@
+{
+    "format": "application/opf-projected-control-points+json",
+    "version": "1.0",
+    "projected_gcps": [
+        {
+            "id": "gcp0",
+            "coordinates": [
+                3859391,
+                103895,
+                384
+            ],
+            "sigmas": [
+                5,
+                5,
+                10
+            ]
+        }
+    ]
+}
