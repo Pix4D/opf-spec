@@ -1,0 +1,139 @@
+{
+    "$id": "calibrated_cameras.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "1.0",
+    "title": " Calibrated cameras",
+    "description": "Definition of Calibrated Camera Parameters",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-calibrated-cameras+json",
+            "type": "string",
+            "description": "For calibrated cameras it must be `\"application/opf-calibrated-cameras+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "sensors": {
+            "type": "array",
+            "items": {
+                "$ref": "calibrated_cameras.schema.json#/$defs/sensor"
+            },
+            "description": "Calibrated sensor parameters."
+        },
+        "cameras": {
+            "type": "array",
+            "items": {
+                "$ref": "calibrated_cameras.schema.json#/$defs/camera"
+            },
+            "description": "Calibrated camera parameters."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "sensors",
+        "cameras"
+    ],
+    "$defs": {
+        "sensor": {
+            "type": "object",
+            "title": "Calibrated sensor",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "Unique ID of the sensor, it must appear in the input cameras."
+                },
+                "internals": {
+                    "allOf": [
+                        {
+                            "$ref": "sensor_internals.schema.json"
+                        }
+                    ],
+                    "description": "Calibrated sensor internal parameters."
+                },
+                "rig_relatives": {
+                    "$ref": "calibrated_rig_relatives.schema.json"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "internals"
+            ]
+        },
+        "camera": {
+            "type": "object",
+            "title": "Calibrated camera",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "Unique ID of the camera, it must appear in the input cameras."
+                },
+                "sensor_id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "Unique ID of the sensor used by this camera."
+                },
+                "position": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Calibrated coordinates in the processing CRS."
+                },
+                "orientation_deg": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Calibrated Omega-Phi-Kappa angles in degree representing a rotation R_x(\u03c9)R_y(\u03d5)R_z(\u03ba) from the image CS to the processing CRS."
+                },
+                "rolling_shutter": {
+                    "allOf": [
+                        {
+                            "$ref": "vector3d.schema.json"
+                        }
+                    ],
+                    "description": "Refer to [this document](https://s3.amazonaws.com/mics.pix4d.com/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf)."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "sensor_id",
+                "position",
+                "orientation_deg"
+            ]
+        }
+    }
+}

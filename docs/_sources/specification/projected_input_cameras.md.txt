@@ -1,0 +1,239 @@
+# Projected input camera format
+
+This format defines the input cameras data in the processing CRS, which is a projected right-handed isometric CS.
+
+## Coordinate system specification
+
+The processing CRS is a right-handed, isometric, Cartesian coordinate system chosen by the application, the calibration itself is coordinate system agnostic. The definition of the camera axes is the photogrammetrist’s definition: x from left to right in the image, y from bottom to top in the image, z from the scene towards the camera center.
+
+The actual processing CRS comes from the [top level scene reference frame](project.md#top-level-scene-reference-frame) definition.
+
+## Format specification
+
+| Specification format                                            | Version                                         |
+| --------------------------------------------------------------- | ----------------------------------------------- |
+| "application/opf-projected-input-cameras+json" | "1.0" |
+
+
+
+---------------------------------------
+(projected_input_cameras--projected-input-camera)=
+###  Projected input camera
+
+Definition of the input cameras data in the processing CRS, which is a projected right-handed isometric CS.
+
+**` Projected input camera` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|For projected input cameras it must be `"application/opf-projected-input-cameras+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**sensors**|[`sensor`](projected_input_cameras-sensor) `[]`|Sensors for which there are processing CRS dependent parameters, for example rigs. May contain fewer elements than the sensor list from the corresponding input cameras (or none if there are no rigs).| &#10003; Yes|
+|**captures**|[`capture`](projected_input_cameras-capture) `[]`|Captures for which there are processing CRS dependent parameters.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(projected_input_cameras-capture)=
+### Capture
+
+Processing CRS dependent parameters of a capture sensor.
+
+**`Capture` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|Unique identifier pointing to a capture element in the input cameras.| &#10003; Yes|
+|**geolocation**|[`geolocation`](projected_input_cameras-geolocation)|Input geolocation in the processing CRS axes and units.|No|
+|**orientation**|[`orientation`](projected_input_cameras-orientation)|Input orientation in the processing CRS axes.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(projected_input_cameras-geolocation)=
+### Projected geolocation
+
+Input geolocation in the processing CRS axes and units.
+
+**`Projected geolocation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**position**|`number` `[3]`|Coordinates in the processing CRS.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Standard deviation in the processing CRS units.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(projected_input_cameras-orientation)=
+### Projected orientation
+
+Input orientation in the processing CRS axes.
+
+**`Projected orientation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**angles_deg**|`number` `[3]`|Omega-Phi-Kappa angles in degree representing a rotation R_x(ω)R_y(ϕ)R_z(κ) from the image CS to the processing CRS.| &#10003; Yes|
+|**sigmas_deg**|`number` `[3]`|Standard deviation of Omega-Phi-Kappa angles in degree.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(projected_input_cameras-projected_rig_translation)=
+### Projected rig translation
+
+Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.
+
+**`Projected rig translation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**values**|`number` `[3]`|Relative translation in processing CRS units.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Measurement error (standard deviation) in processing CRS units.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(projected_input_cameras-sensor)=
+### Sensor
+
+Processing CRS dependent parameters of an input sensor.
+
+**`Sensor` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|Unique identifier pointing to a sensor element in the input cameras.| &#10003; Yes|
+|**rig_translation**|[`projected_rig_translation`](projected_input_cameras-projected_rig_translation)|Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+## Example
+
+```json
+{
+    "format": "application/opf-projected-input-cameras+json",
+    "version": "1.0",
+    "sensors": [
+        {
+            "id": 21845677,
+            "rig_translation": {
+                "values": [
+                    -0.015,
+                    0.015,
+                    0.0
+                ],
+                "sigmas": [
+                    0.001,
+                    0.001,
+                    0.001
+                ]
+            }
+        },
+        {
+            "id": 65728243,
+            "rig_translation": {
+                "values": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "sigmas": [
+                    0.001,
+                    0.001,
+                    0.001
+                ]
+            }
+        }
+    ],
+    "captures": [
+        {
+            "id": 94334,
+            "geolocation": {
+                "position": [
+                    382.20304,
+                    3.292843,
+                    2.238429
+                ],
+                "sigmas": [
+                    1.69,
+                    1.69,
+                    2.4
+                ]
+            },
+            "orientation": {
+                "angles_deg": [
+                    3.3432,
+                    -5.2849554,
+                    9.345113
+                ],
+                "sigmas_deg": [
+                    0.0134,
+                    0.08482,
+                    0.016747
+                ]
+            }
+        },
+        {
+            "id": 78291034,
+            "geolocation": {
+                "position": [
+                    45.3949,
+                    10.38429,
+                    6.3892923
+                ],
+                "sigmas": [
+                    1.69,
+                    1.69,
+                    2.4
+                ]
+            },
+            "orientation": {
+                "angles_deg": [
+                    2.23443,
+                    -5.2849554,
+                    5.54335
+                ],
+                "sigmas_deg": [
+                    0.0134,
+                    0.08482,
+                    0.016747
+                ]
+            }
+        },
+        {
+            "id": 92840,
+            "geolocation": {
+                "position": [
+                    12.19394,
+                    22.2048393,
+                    11.193748
+                ],
+                "sigmas": [
+                    1.28947,
+                    1.2331,
+                    2.1923
+                ]
+            },
+            "orientation": {
+                "angles_deg": [
+                    -6.392785,
+                    3.28575,
+                    13.27483
+                ],
+                "sigmas_deg": [
+                    0.0134,
+                    0.08482,
+                    0.016747
+                ]
+            }
+        }
+    ]
+}
+```

@@ -1,0 +1,35 @@
+{
+    "$id": "calibrated_rig_relatives.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Calibrated rig relatives",
+    "description": "Calibrated rig relatives contain the optimised relative translations and rotations in processing CRS units.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "translation": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Relative translation in processing CRS units"
+        },
+        "rotation_angles_deg": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))"
+        },
+        "extensions": {}
+    },
+    "required": [
+        "translation",
+        "rotation_angles_deg"
+    ]
+}

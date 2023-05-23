@@ -1,0 +1,114 @@
+{
+    "$id": "input_control_points.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "1.0",
+    "title": " Input control points",
+    "description": "Definition of the input control points, which are the control points in their original CRS",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "format": {
+            "const": "application/opf-input-control-points+json",
+            "type": "string",
+            "description": "Required to be `\"opf-input-control-points+json\"`"
+        },
+        "version": {
+            "$ref": "version.schema.json"
+        },
+        "gcps": {
+            "type": "array",
+            "items": {
+                "$ref": "input_control_points.schema.json#/$defs/gcp"
+            },
+            "description": "List of input GCPs."
+        },
+        "mtps": {
+            "type": "array",
+            "items": {
+                "$ref": "input_control_points.schema.json#/$defs/mtp"
+            },
+            "description": "List of input MTPs."
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "gcps",
+        "mtps"
+    ],
+    "$defs": {
+        "gcp": {
+            "type": "object",
+            "title": "GCP",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique string that identifies the GCP."
+                },
+                "geolocation": {
+                    "$ref": "geolocation.schema.json"
+                },
+                "marks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "mark.schema.json"
+                    },
+                    "description": "List of marks in the images that correspond to the projections of a 3D point."
+                },
+                "is_checkpoint": {
+                    "type": "boolean",
+                    "description": "If true, the GCP is used only to measure the quality of the calibration results and it does not affect it."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "geolocation",
+                "marks",
+                "is_checkpoint"
+            ]
+        },
+        "mtp": {
+            "type": "object",
+            "title": "MTP",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "A unique string that identifies the MTP."
+                },
+                "marks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "mark.schema.json"
+                    },
+                    "description": "List of marks in the images that correspond to the projections of a 3D point."
+                },
+                "is_checkpoint": {
+                    "type": "boolean",
+                    "description": "If true, the MTP is used only to measure the quality of the calibration results and it does not affect it."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "marks",
+                "is_checkpoint"
+            ]
+        }
+    }
+}

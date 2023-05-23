@@ -1,0 +1,41 @@
+{
+    "$id": "rigid_transform.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "version": "1.0",
+    "title": "Rigid transformation with scaling",
+    "description": "Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p' via p' = scale * rotation * p + translation.",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "properties": {
+        "rotation_deg": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Rotation as Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))"
+        },
+        "translation": {
+            "allOf": [
+                {
+                    "$ref": "vector3d.schema.json"
+                }
+            ],
+            "description": "Translation in units of the processing CRS."
+        },
+        "scale": {
+            "type": "number",
+            "description": "Scale"
+        },
+        "extensions": {}
+    },
+    "required": [
+        "rotation_deg",
+        "translation",
+        "scale"
+    ]
+}

@@ -1,0 +1,305 @@
+{
+    "$id": "project.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Project",
+    "version": "1.0",
+    "description": "Project Structure",
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "property.schema.json"
+        }
+    ],
+    "required_resources_per_item_type": {
+        "constraints": [
+            "application/opf-constraints+json"
+        ],
+        "camera_list": [
+            "application/opf-camera-list+json"
+        ],
+        "input_cameras": [
+            "application/opf-input-cameras+json"
+        ],
+        "projected_input_cameras": [
+            "application/opf-projected-input-cameras+json"
+        ],
+        "input_control_points": [
+            "application/opf-input-control-points+json"
+        ],
+        "projected_control_points": [
+            "application/opf-projected-control-points+json"
+        ],
+        "scene_reference_frame": [],
+        "calibration": [
+            "application/opf-calibrated-cameras+json"
+        ],
+        "point_cloud": [
+            "model/gltf+json",
+            "application/gltf-buffer+bin"
+        ]
+    },
+    "optional_resources_per_item_type": {
+        "constraints": [],
+        "camera_list": [],
+        "input_cameras": [],
+        "projected_input_cameras": [],
+        "input_control_points": [],
+        "projected_control_points": [],
+        "scene_reference_frame": [
+            "application/opf-scene-reference-frame+json"
+        ],
+        "calibration": [
+            "application/opf-calibrated-control-points+json",
+            "application/opf-gps-bias+json",
+            "model/gltf+json",
+            "application/gltf-buffer+bin"
+        ],
+        "point_cloud": [
+            "model/gltf+json",
+            "application/gltf-buffer+bin"
+        ]
+    },
+    "required_sources_per_item_type": {
+        "camera_list": [],
+        "constraints": [
+            "input_control_points"
+        ],
+        "input_cameras": [
+            "camera_list"
+        ],
+        "projected_input_cameras": [
+            "scene_reference_frame",
+            "input_cameras"
+        ],
+        "input_control_points": [
+            "camera_list"
+        ],
+        "projected_control_points": [
+            "scene_reference_frame",
+            "input_control_points"
+        ],
+        "scene_reference_frame": [],
+        "calibration": [
+            "input_cameras",
+            "scene_reference_frame"
+        ],
+        "point_cloud": [
+            "scene_reference_frame"
+        ]
+    },
+    "optional_sources_per_item_type": {
+        "constraints": [],
+        "camera_list": [],
+        "input_cameras": [],
+        "projected_input_cameras": [],
+        "input_control_points": [],
+        "projected_control_points": [],
+        "scene_reference_frame": [],
+        "calibration": [
+            "constraints",
+            "projected_input_cameras",
+            "input_control_points",
+            "projected_control_points"
+        ],
+        "point_cloud": [
+            "calibration"
+        ]
+    },
+    "properties": {
+        "format": {
+            "type": "string",
+            "const": "application/opf-project+json",
+            "description": "Must be application/opf-project+json"
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^([0-9]+)\\.([0-9]+)(-[a-zA-Z0-9-.]+)?$",
+            "description": "The version of this specification as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`"
+        },
+        "name": {
+            "type": "string",
+            "description": "The name of the project"
+        },
+        "description": {
+            "type": "string",
+            "description": "The description of the project"
+        },
+        "generator": {
+            "description": "The generator of this project",
+            "$ref": "#/$defs/generator"
+        },
+        "id": {
+            "$ref": "uuid.schema.json"
+        },
+        "items": {
+            "type": "array",
+            "description": "The items contained in this project",
+            "items": {
+                "$ref": "#/$defs/item"
+            }
+        },
+        "extensions": {}
+    },
+    "required": [
+        "format",
+        "version",
+        "name",
+        "description",
+        "id",
+        "items"
+    ],
+    "$defs": {
+        "generator": {
+            "type": "object",
+            "title": "The generator of this project",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the generator"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The version of the generator`"
+                }
+            },
+            "required": [
+                "name",
+                "version"
+            ]
+        },
+        "item": {
+            "type": "object",
+            "title": "Project Item",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "uuid.schema.json"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of this item"
+                },
+                "type": {
+                    "anyOf": [
+                        {
+                            "enum": [
+                                "camera_list",
+                                "input_cameras",
+                                "projected_input_cameras",
+                                "scene_reference_frame",
+                                "input_control_points",
+                                "projected_control_points",
+                                "constraints",
+                                "calibration",
+                                "point_cloud"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Define the type of data represented by the item. Can be one of {{ schemas.project[\"$defs\"].item.properties.type.anyOf[0].enum }} or an extension type (starting with `ext_` see [naming convention](naming-convention))"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/resource"
+                    },
+                    "description": "The resources that constitute this item"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/source"
+                    },
+                    "description": "The sources of this item, that is the set of items this item depends on"
+                },
+                "labels": {
+                    "type": "array",
+                    "description": "Labels associated to the item in the format `<vendor>-key:value`. The `<vendor>` prefix should be lower case. The specification reserves the `opf` vendor prefix. In this version of the specification, the only specified key is `opf-origin` which indicates the origin of the data. Allowed values for the key `opf-origin` are `images` and `depth` which indicate that the corresponding item is derived from images and depth maps respectively.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "type",
+                "resources",
+                "sources"
+            ]
+        },
+        "resource": {
+            "type": "object",
+            "title": "Project Resource",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri-reference",
+                    "description": "URI reference of the resource file as specified by [RFC3986](https://www.rfc-editor.org/rfc/rfc3986). If the reference is relative, it is relative to the folder containing the present file"
+                },
+                "format": {
+                    "anyOf": [
+                        {
+                            "enum": [
+                                "application/opf-scene-reference-frame+json",
+                                "application/opf-camera-list+json",
+                                "application/opf-input-cameras+json",
+                                "application/opf-projected-input-cameras+json",
+                                "application/opf-input-control-points+json",
+                                "application/opf-projected-control-points+json",
+                                "application/opf-calibrated-control-points+json",
+                                "application/opf-constraints+json",
+                                "application/opf-calibrated-cameras+json",
+                                "application/opf-gps-bias+json",
+                                "model/gltf+json",
+                                "application/gltf-buffer+bin"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The storage format of this resource. Can be one of {{ schemas.project[\"$defs\"].resource.properties.format.anyOf[0].enum }} or an extension type (starting with `application/ext-` see [naming convention](naming-convention))"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "uri",
+                "format"
+            ]
+        },
+        "source": {
+            "type": "object",
+            "title": "Project Source",
+            "allOf": [
+                {
+                    "$ref": "property.schema.json"
+                }
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "uuid.schema.json"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "type"
+            ]
+        }
+    }
+}

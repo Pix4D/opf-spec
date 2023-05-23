@@ -1,0 +1,65 @@
+{
+    "$id": "point_cloud_mesh_primitive_matches.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OPF_mesh_primitive_matches",
+    "version": "1.0",
+    "description": "glTF extension storing the point matches",
+    "type": "object",
+    "properties": {
+        "cameraUids": {
+            "type": "array",
+            "description": "The camera UIDs referenced by the match camera ids",
+            "items": {
+                "$ref": "uid64.schema.json"
+            }
+        },
+        "cameraIds": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the accessor to the match camera ids. The referenced accessor type **MUST** be `SCALAR` and the component type `UNSIGNED INT`. Each value is not a camera UID, but an index referring a UID from the `cameraUids` array."
+        },
+        "pointIndexRanges": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the match index ranges accessor. The referred accessor type **MUST** be `VEC2` and the component type `UNSIGNED_INT`. Together the two 32-bit unsigned integers form a packed pair of 40-bit and 24-bit unsigned integers in little-endian order. The first integer of the pair is the match offset index within the matches. The second integer is the number of matches in the range. The referred accessor `count` must match that of the corresponding mesh primitive attribute `POSITION` referred accessor."
+        },
+        "imagePoints": {
+            "type": "object",
+            "description": "Collection of attributes for image points",
+            "properties": {
+                "pixelCoordinates": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "The index of the image point pixel coordinates accessor. The referred accessor type **MUST** be `VEC2` and the component type `FLOAT`. The First component of the vector corresponds to the image point column coordinate while the second corresponds to the image point row coordinate. The *(0, 0)* coordinate is located at the top left corner of the top left pixel and *(width, height)* at the bottom right corner of the bottom right pixel, where *width* and *height* are the sensor dimensions in pixels of the referred camera. The referred accessor `count` property must match that of the referred `groupCameraIds` accessor `count` property."
+                },
+                "featureIds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "The index of the referred image point feature ID accessor. The referred accessor type **MUST** be `VEC2` and the component type `UNSIGNED_INT`. Together the two 32-bit unsigned integers form a 64-bit unsigned integer in little-endian order. The referred accessor `count` property must match that of the `groupsCameraIds` accessor `count` property"
+                },
+                "scales": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "The index of the image point scale accessor. The scale is the diameter of the feature descriptor neighborhood used for the image point. The referred accessor type **MUST** be `SCALAR` and the component type `FLOAT`. The referred accessor `count` property must match that of the referred `groupCameraIds` accessor `count` property."
+                },
+                "depths": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "The index of the referred image point depth accessor. The referred accessor type **MUST** be `SCALAR` and the component type `FLOAT`. The referred accessor `count` property must match that of the `groupsCameraIds` accessor `count` property"
+                }
+            },
+            "required": [
+                "pixelCoordinates",
+                "featureIds",
+                "scales"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "cameraUids",
+        "cameraIds",
+        "pointIndexRanges"
+    ],
+    "additionalProperties": false
+}

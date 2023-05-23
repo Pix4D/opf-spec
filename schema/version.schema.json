@@ -1,0 +1,8 @@
+{
+    "$id": "version.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Version",
+    "description": "The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`",
+    "type": "string",
+    "pattern": "^([0-9]+)\\.([0-9]+)(-[a-zA-Z0-9-.]+)?$"
+}

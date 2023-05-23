@@ -1,0 +1,23 @@
+{
+    "$id": "point_cloud_mesh_primitive_custom_attributes.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OPF_mesh_primitive_custom_attributes",
+    "version": "1.0",
+    "description": "Extension storing extra custom point attribute",
+    "type": "object",
+    "properties": {
+        "attributes": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": {
+                "type": "integer",
+                "minimum": 0
+            },
+            "description": "The collection of attribute name and corresponding accessor index containing the custom attribute. The referred accessor `count` property **MUST** match that of the corresponding mesh primitive `POSITION` attribute"
+        }
+    },
+    "required": [
+        "attributes"
+    ],
+    "additionalProperties": false
+}

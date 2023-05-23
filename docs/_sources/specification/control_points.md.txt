@@ -1,0 +1,459 @@
+# Control Points
+
+This page specifies a common control point data format.
+
+## Definitions
+
+A **tie point** represents a set of image points that identify the projections of a 3D point with unknown 3D position in the scene. A Manual Tie Point (MTP) is a tie point with user provided points in the images.
+
+A **position constrained tie point** contains the known measured (prior) 3D-position of a point in the scene, together with the uncertainty on that measurement. A **Ground Control Point (GCP)** is a type of position constrained tie point.
+
+The GCP coordinates are defined in some CRS and the input coordinate axes follow the convention of the CRS definition.
+
+A **control point** is either a tie point or a position constrained tie point.
+
+A **checkpoint** is a control point that may be provided by the user for the sake of quality assessment. Checkpoints are not taken into account for calibration but used later to compute the re-projection error and the position error (in the case of a position constrained tie point).
+
+A **control point mark** is the association of a control point and an image. It has the following attributes:
+
+- position: the mark position in the image;
+- accuracy: number representing the accuracy of the click. This is used by the calibration algorithm to estimate the position error of the mark.
+
+In the image coordinate system, *(0, 0)* is located at the top left corner of the top left pixel and *(width, height)* at the bottom right corner of the bottom right pixel, where *width* and *height* are the sensor dimensions in pixels.
+The pixel matrix is considered relative to physical sensor, i.e., the display orientation tag shall not be taken into account.
+Unless otherwise stated, the same convention shall apply to any extension where positions on images are used.
+
+Control points exist in three variations:
+
+- [input control points](#format-specification-input-control-points): input points with coordinates expressed in their original CRS;
+- [projected control points](#format-specification-projected-control-points): input points with coordinates expressed in the [processing CRS](glossary.md#processing-crs);
+- [calibrated control points](#format-specification-calibrated-control-points): optimized points with coordinates expressed in the [processing CRS](glossary.md#processing-crs).
+
+The processing CRS is the translated canonical CRS implicitly defined by the [top level scene reference frame](project.md#top-level-scene-reference-frame).
+
+[Scale and orientation constraints](#format-specification-scale-and-orientation-constraints) can be added to calibration using control points:
+
+- a **scale constraint** is made of two control points and a measurement of the distance between the 3d corresponding points;
+- an **orientation constraint** is made of two control points and a constraint vector in the processing CRS. The calibration has to match the orientation and sense of the vector connecting the calibrated control point positions to the constraint vector.
+
+## File format
+
+Control point data are relatively small. We typically have a dozen/hundred of control points in a project and a dozen of marks per tie point.
+
+The control point data will be represented in JSON format.
+
+(input_control_points)=
+## Format specification: Input control points
+
+| Specification format                                         | Version                                      |
+| ------------------------------------------------------------ | -------------------------------------------- |
+| "application/opf-input-control-points+json" | "1.0" |
+
+
+
+---------------------------------------
+(control_points--input-control-points)=
+###  Input control points
+
+Definition of the input control points, which are the control points in their original CRS
+
+**` Input control points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"opf-input-control-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**gcps**|[`gcp`](control_points-gcp) `[]`|List of input GCPs.| &#10003; Yes|
+|**mtps**|[`mtp`](control_points-mtp) `[]`|List of input MTPs.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-crs)=
+### CRS
+
+Coordinate reference system
+
+**`CRS` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
+|**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-gcp)=
+### GCP
+
+**`GCP` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A unique string that identifies the GCP.| &#10003; Yes|
+|**geolocation**|[`geolocation`](control_points-geolocation)|Geolocation information| &#10003; Yes|
+|**marks**|[`mark`](control_points-mark) `[]`|List of marks in the images that correspond to the projections of a 3D point.| &#10003; Yes|
+|**is_checkpoint**|`boolean`|If true, the GCP is used only to measure the quality of the calibration results and it does not affect it.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-geolocation)=
+### Geolocation
+
+Geolocation information
+
+**`Geolocation` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**crs**|[`crs`](control_points-crs)|Coordinate reference system| &#10003; Yes|
+|**coordinates**|`number` `[3]`|3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are **not** always Easting-Northing.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion).| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-mark)=
+### Mark
+
+2D image mark
+
+**`Mark` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**camera_id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
+|**position_px**|`number` `[2]`|(x,y) pixel location, (0,0) is the top left corner of the top left pixel.| &#10003; Yes|
+|**accuracy**|`number`|A number representing the accuracy of the click, it is used by the calibration algorithm to estimate the position error of the mark.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-mtp)=
+### MTP
+
+**`MTP` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A unique string that identifies the MTP.| &#10003; Yes|
+|**marks**|[`mark`](control_points-mark) `[]`|List of marks in the images that correspond to the projections of a 3D point.| &#10003; Yes|
+|**is_checkpoint**|`boolean`|If true, the MTP is used only to measure the quality of the calibration results and it does not affect it.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+### Example
+
+```json
+{
+    "format": "application/opf-input-control-points+json",
+    "version": "1.0",
+    "gcps": [
+        {
+            "id": "gcp0",
+            "geolocation": {
+                "crs": {
+                    "definition": "EPSG:4265+5214",
+                    "geoid_height": 123
+                },
+                "coordinates": [
+                    1,
+                    2,
+                    3
+                ],
+                "sigmas": [
+                    5,
+                    5,
+                    10
+                ]
+            },
+            "marks": [
+                {
+                    "camera_id": 10000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 1.0
+                },
+                {
+                    "camera_id": 20000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 10.0
+                },
+                {
+                    "camera_id": 30000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 20.0
+                }
+            ],
+            "is_checkpoint": true
+        }
+    ],
+    "mtps": [
+        {
+            "id": "mtp0",
+            "marks": [
+                {
+                    "camera_id": 10000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 1.0
+                },
+                {
+                    "camera_id": 20000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 10.0
+                },
+                {
+                    "camera_id": 30000000,
+                    "position_px": [
+                        458,
+                        668
+                    ],
+                    "accuracy": 20.0
+                }
+            ],
+            "is_checkpoint": false
+        }
+    ]
+}
+```
+
+(projected_control_points)=
+## Format specification: Projected control points
+
+| Specification format                                             | Version                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------ |
+| "application/opf-projected-control-points+json" | "1.0" |
+
+
+
+---------------------------------------
+(control_points-projected-control-points)=
+### Projected control points
+
+Definition of projected control points, which are the input control points with coordinates expressed in the processing CRS
+
+**`Projected control points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"opf-projected-control-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**projected_gcps**|[`projected_gcp`](control_points-projected_gcp) `[]`|List of projected GCPs.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-projected_gcp)=
+### Projected GCP
+
+**`Projected GCP` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A string identifier that matches the correspondent input GCP.| &#10003; Yes|
+|**coordinates**|`number` `[3]`|3D position in the processing CRS.| &#10003; Yes|
+|**sigmas**|`number` `[3]`|Standard deviation of the 3D position in processing CRS units.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+### Example
+
+```json
+{
+    "format": "application/opf-projected-control-points+json",
+    "version": "1.0",
+    "projected_gcps": [
+        {
+            "id": "gcp0",
+            "coordinates": [
+                3859391,
+                103895,
+                384
+            ],
+            "sigmas": [
+                5,
+                5,
+                10
+            ]
+        }
+    ]
+}
+```
+
+(application/opf-calibrated-control-points+json-format)=
+## Format specification: Calibrated control points
+
+| Specification format                                              | Version                                           |
+| ----------------------------------------------------------------- | ------------------------------------------------- |
+| "application/opf-calibrated-control-points+json" | "1.0" |
+
+
+
+---------------------------------------
+(control_points--calibrated-control-points)=
+###  Calibrated control points
+
+Definition of calibrated control points, which are the optimised control points with coordinates expressed in the processing CRS.
+
+**` Calibrated control points` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"opf-calibrated-control-points+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**points**|[`calibrated_control_point`](control_points-calibrated_control_point) `[]`|List of calibrated control points.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-calibrated_control_point)=
+### Calibrated control point
+
+**`Calibrated control point` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A string identifier that matches the corresponding input control point.| &#10003; Yes|
+|**coordinates**|`number` `[3]`|Optimized 3D position in the processing CRS.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+### Example
+
+```json
+{
+    "format": "application/opf-calibrated-control-points+json",
+    "version": "1.0",
+    "points": [
+        {
+            "id": "gcp0",
+            "coordinates": [
+                3959232,
+                116595,
+                384
+            ]
+        },
+        {
+            "id": "mtp1",
+            "coordinates": [
+                3959500,
+                116595,
+                423
+            ]
+        }
+    ]
+}
+```
+(constraints)=
+## Format specification: Scale and orientation constraints
+
+| Specification format                                | Version                             |
+| --------------------------------------------------- | ----------------------------------- |
+| "application/opf-constraints+json" | "1.0" |
+
+
+
+---------------------------------------
+(control_points-constraints)=
+### Constraints
+
+Scale and orientation constraints
+
+**`Constraints` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**format**|`string`|Required to be `"opf-constraints+json"`| &#10003; Yes|
+|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
+|**scale_constraints**|[`scale_constraint`](control_points-scale_constraint) `[]`|List of scale constraints.| &#10003; Yes|
+|**orientation_constraints**|[`orientation_constraint`](control_points-orientation_constraint) `[]`|List of orientation constraints.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-orientation_constraint)=
+### Orientation constraint
+
+**`Orientation constraint` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A unique string that identifies the constraint.| &#10003; Yes|
+|**id_from**|`string`|A string identifier that matches the correspondent input control point.| &#10003; Yes|
+|**id_to**|`string`|A string identifier that matches the correspondent input control point.| &#10003; Yes|
+|**unit_vector**|`number` `[3]`|Direction in which the to-from vector has to point given as a unit vector in the processing CRS.| &#10003; Yes|
+|**sigma_deg**|`number`|Accuracy of the alignment expressed as the angle between the unit_vector and the to-from vector in degrees.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(control_points-scale_constraint)=
+### Scale constraint
+
+**`Scale constraint` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`string`|A unique string that identifies the constraint.| &#10003; Yes|
+|**id_from**|`string`|A string identifier that matches the correspondent input control point.| &#10003; Yes|
+|**id_to**|`string`|A string identifier that matches the correspondent input control point.| &#10003; Yes|
+|**distance**|`number`|Distance between the two control points in the processing CRS.| &#10003; Yes|
+|**sigma**|`number`|Distance accuracy in the processing CRS.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+### Example
+
+```json
+{
+    "format": "application/opf-constraints+json",
+    "version": "1.0",
+    "scale_constraints": [
+        {
+            "id": "sc1",
+            "id_from": "gcp0",
+            "id_to": "gcp1",
+            "distance": 1.23,
+            "sigma": 0.1
+        }
+    ],
+    "orientation_constraints": [
+        {
+            "id": "oc1",
+            "id_from": "gcp0",
+            "id_to": "gcp1",
+            "unit_vector": [
+                0,
+                0,
+                1
+            ],
+            "sigma_deg": 1.0
+        }
+    ]
+}
+```

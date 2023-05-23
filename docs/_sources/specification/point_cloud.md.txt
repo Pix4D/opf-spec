@@ -1,0 +1,693 @@
+(opf-gltf-format)=
+(model/gltf+json-format)=
+(application/gltf-buffer+bin-format)=
+# OPF-glTF point cloud
+
+The OPF-glTF point cloud file format aims at storing spatially partitioned point clouds such as the photogrammetric sparse point cloud (tracks) or the densified point cloud. In particular:
+* The data is all memory-mappable
+* The data is spatially partitioned
+* The layout enables efficient partial rendering (LOD)
+* The layout enables efficient processing (octree data structure)
+* The data can be expanded with new runtime-defined attributes
+* The points attributes can be mutated with the exception of points positions
+* To each point can be associated a variable number of image matches, for instance detected features
+
+The format uses a strict subset the [glTF file format](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html) specification and adds definitions of custom glTF extensions. Thus an OPF glTF pointcloud is a fully valid glTF file. However any glTF file is not necessarily a valid OPF glTF pointcloud.
+
+The format allows to store various pieces of information attached to a point cloud:
+* Spatial partitioning
+* Point attributes, both specified or custom.
+
+Specified point attributes are:
+* positions - the only required attribute
+* normals
+* colors
+* matches
+
+Matches associate points to a set of cameras where the points were matched. The match information comprises:
+* The range of indices of the matches associated to the point.
+* A camera per match.
+* Optionally an image point per match.
+
+An image point comprises:
+* pixel coordinates: the position of the image point feature on the image
+* feature index: an index of the detected feature
+* scale: the diameter of the feature descriptor neighborhood
+* optionally the depth
+
+| Specification format | Version of the format |
+| --- | --- |
+| "model/gltf+json" | "1.0-draft7" |
+
+## Format structure
+
+The OPF-glTF point cloud file format is a valid [glTF model](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-gltf). The format specifies the expected content. An OPF point cloud glTF file contains:
+* A [scene](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-scene) referenced by the `scene` root glTF property.
+* A collection of [root nodes](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#nodes-and-hierarchy) referenced in the `nodes` array property of the glTF scene. Each node may have a spatial transform attached by the nodes `matrix` property that transforms from the node internal coordinate system to the global scene one.
+* A collection of [meshes](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh) each referenced by the `mesh` property of the root nodes. Note that in glTF the geometric content is always referred as a "mesh", even if the geometry has no connectivity as is the case for a pointcloud. The collection of nodes and associated meshes corresponds to a collection of pointclouds.
+* For each mesh a unique [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) corresponding to the full point cloud contained within the mesh. The mesh primitive [mode](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_mode) must be set to `POINTS (0)`. There are no restriction on the size of the mesh primitives.
+* *[optional]* An [OPF_mesh_primitive_partitioning](../../../schema/point_cloud_mesh_primitive_partitioning.schema.json) extension appended to the mesh primitive extensions containing the spatial partitioning data.
+* *[optional]* An [OPF_mesh_primitive_matches](../../../schema/point_cloud_mesh_primitive_matches.schema.json) extension appended to the mesh primitives extensions containing the image matches associated to the points.
+* *[optional]* An [OPF_mesh_primitive_custom_attributes](../../../schema/point_cloud_mesh_primitive_custom_attributes.schema.json) extension appended to the mesh primitives extensions containing extra point custom attributes accessors.
+## Data layout
+Each node in the glTF file may have a different spatial transform attached allowing to store pointclouds in spatially separated portions. An example use-case for this is to allow the storage of pointclouds with very large spatial extent without precision loss due to single precision position storage, as the transforms may incorporate a spatial offset.
+
+If a glTF node contains spatial partitioning, then the points are expected to be written in a specific layout. Below is an illustration of the expected data layout and partitioning in 1D.
+![](../_static/chunked_spatial_partitioning.png)
+
+The node of the tree are indicated as grey boxes. The points are sampled in several "chunks", corresponding in the illustration to the 4 rows of points at the bottom. Each chunk is a uniform sample of the whole point cloud without repetition. The chunks are stored contiguously one after the other in the data referred by the unique [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive). Points within a chunk are Morton-ordered such that a range of points belonging to a node is embedded into the range of points belonging to its parent node. This layout is meant to allow efficient partial rendering and efficient processing.
+
+Given an octree structure, the process of ordering the points as above consists in partitioning the points belonging to a node into the 8 octants of the node children, and recursively perform the same operation for those. The process starts from the root node, to which all points belong.
+
+The above partitioning is stored into the [OPF_mesh_primitive_partitioning](../../../schema/point_cloud_mesh_primitive_partitioning.schema.json) extension.
+
+(opf-gltf-restrictions)=
+## glTF version, restrictions and constraints
+* The glTF asset.version property **must** be `2.0`
+* The glTF asset.extensions property **must** include the [OPF_asset_version](../../../schema/point_cloud_asset_version.schema.json) extension
+* The [GLB](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification) format, also known as `binary-gltf` is not supported.
+* The glTF file **shall not** embed base-64 encoded data blobs.
+* The glTF data buffers **must** reside in separate binary files and be referenced by [relative path URIs](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#uris) within the top-level glTF file. It follows that glTF buffer **must** have the [uri](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_buffer_uri) property set.
+* The glTF specification mandates that all referenced buffers **must** be in little-endian byte order.
+* glTF accessors with the [accessor.sparse](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-accessor-sparse) property set are not supported.
+* glTF accessors [type](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_accessor_type) **must** be `SCALAR`, `VEC2`, `VEC3` or `VEC4`, *i. e.* matrix types are not supported.
+* glTF buffer views **shall not** have the [byteStride](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_bufferview_bytestride) property and [glTF accessor](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-accessor) **shall not** have the `byteOffset` property, *i. e.* heterogeneous types interleaved fields are forbidden.
+* The glTF specification restricts data types to 32-bit or less integers. Floating point numbers are also constrained to single precision. In this specification we do need unsigned 64-bit integers. Those are simply represented as a vector of 2 unsigned 32-bit integers in little-endian byte order. The restriction on floating point precision has no impact on this specification.
+* Only a single [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) is supported per mesh.
+* The OPF point cloud glTF file **must** use and **must** require the `KHR_materials_unlit` extension.
+* An OPF point cloud mesh primitive `mode` **must** be `POINTS`.
+* An OPF point cloud mesh primitive material **must** reference a material using the `KHR_material_unlit` extension.
+* An OPF point cloud mesh primitive **must** have an attribute `POSITION`.
+* The accessor referenced by an OPF point cloud mesh primitive `POSITION` attribute **must** have the type `VEC3` and component type `FLOAT`.
+* The OPF point cloud mesh primitives **may** have the following attributes in addition to the positions:
+  | attribute | accessor | meaning |
+  | - | - | - |
+  | COLOR_0 | **type**: `VEC4`<br>**component type**: `UNSIGNED_BYTE` | The points color in RGBA quadruplet |
+  | NORMAL | **type**: `VEC3`<br>**component type**: `FLOAT` | The points normals |
+
+## OPF-glTF point cloud extensions
+
+The OPF-glTF point cloud uses extensions to store extra data in glTF format.
+
+## OPF_asset_version
+
+The extension stores the OPF format specification version
+
+
+
+---------------------------------------
+(point_cloud-opf_asset_version)=
+### OPF_asset_version
+
+glTF extension storing the OPF specification version
+
+**`OPF_asset_version` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**version**|`string`|The OPF version in the form of `<major>.<minor>` that this asset targets.| &#10003; Yes|
+
+
+## OPF_mesh_primitive_partitioning extension
+
+The extension extends the glTF [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) object storing the octree spatial data structure and point cloud chunks information:
+* The root bounding box, in the same coordinate system than the points stored in the mesh referenced by the node.
+* The octree node indices (level, i, j ,k) where level is the octree level and i, j and k correspond to the node integer coordinates in the x, y and z directions respectively.
+* The octree node children. The actual tree.
+* For each node and each chunk, the range of indices of the points belonging to the chunk and the bounded space corresponding to the node.
+
+The nodes are stored contiguously by level following a breadth-first-search order. An additional array of indices provides the index of the first node from each level, allowing to partially read the tree up to some level.
+
+
+
+---------------------------------------
+(point_cloud-opf_mesh_primitive_partitioning)=
+### OPF_mesh_primitive_partitioning
+
+glTF extension storing the spatial partitioning data structure
+
+**`OPF_mesh_primitive_partitioning` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**nodeIndices**|`integer`|The index of the accessor to the nodes indices. The referenced accessor type **MUST** be `VEC4` and the component type **MUST** be `UNSIGNED INT`. The elements are the octree nodes integer coordinates (level, x, y, z) stored contiguously by level following a breadth-first-search order. The accessor count field corresponds to the number of nodes within the octree. Nodes a hereby referred to by their index within this sequence.| &#10003; Yes|
+|**boundingBox**|`object`|minimum and maximum 3D coordinates| &#10003; Yes|
+|**childrenIndexing**|`integer`|The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeCoordinates` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids| &#10003; Yes|
+|**nodeLevelIndexing**|`integer` `[]`|The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeIndexing[l] + 1, ..., nodeIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one| &#10003; Yes|
+|**perNodeChunkIndexRanges**|`integer`|The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeCoordinates` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`| &#10003; Yes|
+|**nodeAttributes**|`object`|The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeCoordinates` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively.|No|
+
+
+## OPF_mesh_primitive_matches extension
+
+The extension extends the glTF [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) object associating, to each point, a group of image matches. The group of matches is given as a packed pair of a 40-bit and a 24-bit unsigned integers. The first integer refers to the match offset index within the collection of matches. The second integer is the number of matches in the range.
+
+
+
+---------------------------------------
+(point_cloud-opf_mesh_primitive_matches)=
+### OPF_mesh_primitive_matches
+
+glTF extension storing the point matches
+
+**`OPF_mesh_primitive_matches` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**cameraUids**|`integer` `[]`|The camera UIDs referenced by the match camera ids| &#10003; Yes|
+|**cameraIds**|`integer`|The index of the accessor to the match camera ids. The referenced accessor type **MUST** be `SCALAR` and the component type `UNSIGNED INT`. Each value is not a camera UID, but an index referring a UID from the `cameraUids` array.| &#10003; Yes|
+|**pointIndexRanges**|`integer`|The index of the match index ranges accessor. The referred accessor type **MUST** be `VEC2` and the component type `UNSIGNED_INT`. Together the two 32-bit unsigned integers form a packed pair of 40-bit and 24-bit unsigned integers in little-endian order. The first integer of the pair is the match offset index within the matches. The second integer is the number of matches in the range. The referred accessor `count` must match that of the corresponding mesh primitive attribute `POSITION` referred accessor.| &#10003; Yes|
+|**imagePoints**|`object`|Collection of attributes for image points|No|
+
+
+## OPF_mesh_primitive_custom_attributes extension
+
+The extension extends the glTF [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) object used to store any extra attribute, with any type as supported by glTF (note that any custom attribute added directly to the mesh primitive attribute would be required to be 4-bytes aligned which is too constraining).
+
+
+
+---------------------------------------
+(point_cloud-opf_mesh_primitive_custom_attributes)=
+### OPF_mesh_primitive_custom_attributes
+
+Extension storing extra custom point attribute
+
+**`OPF_mesh_primitive_custom_attributes` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**attributes**|`object`|The collection of attribute name and corresponding accessor index containing the custom attribute. The referred accessor `count` property **MUST** match that of the corresponding mesh primitive `POSITION` attribute| &#10003; Yes|
+
+
+## OPF-glTF point cloud parser support
+To parse an OPF-glTF point cloud, a parser is not required to support the whole glTF specification. We expose below what level of support is expected. Each field is marked as either *required*, *ignored*, *supported*, *unsupported* or *constrained*. The meaning of these is described below:
+| keyword | parser behavior |
+|---------|-----------------|
+| *glTF-required* | The field is required by the glTF specification. The parser **must** fail with an error if the field is not found |
+| *required* | The parser **may** fail with an error if the field is not found |
+| *ignored* | The parser **may** ignore the field completely |
+| *supported* | The parser **must** parse the field, yielding the field intended effect |
+| *unsupported* | The parser **may** choose to fail with an error if the field is encountered |
+| *constrained* | The parser **may** choose to fail with an error if the constraint is not met |
+
+With those definitions, any parser supporting the full glTF specification is a valid OPF-glTF point cloud parser. On the other hand, a valid OPF-glTF point cloud parser may choose to ignore some input or fail upon encountering glTF content outside of the subset specified hereby.
+
+### Asset
+| property | value | comment |
+|----------|--------|---------|
+| version  | **constrained** | **must** be "2.0" |
+| generator| **ignored** ||
+| minVersion | **ignored** ||
+| copyright  | **ignored** ||
+| extensions  | **constrained** | **must** include the [OPF_asset_version](../../../schema/point_cloud_asset_version.schema.json) extension|
+| extras     | **ignored** ||
+### Material
+| property | value | comment |
+|----------|--------|---------|
+| extensions | **constrained** | **must** include the `KHR_material_unlit` extension, this is the only material supported |
+| extras     | **ignored** ||
+| name       | **ignored** ||
+| pbrMetallicRoughness | **ignored** ||
+| normalTexture | **ignored** ||
+| occlusionTexture | **ignored** ||
+| emissiveTexture | **ignored** ||
+| emissiveFactor | **ignored** ||
+| alphaMode | **ignored** ||
+| alphaCutoff | **ignored** ||
+| doubleSided | **ignored** ||
+### Scene
+| property | value | comment |
+|----------|--------|---------|
+| nodes    | **supported** |  Each node corresponds to a pointcloud |
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| name | **ignored** ||
+### Node
+| property | value | comment |
+|----------|--------|---------|
+| mesh | **supported** ||
+| extensions | **ignored** ||
+| name | **ignored** ||
+| extras | **ignored** ||
+| camera | **ignored** ||
+| children | **ignored** ||
+| skin | **ignored** ||
+| matrix | **supported** | Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion with the following anti-clockwise rotation around the x-axis [[1, 0, 0, 0], [0, 0, -1, 0],[0, 1, 0, 0], [0, 0, 0 0]] defined here. |
+| rotation | **unsupported** | rotation support is covered by the affine matrix transform|
+| translation | **unsupported** | translation support is covered by the affine matrix transform |
+| weights | **ignored** ||
+### Mesh primitive
+| property | value | comment |
+|----------|--------|---------|
+| attributes | **constrained** | - **must** include `POSITION` <br> - **may** include `COLOR_0` <br> - **may** include `NORMAL` <br> - Any other field is ignored |
+| material | **constrained** | The referred material extensions **must** contain the `KHR_material_unlit` extensions |
+| extensions | **supported** | - **may** include `OPF_mesh_primitive_matches`<br> - **may** include `OPF_mesh_primitive_custom_attributes` <br> - **may** include the `OPF_mesh_primitive_partitioning` extension <br> - Any other extension is **ignored** |
+| mode | **constrained** | **must** be 1 (`POINTS` topology) |
+| extras | **ignored** ||
+| indices | **ignored** ||
+| targets | **ignored** ||
+### Mesh
+| property | value | comment |
+|----------|--------|---------|
+| primitives | **constrained** | - **must** contain a single mesh primitive<br> |
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| weights | **ignored** ||
+### Accessor
+| property | value | comment |
+|----------|--------|---------|
+| bufferView | **required** ||
+| componentType | **glTF-required** ||
+| count | **glTF-required** ||
+| type | **glTF-required** ||
+| min | **constrained** | The glTF specification mandates this field to be set for the accessor referred by the mesh primitives `POSITION` attribute.|
+| max | **constrained** | The glTF specification mandates this field to be set for the accessor referred by the mesh primitives `POSITION` attribute.|
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| byteOffset | **unsupported** | Interleaved attribute layout is not supported |
+| sparse | **unsupported** ||
+| normalized | **constrained** | **must** be set to `true` for the color accessor, **must** be set to false or be absent for any other accessor |
+### BufferView
+| property | value | comment |
+|----------|--------|---------|
+| buffer | **glTF-required** ||
+| byteLength | **glTF-required** ||
+| target | **constrained** | **must** be `34962` (`ARRAY_ELEMENT`) |
+| byteOffset | **supported** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| byteStride | **unsupported** | Only packed contiguous data layout is supported|
+### Buffer
+| property | value | comment |
+|----------|--------|---------|
+| uri | **constrained** | **must** be a relative path URI (see [relative path URI](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#uris) from the glTF specification) |
+| byteLength | **glTF-required** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+### glTF
+| property | value | comment |
+|----------|--------|---------|
+| asset | **glTF-required** ||
+| extensionsUsed | **supported** ||
+| extensionsRequired | **supported** ||
+| materials | **supported** ||
+| scenes | **supported** ||
+| scene | **supported** ||
+| nodes | **supported** ||
+| meshes | **supported** ||
+| accessors | **supported** ||
+| bufferViews | **supported** ||
+| buffers | **supported** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| animations | **ignored** ||
+| cameras | **ignored** ||
+| images | **ignored** ||
+| samples | **ignored** ||
+| textures | **ignored** ||
+| skins | **ignored** ||
+
+## Example
+
+[point_cloud.gltf](../../../examples/point_cloud/point_cloud.gltf)
+
+```json
+{
+   "accessors":[
+      {
+         "bufferView":0,
+         "componentType":5126,
+         "count":3074,
+         "max":[
+            0.9978801608085632,
+            0.9999374747276306,
+            0.999092161655426
+         ],
+         "min":[
+            -0.9999937415122986,
+            -0.9994049668312073,
+            -0.9999921917915344
+         ],
+         "type":"VEC3"
+      },
+      {
+         "bufferView":1,
+         "componentType":5126,
+         "count":3074,
+         "type":"VEC3"
+      },
+      {
+         "bufferView":2,
+         "componentType":5121,
+         "count":3074,
+         "normalized":true,
+         "type":"VEC4"
+      },
+      {
+         "bufferView":3,
+         "componentType":5125,
+         "count":10,
+         "type":"SCALAR"
+      },
+      {
+         "bufferView":4,
+         "componentType":5125,
+         "count":3074,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":5,
+         "componentType":5126,
+         "count":10,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":6,
+         "componentType":5125,
+         "count":10,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":7,
+         "componentType":5126,
+         "count":10,
+         "type":"SCALAR"
+      },
+      {
+         "bufferView":8,
+         "componentType":5126,
+         "count":10,
+         "type":"SCALAR"
+      },
+      {
+         "bufferView":9,
+         "componentType":5125,
+         "count":9,
+         "type":"VEC4"
+      },
+      {
+         "bufferView":10,
+         "componentType":5125,
+         "count":10,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":11,
+         "componentType":5125,
+         "count":18,
+         "type":"VEC4"
+      },
+      {
+         "bufferView":12,
+         "componentType":5125,
+         "count":9,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":13,
+         "componentType":5123,
+         "count":3074,
+         "type":"SCALAR"
+      },
+      {
+         "bufferView":14,
+         "componentType":5125,
+         "count":3074,
+         "type":"SCALAR"
+      },
+      {
+         "bufferView":15,
+         "componentType":5121,
+         "count":3074,
+         "type":"SCALAR"
+      }
+   ],
+   "asset":{
+      "extensions":{
+         "OPF_asset_version":{
+            "version":"1.0"
+         }
+      },
+      "generator":"Pix4D",
+      "version":"2.0"
+   },
+   "bufferViews":[
+      {
+         "buffer":0,
+         "byteLength":36888,
+         "target":34962
+      },
+      {
+         "buffer":1,
+         "byteLength":36888,
+         "target":34962
+      },
+      {
+         "buffer":2,
+         "byteLength":12296,
+         "target":34962
+      },
+      {
+         "buffer":3,
+         "byteLength":40,
+         "target":34962
+      },
+      {
+         "buffer":4,
+         "byteLength":24592,
+         "target":34962
+      },
+      {
+         "buffer":5,
+         "byteLength":80,
+         "target":34962
+      },
+      {
+         "buffer":6,
+         "byteLength":80,
+         "target":34962
+      },
+      {
+         "buffer":7,
+         "byteLength":40,
+         "target":34962
+      },
+      {
+         "buffer":8,
+         "byteLength":40,
+         "target":34962
+      },
+      {
+         "buffer":9,
+         "byteLength":144,
+         "target":34962
+      },
+      {
+         "buffer":9,
+         "byteLength":80,
+         "byteOffset":144,
+         "target":34962
+      },
+      {
+         "buffer":9,
+         "byteLength":288,
+         "byteOffset":296,
+         "target":34962
+      },
+      {
+         "buffer":9,
+         "byteLength":72,
+         "byteOffset":224,
+         "target":34962
+      },
+      {
+         "buffer":10,
+         "byteLength":6148,
+         "target":34962
+      },
+      {
+         "buffer":11,
+         "byteLength":12296,
+         "target":34962
+      },
+      {
+         "buffer":12,
+         "byteLength":3074,
+         "target":34962
+      }
+   ],
+   "buffers":[
+      {
+         "byteLength":36888,
+         "uri":"positions.bin"
+      },
+      {
+         "byteLength":36888,
+         "uri":"normals.bin"
+      },
+      {
+         "byteLength":12296,
+         "uri":"colors.bin"
+      },
+      {
+         "byteLength":40,
+         "uri":"matchCameraIds.bin"
+      },
+      {
+         "byteLength":24592,
+         "uri":"matchPointIndexRanges.bin"
+      },
+      {
+         "byteLength":80,
+         "uri":"matchPixelCoordinates.bin"
+      },
+      {
+         "byteLength":80,
+         "uri":"matchFeatureIds.bin"
+      },
+      {
+         "byteLength":40,
+         "uri":"matchScales.bin"
+      },
+      {
+         "byteLength":40,
+         "uri":"matchDepths.bin"
+      },
+      {
+         "byteLength":584,
+         "uri":"partitioning.bin"
+      },
+      {
+         "byteLength":6148,
+         "uri":"classes.bin"
+      },
+      {
+         "byteLength":12296,
+         "uri":"tags.bin"
+      },
+      {
+         "byteLength":3074,
+         "uri":"flags.bin"
+      }
+   ],
+   "extensionsRequired":[
+      "KHR_materials_unlit"
+   ],
+   "extensionsUsed":[
+      "KHR_materials_unlit",
+      "OPF_asset_version",
+      "OPF_mesh_primitive_custom_attributes",
+      "OPF_mesh_primitive_matches",
+      "OPF_mesh_primitive_partitioning"
+   ],
+   "materials":[
+      {
+         "extensions":{
+            "KHR_materials_unlit":{
+
+            }
+         }
+      }
+   ],
+   "meshes":[
+      {
+         "primitives":[
+            {
+               "attributes":{
+                  "COLOR_0":2,
+                  "NORMAL":1,
+                  "POSITION":0
+               },
+               "extensions":{
+                  "OPF_mesh_primitive_custom_attributes":{
+                     "attributes":{
+                        "class":13,
+                        "flag":15,
+                        "tag":14
+                     }
+                  },
+                  "OPF_mesh_primitive_matches":{
+                     "cameraIds":3,
+                     "cameraUids":[
+                        0,
+                        1,
+                        2,
+                        3
+                     ],
+                     "imagePoints":{
+                        "depths":8,
+                        "featureIds":6,
+                        "pixelCoordinates":5,
+                        "scales":7
+                     },
+                     "pointIndexRanges":4
+                  },
+                  "OPF_mesh_primitive_partitioning":{
+                     "boundingBox":{
+                        "max":[
+                           1.0,
+                           1.0,
+                           1.0
+                        ],
+                        "min":[
+                           -1.0,
+                           -1.0,
+                           -1.0
+                        ]
+                     },
+                     "childrenIndexing":10,
+                     "nodeAttributes":{
+                        "parent":12
+                     },
+                     "nodeCoordinates":9,
+                     "nodeLevelIndexing":[
+                        0,
+                        1,
+                        9
+                     ],
+                     "perNodeChunkIndexRanges":11
+                  }
+               },
+               "material":0,
+               "mode":0
+            }
+         ]
+      }
+   ],
+   "nodes":[
+      {
+         "matrix":[
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -1.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+         ],
+         "mesh":0
+      }
+   ],
+   "scene":0,
+   "scenes":[
+      {
+         "nodes":[
+            0
+         ]
+      }
+   ]
+}
+```

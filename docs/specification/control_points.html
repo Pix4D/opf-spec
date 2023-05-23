@@ -1,0 +1,1243 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Control Points &mdash; Open Photogrammetry Format Specification  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scene reference frame" href="../scene_reference_frame.html" />
+    <link rel="prev" title="Calibrated camera format" href="calibrated_cameras.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="globalNav">
+      <a class="homeLogo" href="../index.html">
+            
+            <li>Open Photogrammetry Format</li>
+      </a>
+      <ul>
+          <li class="version-switcher-placeholder"></li>
+      </ul>
+  </div>
+
+
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          </a>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <img class="searchIcon" src="../_static/search_icon.svg"/>
+    <input type="text" name="q" placeholder="Search docs..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project format specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="project.html#goal">Goal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#big-picture">Big picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-items">Project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#extension-mechanism-for-item-types-and-resource-formats">Extension mechanism for Item types and Resource formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="project.html#naming-convention">Naming convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#extension-example">Extension example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-specification">Project specification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project">Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-item">Project Item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-resource">Project Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#project-source">Project Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#the-generator-of-this-project">The generator of this project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#top-level-scene-reference-frame">Top level scene reference frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#ids">IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cameras.html">Cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="camera_list.html">Camera list format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#image-uid-generator-registry">Image UID Generator registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera-list">Camera list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="camera_list.html#uid-generator">UID generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input_cameras.html">Input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-cameras">Input cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#band-information">Band information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#camera">Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#capture-element">Capture element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#dynamic-pixel-range">Dynamic pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#geolocation">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#omega-phi-kappa-orientation">Omega-Phi-Kappa orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#pixel-range">Pixel range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#sensor-element">Sensor element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#spherical-internals">Spherical internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#yaw-pitch-roll-orientation">Yaw-Pitch-Roll orientation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="projected_input_cameras.html">Projected input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-input-camera">Projected input camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#capture">Capture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-geolocation">Projected geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-orientation">Projected orientation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projected_input_cameras.html#sensor">Sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Control Points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-format">File format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#format-specification-input-control-points">Format specification: Input control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#control-points-input-control-points">Input control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crs">CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gcp">GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geolocation">Geolocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mark">Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mtp">MTP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-specification-projected-control-points">Format specification: Projected control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#control-points-projected-control-points">Projected control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#projected-gcp">Projected GCP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-specification-calibrated-control-points">Format specification: Calibrated control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calibrated-control-points">Calibrated control points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calibrated-control-point">Calibrated control point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-specification-scale-and-orientation-constraints">Format specification: Scale and orientation constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#control-points-constraints">Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#orientation-constraint">Orientation constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scale-constraint">Scale constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scene_reference_frame.html">Scene reference frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame.html">Scene reference frame project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame_format.html">Scene reference frame format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#base-to-translated-canonical-crs-transform">Base to translated canonical CRS transform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame">Scene reference frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calibration.html">Calibration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">Calibration project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-cameras">Calibrated cameras</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-camera">Calibrated camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#calibrated-sensor">Calibrated sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#fisheye-internals">Fisheye internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#internals">Internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#perspective-internals">Perspective internals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#principal-point">Principal point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="calibrated_cameras.html#spherical-internals">Spherical internals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gps_bias.html">GPS bias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#format-specification">Format specification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#gps-bias-gps-bias">GPS bias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gps_bias.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="point_cloud.html">OPF-glTF point cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#format-structure">Format structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#data-layout">Data layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-extensions">OPF-glTF point cloud extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-asset-version">OPF_asset_version</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#point-cloud-opf-asset-version">OPF_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-partitioning-extension">OPF_mesh_primitive_partitioning extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-partitioning">OPF_mesh_primitive_partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-matches-extension">OPF_mesh_primitive_matches extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-matches">OPF_mesh_primitive_matches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-custom-attributes-extension">OPF_mesh_primitive_custom_attributes extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-custom-attributes">OPF_mesh_primitive_custom_attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-parser-support">OPF-glTF point cloud parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#material">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../annexes.html">Annexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary_objects.html">Auxiliary objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#coordinate-reference-system-definition">Coordinate reference system definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#crs">CRS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#geolocation">Geolocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#id1">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#auxiliary-objects-geolocation">Geolocation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rigid-transform-with-scaling">Rigid transform with scaling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rigid-transformation-with-scaling">Rigid transformation with scaling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#canonical-reference-system">Canonical reference system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#coordinate-reference-system-crs">Coordinate reference system (CRS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#processing-crs">Processing CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#scene-reference-frame">Scene reference frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#spatial-reference-system">Spatial reference system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#acronyms">Acronyms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Open Photogrammetry Format Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li>OPF /</li>
+
+      <li>
+        Version  /
+      </li>
+
+      <li class="dateInfo">None</li>
+
+        
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/specification/control_points.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="control-points">
+<h1>Control Points<a class="headerlink" href="#control-points" title="Permalink to this headline">¶</a></h1>
+<p>This page specifies a common control point data format.</p>
+<div class="section" id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>tie point</strong> represents a set of image points that identify the projections of a 3D point with unknown 3D position in the scene. A Manual Tie Point (MTP) is a tie point with user provided points in the images.</p>
+<p>A <strong>position constrained tie point</strong> contains the known measured (prior) 3D-position of a point in the scene, together with the uncertainty on that measurement. A <strong>Ground Control Point (GCP)</strong> is a type of position constrained tie point.</p>
+<p>The GCP coordinates are defined in some CRS and the input coordinate axes follow the convention of the CRS definition.</p>
+<p>A <strong>control point</strong> is either a tie point or a position constrained tie point.</p>
+<p>A <strong>checkpoint</strong> is a control point that may be provided by the user for the sake of quality assessment. Checkpoints are not taken into account for calibration but used later to compute the re-projection error and the position error (in the case of a position constrained tie point).</p>
+<p>A <strong>control point mark</strong> is the association of a control point and an image. It has the following attributes:</p>
+<ul class="simple">
+<li><p>position: the mark position in the image;</p></li>
+<li><p>accuracy: number representing the accuracy of the click. This is used by the calibration algorithm to estimate the position error of the mark.</p></li>
+</ul>
+<p>In the image coordinate system, <em>(0, 0)</em> is located at the top left corner of the top left pixel and <em>(width, height)</em> at the bottom right corner of the bottom right pixel, where <em>width</em> and <em>height</em> are the sensor dimensions in pixels.
+The pixel matrix is considered relative to physical sensor, i.e., the display orientation tag shall not be taken into account.
+Unless otherwise stated, the same convention shall apply to any extension where positions on images are used.</p>
+<p>Control points exist in three variations:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#format-specification-input-control-points"><span class="std std-doc">input control points</span></a>: input points with coordinates expressed in their original CRS;</p></li>
+<li><p><a class="reference internal" href="#format-specification-projected-control-points"><span class="std std-doc">projected control points</span></a>: input points with coordinates expressed in the <a class="reference internal" href="glossary.html#processing-crs"><span class="std std-doc">processing CRS</span></a>;</p></li>
+<li><p><a class="reference internal" href="#format-specification-calibrated-control-points"><span class="std std-doc">calibrated control points</span></a>: optimized points with coordinates expressed in the <a class="reference internal" href="glossary.html#processing-crs"><span class="std std-doc">processing CRS</span></a>.</p></li>
+</ul>
+<p>The processing CRS is the translated canonical CRS implicitly defined by the <a class="reference internal" href="project.html#top-level-scene-reference-frame"><span class="std std-doc">top level scene reference frame</span></a>.</p>
+<p><a class="reference internal" href="#format-specification-scale-and-orientation-constraints"><span class="std std-doc">Scale and orientation constraints</span></a> can be added to calibration using control points:</p>
+<ul class="simple">
+<li><p>a <strong>scale constraint</strong> is made of two control points and a measurement of the distance between the 3d corresponding points;</p></li>
+<li><p>an <strong>orientation constraint</strong> is made of two control points and a constraint vector in the processing CRS. The calibration has to match the orientation and sense of the vector connecting the calibrated control point positions to the constraint vector.</p></li>
+</ul>
+</div>
+<div class="section" id="file-format">
+<h2>File format<a class="headerlink" href="#file-format" title="Permalink to this headline">¶</a></h2>
+<p>Control point data are relatively small. We typically have a dozen/hundred of control points in a project and a dozen of marks per tie point.</p>
+<p>The control point data will be represented in JSON format.</p>
+</div>
+<div class="section" id="format-specification-input-control-points">
+<span id="input-control-points"></span><h2>Format specification: Input control points<a class="headerlink" href="#format-specification-input-control-points" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“application/opf-input-control-points+json”</p></td>
+<td><p>“1.0”</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="section" id="control-points-input-control-points">
+<span id="id1"></span><h3>Input control points<a class="headerlink" href="#control-points-input-control-points" title="Permalink to this headline">¶</a></h3>
+<p>Definition of the input control points, which are the control points in their original CRS</p>
+<p><strong><code class="docutils literal notranslate"> <span class="pre">Input</span> <span class="pre">control</span> <span class="pre">points</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Required to be <code class="docutils literal notranslate"><span class="pre">&quot;opf-input-control-points+json&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of this schema as <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code>. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR-tag</span></code>. Examples: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0-draft1</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>gcps</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-gcp"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">gcp</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of input GCPs.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>mtps</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-mtp"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">mtp</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of input MTPs.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="crs">
+<span id="control-points-crs"></span><h3>CRS<a class="headerlink" href="#crs" title="Permalink to this headline">¶</a></h3>
+<p>Coordinate reference system</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">CRS</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>definition</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>One of:<br>- A <a class="reference external" href="http://docs.opengeospatial.org/is/18-010r7/18-010r7.html">WKT string version 2</a>.<br>- A string in the format <code class="docutils literal notranslate"><span class="pre">Authority:code+code</span></code> where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. <code class="docutils literal notranslate"><span class="pre">EPSG:4326+5773</span></code>). .<br>- A string in the form <code class="docutils literal notranslate"><span class="pre">Authority:code+Authority:code</span></code> where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form <code class="docutils literal notranslate"><span class="pre">Authority:code</span></code> where the code is for a 2D or 3D CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>geoid_height</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="gcp">
+<span id="control-points-gcp"></span><h3>GCP<a class="headerlink" href="#gcp" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">GCP</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A unique string that identifies the GCP.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>geolocation</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-geolocation"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">geolocation</span></code></span></a></p></td>
+<td><p>Geolocation information</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>marks</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-mark"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">mark</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of marks in the images that correspond to the projections of a 3D point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>is_checkpoint</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>If true, the GCP is used only to measure the quality of the calibration results and it does not affect it.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="geolocation">
+<span id="control-points-geolocation"></span><h3>Geolocation<a class="headerlink" href="#geolocation" title="Permalink to this headline">¶</a></h3>
+<p>Geolocation information</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Geolocation</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>crs</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-crs"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">crs</span></code></span></a></p></td>
+<td><p>Coordinate reference system</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>coordinates</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are <strong>not</strong> always Easting-Northing.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>sigmas</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion).</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="mark">
+<span id="control-points-mark"></span><h3>Mark<a class="headerlink" href="#mark" title="Permalink to this headline">¶</a></h3>
+<p>2D image mark</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Mark</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>camera_id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>Unique identifier as unsigned 64 bit integer.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>position_px</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[2]</span></code></p></td>
+<td><p>(x,y) pixel location, (0,0) is the top left corner of the top left pixel.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>accuracy</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>A number representing the accuracy of the click, it is used by the calibration algorithm to estimate the position error of the mark.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="mtp">
+<span id="control-points-mtp"></span><h3>MTP<a class="headerlink" href="#mtp" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">MTP</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A unique string that identifies the MTP.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>marks</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-mark"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">mark</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of marks in the images that correspond to the projections of a 3D point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>is_checkpoint</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
+<td><p>If true, the MTP is used only to measure the quality of the calibration results and it does not affect it.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-input-control-points+json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;gcps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;geolocation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;crs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;definition&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EPSG:4265+5214&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;geoid_height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                    </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                    </span><span class="mi">3</span>
+<span class="w">                </span><span class="p">],</span>
+<span class="w">                </span><span class="nt">&quot;sigmas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                    </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                    </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                    </span><span class="mi">10</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;marks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">20.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;is_checkpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;mtps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mtp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;marks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;camera_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30000000</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;position_px&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="mi">458</span><span class="p">,</span>
+<span class="w">                        </span><span class="mi">668</span>
+<span class="w">                    </span><span class="p">],</span>
+<span class="w">                    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">20.0</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;is_checkpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="format-specification-projected-control-points">
+<span id="projected-control-points"></span><h2>Format specification: Projected control points<a class="headerlink" href="#format-specification-projected-control-points" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“application/opf-projected-control-points+json”</p></td>
+<td><p>“1.0”</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="section" id="control-points-projected-control-points">
+<span id="id2"></span><h3>Projected control points<a class="headerlink" href="#control-points-projected-control-points" title="Permalink to this headline">¶</a></h3>
+<p>Definition of projected control points, which are the input control points with coordinates expressed in the processing CRS</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">control</span> <span class="pre">points</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Required to be <code class="docutils literal notranslate"><span class="pre">&quot;opf-projected-control-points+json&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of this schema as <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code>. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR-tag</span></code>. Examples: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0-draft1</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>projected_gcps</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-projected-gcp"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">projected_gcp</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of projected GCPs.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="projected-gcp">
+<span id="control-points-projected-gcp"></span><h3>Projected GCP<a class="headerlink" href="#projected-gcp" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">GCP</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the correspondent input GCP.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>coordinates</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>3D position in the processing CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>sigmas</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>Standard deviation of the 3D position in processing CRS units.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-control-points+json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;projected_gcps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mi">3859391</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">103895</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">384</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sigmas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">10</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="format-specification-calibrated-control-points">
+<span id="application-opf-calibrated-control-points-json-format"></span><h2>Format specification: Calibrated control points<a class="headerlink" href="#format-specification-calibrated-control-points" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“application/opf-calibrated-control-points+json”</p></td>
+<td><p>“1.0”</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="section" id="calibrated-control-points">
+<span id="control-points-calibrated-control-points"></span><h3>Calibrated control points<a class="headerlink" href="#calibrated-control-points" title="Permalink to this headline">¶</a></h3>
+<p>Definition of calibrated control points, which are the optimised control points with coordinates expressed in the processing CRS.</p>
+<p><strong><code class="docutils literal notranslate"> <span class="pre">Calibrated</span> <span class="pre">control</span> <span class="pre">points</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Required to be <code class="docutils literal notranslate"><span class="pre">&quot;opf-calibrated-control-points+json&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of this schema as <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code>. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR-tag</span></code>. Examples: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0-draft1</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>points</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-calibrated-control-point"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">calibrated_control_point</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of calibrated control points.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="calibrated-control-point">
+<span id="control-points-calibrated-control-point"></span><h3>Calibrated control point<a class="headerlink" href="#calibrated-control-point" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Calibrated</span> <span class="pre">control</span> <span class="pre">point</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the corresponding input control point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>coordinates</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>Optimized 3D position in the processing CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-calibrated-control-points+json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;points&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mi">3959232</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">116595</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">384</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mtp1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mi">3959500</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">116595</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">423</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="format-specification-scale-and-orientation-constraints">
+<span id="constraints"></span><h2>Format specification: Scale and orientation constraints<a class="headerlink" href="#format-specification-scale-and-orientation-constraints" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification format</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“application/opf-constraints+json”</p></td>
+<td><p>“1.0”</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="section" id="control-points-constraints">
+<span id="id5"></span><h3>Constraints<a class="headerlink" href="#control-points-constraints" title="Permalink to this headline">¶</a></h3>
+<p>Scale and orientation constraints</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Constraints</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>format</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>Required to be <code class="docutils literal notranslate"><span class="pre">&quot;opf-constraints+json&quot;</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>version</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>The version of this schema as <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR</span></code>. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR-tag</span></code>. Examples: <code class="docutils literal notranslate"><span class="pre">0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.0-draft1</span></code></p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>scale_constraints</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-scale-constraint"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">scale_constraint</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of scale constraints.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>orientation_constraints</strong></p></td>
+<td><p><a class="reference internal" href="#control-points-orientation-constraint"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">orientation_constraint</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td><p>List of orientation constraints.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="orientation-constraint">
+<span id="control-points-orientation-constraint"></span><h3>Orientation constraint<a class="headerlink" href="#orientation-constraint" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Orientation</span> <span class="pre">constraint</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A unique string that identifies the constraint.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>id_from</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the correspondent input control point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>id_to</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the correspondent input control point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>unit_vector</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
+<td><p>Direction in which the to-from vector has to point given as a unit vector in the processing CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>sigma_deg</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>Accuracy of the alignment expressed as the angle between the unit_vector and the to-from vector in degrees.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+<div class="section" id="scale-constraint">
+<span id="control-points-scale-constraint"></span><h3>Scale constraint<a class="headerlink" href="#scale-constraint" title="Permalink to this headline">¶</a></h3>
+<p><strong><code class="docutils literal notranslate"><span class="pre">Scale</span> <span class="pre">constraint</span></code> Properties</strong></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>id</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A unique string that identifies the constraint.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>id_from</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the correspondent input control point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>id_to</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">string</span></code></p></td>
+<td><p>A string identifier that matches the correspondent input control point.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>distance</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>Distance between the two control points in the processing CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>sigma</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">number</span></code></p></td>
+<td><p>Distance accuracy in the processing CRS.</p></td>
+<td><p>✓ Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>extensions</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+<td><p>JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-constraints+json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;scale_constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sc1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;distance&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.23</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;sigma&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;orientation_constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;oc1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id_from&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp0&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;id_to&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gcp1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;unit_vector&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="mi">1</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sigma_deg&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../scene_reference_frame.html" class="btn btn-neutral float-right" title="Scene reference frame" accesskey="n" rel="next">Next</a>
+      
+      
+        <a href="calibrated_cameras.html" class="btn btn-neutral" title="Calibrated camera format" accesskey="p" rel="prev">Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2023, Pix4D.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+  
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  <script type="text/javascript" src="/server/switcher.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
