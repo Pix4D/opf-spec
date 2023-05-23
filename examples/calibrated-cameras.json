@@ -1,0 +1,130 @@
+{
+    "format": "application/opf-calibrated-cameras+json",
+    "version": "1.0",
+    "cameras": [
+        {
+            "id": 47292894,
+            "orientation_deg": [
+                3.3432,
+                -5.2849554,
+                9.345113
+            ],
+            "position": [
+                483.054,
+                13.957,
+                28.12
+            ],
+            "sensor_id": 18493134
+        },
+        {
+            "id": 57282923,
+            "orientation_deg": [
+                2.35224,
+                -4.4422,
+                9.03452
+            ],
+            "position": [
+                483.04,
+                13.972,
+                28.12
+            ],
+            "sensor_id": 21845677
+        },
+        {
+            "id": 28493939,
+            "orientation_deg": [
+                1.4753,
+                10.5839,
+                -2.94832
+            ],
+            "position": [
+                243.054,
+                521.957,
+                31.12
+            ],
+            "sensor_id": 57282113
+        }
+    ],
+    "sensors": [
+        {
+            "id": 18493134,
+            "internals": {
+                "affine": [
+                    1676.296432,
+                    0.0,
+                    0.0,
+                    1676.296432
+                ],
+                "is_p0_zero": true,
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "principal_point_px": [
+                    634.45,
+                    481.23
+                ],
+                "type": "fisheye"
+            }
+        },
+        {
+            "id": 21845677,
+            "internals": {
+                "affine": [
+                    1637.34211,
+                    0.0,
+                    0.0,
+                    1637.34211
+                ],
+                "is_p0_zero": true,
+                "is_symmetric_affine": true,
+                "polynomial": [
+                    0.0,
+                    1.0,
+                    0.0152646,
+                    -0.161096
+                ],
+                "principal_point_px": [
+                    641.12,
+                    479.65
+                ],
+                "type": "fisheye"
+            },
+            "rig_relatives": {
+                "rotation_angles_deg": [
+                    -0.456,
+                    1.027483,
+                    0.39229
+                ],
+                "translation": [
+                    -0.015,
+                    0.015,
+                    0.0
+                ]
+            }
+        },
+        {
+            "id": 57282113,
+            "internals": {
+                "principal_point_px": [
+                    3001.23,
+                    2011.2434
+                ],
+                "focal_length_px": 5312.353,
+                "radial_distortion": [
+                    -0.01444223,
+                    0.012321123,
+                    -2.13311e-05
+                ],
+                "tangential_distortion": [
+                    0.001239402,
+                    0.000432234
+                ],
+                "type": "perspective"
+            }
+        }
+    ]
+}

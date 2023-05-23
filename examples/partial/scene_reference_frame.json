@@ -1,0 +1,11 @@
+{
+    "id": "ea9c18a5-3c7a-4f16-b54c-b122bc413e68",
+    "type": "scene_reference_frame",
+    "sources": [],
+    "resources": [
+        {
+            "uri": "processing_spatial_reference.json",
+            "format": "application/opf-scene-reference-frame+json"
+        }
+    ]
+}

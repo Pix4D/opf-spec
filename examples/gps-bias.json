@@ -1,0 +1,17 @@
+{
+    "format": "application/opf-gps-bias+json",
+    "version": "1.0",
+    "transform": {
+        "rotation_deg": [
+            1.3256,
+            -2.1467,
+            1.6216
+        ],
+        "translation": [
+            5.302,
+            3.089,
+            -35.246
+        ],
+        "scale": 1.0
+    }
+}
