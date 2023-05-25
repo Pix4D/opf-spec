@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification  documentation</title>
+  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification 1.0.2 documentation</title>
   
 
   
@@ -44,7 +44,7 @@
   <div class="globalNav">
       <a class="homeLogo" href="#">
             
-            <li>Open Photogrammetry Format</li>
+            Open Photogrammetry Format
       </a>
       <ul>
           <li class="version-switcher-placeholder"></li>
@@ -386,10 +386,10 @@
       <li>OPF /</li>
 
       <li>
-        Version  /
+        Version 1.0.2 /
       </li>
 
-      <li class="dateInfo">None</li>
+      <li class="dateInfo">May 2023</li>
 
         
     
@@ -397,8 +397,6 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -421,16 +419,16 @@ The specification is open and free and aims at making it easy to store, exchange
 </div>
 <div class="section" id="features">
 <h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
+<ul>
 <li><p>Based as much as possible on simple human readable JSON files, leverage efficient binary formats where a text-based representation would be impractical (for example for the point cloud data)</p></li>
 <li><p>OPF organizes photogrammetry data in a structured manner, allowing for easy access and retrieval of information.</p></li>
-<li><dl class="simple">
-<dt>The data model includes information on both input and output of the photogrametry process:</dt><dd><ul>
+<li><p>The data model includes information on both input and output of the photogrametry process:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>The input data include information about input cameras (camera list, input camera parameters), coordinate reference system, control points, scale and orientation constraints, etc.</p></li>
 <li><p>The output data include information about camera calibration (sparse point cloud, calibrated cameras) and the dense reconstructed point clouds.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 <li><p>Efficient Storage of point clouds: The point cloud format for ATPs (sparse point cloud) and dense point cloud included in this specification is based on the open standard <a class="reference external" href="https://www.khronos.org/gltf/">GlTF</a> and is designed to be memory-mappable and spatially partitioned, enabling both efficient processing and progressive rendering of massive point clouds. The format retains information on the point visibiliy on images, normals, custom attributes, and more.</p></li>
 <li><p>Flexible Extension System: OPF is designed to be highly extensible and customizable, allowing for easy expansion of data representation as needed.</p></li>
@@ -455,14 +453,14 @@ The specification is open and free and aims at making it easy to store, exchange
 <div class="section" id="existing-tooling">
 <h1>Existing tooling<a class="headerlink" href="#existing-tooling" title="Permalink to this headline">¶</a></h1>
 <p>We try to maintain here a non-comprehensive list of tools that implement the OPF specification. If you have a tool that implements OPF and  you would like it to be listed here, please reach out to us!</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>The <a class="reference external" href="https://github.com/Pix4D/opf-spec">OPF GitHub</a> repository, containing</dt><dd><ul>
+<ul>
+<li><p>The <a class="reference external" href="https://github.com/Pix4D/opf-spec">OPF GitHub</a> repository, containing</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>the source of the <a class="reference external" href="https://github.com/Pix4D/opf-spec/tree/main/docs">the OPF specification and documentation</a>.</p></li>
 <li><p>JSON <a class="reference external" href="https://github.com/Pix4D/opf-spec/tree/main/schema">schemas</a>.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </li>
 <li><p><a class="reference external" href="https://www.pix4d.com/download/pix4dmatic/">Pix4Dmatic</a> (commercial software). Minimum version required: v1.46.</p></li>
 </ul>
