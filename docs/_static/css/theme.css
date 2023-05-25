@@ -192,8 +192,8 @@ input[type="text"], input[type="password"], input[type="email"], input[type="url
 }
 .globalNav a.homeLogo {
     float: left;
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 24px;
     line-height: 48px;
     padding-right: 18px;
 }

@@ -17,8 +17,10 @@ Features
 - Based as much as possible on simple human readable JSON files, leverage efficient binary formats where a text-based representation would be impractical (for example for the point cloud data)
 - OPF organizes photogrammetry data in a structured manner, allowing for easy access and retrieval of information.
 - The data model includes information on both input and output of the photogrametry process:
+
    - The input data include information about input cameras (camera list, input camera parameters), coordinate reference system, control points, scale and orientation constraints, etc.
    - The output data include information about camera calibration (sparse point cloud, calibrated cameras) and the dense reconstructed point clouds.
+
 - Efficient Storage of point clouds: The point cloud format for ATPs (sparse point cloud) and dense point cloud included in this specification is based on the open standard `GlTF <https://www.khronos.org/gltf/>`_ and is designed to be memory-mappable and spatially partitioned, enabling both efficient processing and progressive rendering of massive point clouds. The format retains information on the point visibiliy on images, normals, custom attributes, and more.
 - Flexible Extension System: OPF is designed to be highly extensible and customizable, allowing for easy expansion of data representation as needed.
 - OPF will be improved on an on-going basis to support additional photogrammetric outputs.
@@ -51,8 +53,10 @@ Existing tooling
 We try to maintain here a non-comprehensive list of tools that implement the OPF specification. If you have a tool that implements OPF and  you would like it to be listed here, please reach out to us!
 
 - The `OPF GitHub <https://github.com/Pix4D/opf-spec>`_ repository, containing
+
    - the source of the `the OPF specification and documentation <https://github.com/Pix4D/opf-spec/tree/main/docs>`_.
    - JSON `schemas <https://github.com/Pix4D/opf-spec/tree/main/schema>`_.
+
 - `Pix4Dmatic <https://www.pix4d.com/download/pix4dmatic/>`_ (commercial software). Minimum version required: v1.46.
 
 Citation
@@ -60,7 +64,7 @@ Citation
 
 If you use the OPF specification in your research or projects, we kindly request that you cite it as follows:
 
-`The Open Photogrammetry Format Specification, Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha, Pix4D, 2023, retrived from http://developer.pix4d.com/opf-spec/`
+`The Open Photogrammetry Format Specification, Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha, Pix4D, 2023, retrived from https://pix4d.github.io/opf-spec/`
 
 
 License
