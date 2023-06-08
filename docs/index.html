@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification 1.0.2 documentation</title>
+  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
   
 
   
@@ -386,10 +386,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.2 /
+        Version 1.0.3 /
       </li>
 
-      <li class="dateInfo">May 2023</li>
+      <li class="dateInfo">June 2023</li>
 
         
     
@@ -415,7 +415,8 @@
 <div class="section" id="what-is-opf">
 <h1>What is OPF?<a class="headerlink" href="#what-is-opf" title="Permalink to this headline">¶</a></h1>
 <p>OPF is the specification for a standardized file format designed for photogrammetry data.
-The specification is open and free and aims at making it easy to store, exchange, and collaborate on photogrammetric data between different parties and software products.</p>
+The specification is open and free and aims at making it easy to store, exchange, and collaborate on photogrammetric data between different parties and software products.
+Typically, a project is made of a “project container” file (<cite>.opf</cite>) which references the other project components, such as the files storing the camera parameters or point clouds.</p>
 </div>
 <div class="section" id="features">
 <h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
@@ -462,7 +463,8 @@ The specification is open and free and aims at making it easy to store, exchange
 </ul>
 </div></blockquote>
 </li>
-<li><p><a class="reference external" href="https://www.pix4d.com/download/pix4dmatic/">Pix4Dmatic</a> (commercial software). Minimum version required: v1.46.</p></li>
+<li><p><a class="reference external" href="https://www.pix4d.com/download/pix4dmatic/">Pix4Dmatic</a> (commercial software, free for visualisation). Minimum version required: v1.46.</p></li>
+<li><p>Python <a class="reference external" href="https://github.com/Pix4D/pyopf">library and tooling</a> (open source).</p></li>
 </ul>
 </div>
 <div class="section" id="citation">
@@ -527,8 +529,6 @@ To report issues related to specific Pix4D product support, please reach out thr
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
-        <script>mermaid.initialize({startOnLoad:true});</script>
     
 
   

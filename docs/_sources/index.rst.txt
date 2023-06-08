@@ -10,6 +10,7 @@ What is OPF?
 
 OPF is the specification for a standardized file format designed for photogrammetry data.
 The specification is open and free and aims at making it easy to store, exchange, and collaborate on photogrammetric data between different parties and software products.
+Typically, a project is made of a "project container" file (`.opf`) which references the other project components, such as the files storing the camera parameters or point clouds.
 
 Features
 ==========
@@ -57,7 +58,9 @@ We try to maintain here a non-comprehensive list of tools that implement the OPF
    - the source of the `the OPF specification and documentation <https://github.com/Pix4D/opf-spec/tree/main/docs>`_.
    - JSON `schemas <https://github.com/Pix4D/opf-spec/tree/main/schema>`_.
 
-- `Pix4Dmatic <https://www.pix4d.com/download/pix4dmatic/>`_ (commercial software). Minimum version required: v1.46.
+- `Pix4Dmatic <https://www.pix4d.com/download/pix4dmatic/>`_ (commercial software, free for visualisation). Minimum version required: v1.46.
+
+- Python `library and tooling <https://github.com/Pix4D/pyopf>`_ (open source).
 
 Citation
 ==========
