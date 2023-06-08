@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Project format specification &mdash; Open Photogrammetry Format Specification 1.0.2 documentation</title>
+  <title>Project format specification &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
   
 
   
@@ -387,10 +387,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.2 /
+        Version 1.0.3 /
       </li>
 
-      <li class="dateInfo">May 2023</li>
+      <li class="dateInfo">June 2023</li>
 
         
     
@@ -873,7 +873,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera_list&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-list.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-camera-list+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -884,7 +884,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input-cameras.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-input-cameras+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -900,7 +900,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;control_points/input-control-points.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-input-control-points+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -916,7 +916,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;processing_spatial_reference.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arbitrary-scene-reference-frame.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-scene-reference-frame+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -927,7 +927,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected-input-cameras.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-input-cameras+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -947,7 +947,7 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;control_points/projected-control-points.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-control-points+json&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
@@ -959,6 +959,22 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">                </span><span class="p">{</span>
 <span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a71bf97a-045c-11ee-be56-0242ac120002&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;constraints&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;control_points/constraints.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-constraints+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">},</span>
@@ -993,145 +1009,48 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="p">],</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/tracks.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/point_cloud.gltf&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-positions.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-positions.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchCameraIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchCameraIds.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointPixelCoordinates.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointPixelCoordinates.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointFeatureIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointFeatureIds.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointScales.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointScales.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tracks/track-matchImagePointDepths.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointDepths.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibrated_cameras.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibrated-cameras.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-calibrated-cameras+json&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gps_bias.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;control_points/calibrated-control-points.json&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-calibrated-control-points+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gps-bias.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-gps-bias+json&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some_additional_calib_data.json&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/ext-pix4d-myteam-myalgo-settings&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f99cfd9a-eb41-4af9-a9e9-d60f4bd383c5&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Corridor&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">&quot;opf-origin:images&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">&quot;opf-origin:depth&quot;</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pcl.gltf&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partition.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;positions.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normals.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;colors.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-groups.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-visibility-index-ranges.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;df2694f3-105a-4ee7-ba6e-86e2accd0fd6&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Living room&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;labels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">&quot;opf-origin:images&quot;</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pcl2.gltf&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partition2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;positions2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;normals2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;colors2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-groups2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
-<span class="w">                </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;camera-visibility-index-ranges2.bin&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
@@ -1187,7 +1106,7 @@ In the JSON representation they are stored as numbers.</p></li>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
     
 

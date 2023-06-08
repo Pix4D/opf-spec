@@ -254,7 +254,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "camera_list",
             "resources": [
                 {
-                    "uri": "cameras.json",
+                    "uri": "camera-list.json",
                     "format": "application/opf-camera-list+json"
                 }
             ],
@@ -265,7 +265,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "input_cameras",
             "resources": [
                 {
-                    "uri": "input_cameras.json",
+                    "uri": "input-cameras.json",
                     "format": "application/opf-input-cameras+json"
                 }
             ],
@@ -281,7 +281,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "input_control_points",
             "resources": [
                 {
-                    "uri": "input_control_points.json",
+                    "uri": "control_points/input-control-points.json",
                     "format": "application/opf-input-control-points+json"
                 }
             ],
@@ -297,7 +297,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "scene_reference_frame",
             "resources": [
                 {
-                    "uri": "processing_spatial_reference.json",
+                    "uri": "arbitrary-scene-reference-frame.json",
                     "format": "application/opf-scene-reference-frame+json"
                 }
             ],
@@ -308,7 +308,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "projected_input_cameras",
             "resources": [
                 {
-                    "uri": "projected_input_cameras.json",
+                    "uri": "projected-input-cameras.json",
                     "format": "application/opf-projected-input-cameras+json"
                 }
             ],
@@ -328,7 +328,7 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             "type": "projected_control_points",
             "resources": [
                 {
-                    "uri": "projected_control_points.json",
+                    "uri": "control_points/projected-control-points.json",
                     "format": "application/opf-projected-control-points+json"
                 }
             ],
@@ -340,6 +340,22 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
                 {
                     "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
                     "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "a71bf97a-045c-11ee-be56-0242ac120002",
+            "type": "constraints",
+            "resources": [
+                {
+                    "uri": "control_points/constraints.json",
+                    "format": "application/opf-constraints+json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
                 }
             ]
         },
@@ -374,145 +390,48 @@ The point cloud in the project is represented as a `glTF` file of type `model/gl
             ],
             "resources": [
                 {
-                    "uri": "tracks/tracks.gltf",
+                    "uri": "point_cloud/point_cloud.gltf",
                     "format": "model/gltf+json"
                 },
                 {
-                    "uri": "tracks/track-positions.bin",
+                    "uri": "point_cloud/track-positions.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchPointIndexRanges.bin",
+                    "uri": "point_cloud/track-matchPointIndexRanges.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchCameraIds.bin",
+                    "uri": "point_cloud/track-matchCameraIds.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchImagePointPixelCoordinates.bin",
+                    "uri": "point_cloud/track-matchImagePointPixelCoordinates.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchImagePointFeatureIds.bin",
+                    "uri": "point_cloud/track-matchImagePointFeatureIds.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchImagePointScales.bin",
+                    "uri": "point_cloud/track-matchImagePointScales.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "tracks/track-matchImagePointDepths.bin",
+                    "uri": "point_cloud/track-matchImagePointDepths.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "calibrated_cameras.json",
+                    "uri": "calibrated-cameras.json",
                     "format": "application/opf-calibrated-cameras+json"
                 },
                 {
-                    "uri": "gps_bias.json",
+                    "uri": "control_points/calibrated-control-points.json",
+                    "format": "application/opf-calibrated-control-points+json"
+                },
+                {
+                    "uri": "gps-bias.json",
                     "format": "application/opf-gps-bias+json"
-                },
-                {
-                    "uri": "some_additional_calib_data.json",
-                    "format": "application/ext-pix4d-myteam-myalgo-settings"
-                }
-            ]
-        },
-        {
-            "id": "f99cfd9a-eb41-4af9-a9e9-d60f4bd383c5",
-            "type": "point_cloud",
-            "name": "Corridor",
-            "labels": [
-                "opf-origin:images",
-                "opf-origin:depth"
-            ],
-            "sources": [
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                },
-                {
-                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
-                    "type": "calibration"
-                }
-            ],
-            "resources": [
-                {
-                    "uri": "pcl.gltf",
-                    "format": "model/gltf+json"
-                },
-                {
-                    "uri": "partition.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "positions.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "normals.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "colors.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "camera-groups.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "camera-visibility-index-ranges.bin",
-                    "format": "application/gltf-buffer+bin"
-                }
-            ]
-        },
-        {
-            "id": "df2694f3-105a-4ee7-ba6e-86e2accd0fd6",
-            "type": "point_cloud",
-            "name": "Living room",
-            "labels": [
-                "opf-origin:images"
-            ],
-            "sources": [
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                },
-                {
-                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
-                    "type": "calibration"
-                }
-            ],
-            "resources": [
-                {
-                    "uri": "pcl2.gltf",
-                    "format": "model/gltf+json"
-                },
-                {
-                    "uri": "partition2.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "positions2.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "normals2.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "colors2.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "camera-groups2.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "camera-visibility-index-ranges2.bin",
-                    "format": "application/gltf-buffer+bin"
                 }
             ]
         }

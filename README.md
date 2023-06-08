@@ -3,11 +3,12 @@
 This repository contains the specification for the _Open Photogrammetry Format_, also known as _OPF_.
 
 The _Open Photogrammetry Format_ is an open format for interchange of photogrammetry data.
-The specification defines the core elements of photogrammetry projects, such as the input and output of photogrammetric calibration and dense reconstruction. The format is designed to be [extensible](#extensions).
+The specification defines the core elements of photogrammetry projects, such as the input and output of photogrammetric calibration and dense reconstruction. The format is designed to be modular and [extensible](#extensions). Typically, a project is made of a "project container" file (`.opf`) which references the other project components, such as the files storing the camera parameters or point clouds.
+
 
 The following are defined in this specification:
 
-- [Project structure][2]
+- [Project container][2]
 - Cameras
   - [Camera list][3]
   - [Input Cameras][4]
@@ -103,6 +104,11 @@ These extensions are described below:
 - New properties in project.schema.json : `required_resources_per_item_type`, `optional_resources_per_item_type`, `required_sources_per_item_type` and `optional_sources_per_item_type` dictionnaries describe which _resources_ and which _sources_ are required and optional for a given item type.
 
 In addition, in the spirit of forward compatibility, we relax the requirement of JSON schemas with respect to the `enum` keyword, which we redefine as an open-ended list of values for the purpose of this specification.
+
+## Existing Tooling
+
+- PIX4Dmatic: import and export (commercial, free for visualisation, since v1.46)
+- [Python](https://github.com/Pix4D/pyopf)
 
 ## Citation
 
