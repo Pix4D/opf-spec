@@ -232,7 +232,7 @@ With those definitions, any parser supporting the full glTF specification is a v
 | camera | **ignored** ||
 | children | **ignored** ||
 | skin | **ignored** ||
-| matrix | **supported** | Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion with the following anti-clockwise rotation around the x-axis [[1, 0, 0, 0], [0, 0, -1, 0],[0, 1, 0, 0], [0, 0, 0 0]] defined here. |
+| matrix | **supported** | Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion by specifying a z-up to y-up rotation here. When written in the format required for this property (4x4 column-major matrix) that rotation is [1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1]. |
 | rotation | **unsupported** | rotation support is covered by the affine matrix transform|
 | translation | **unsupported** | translation support is covered by the affine matrix transform |
 | weights | **ignored** ||
