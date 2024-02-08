@@ -133,10 +133,65 @@ glTF extension storing the spatial partitioning data structure
 |**nodeIndices**|`integer`|The index of the accessor to the nodes indices. The referenced accessor type **MUST** be `VEC4` and the component type **MUST** be `UNSIGNED INT`. The elements are the octree nodes integer coordinates (level, x, y, z) stored contiguously by level following a breadth-first-search order. The accessor count field corresponds to the number of nodes within the octree. Nodes a hereby referred to by their index within this sequence.| &#10003; Yes|
 |**boundingBox**|`object`|minimum and maximum 3D coordinates| &#10003; Yes|
 |**childrenIndexing**|`integer`|The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeCoordinates` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids| &#10003; Yes|
-|**nodeLevelIndexing**|`integer` `[]`|The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeIndexing[l] + 1, ..., nodeIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one| &#10003; Yes|
+|**nodeLevelIndexing**|`integer` `[]`|The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeLevelIndexing[l] + 1, ..., nodeLevelIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one| &#10003; Yes|
 |**perNodeChunkIndexRanges**|`integer`|The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeCoordinates` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`| &#10003; Yes|
 |**nodeAttributes**|`object`|The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeCoordinates` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively.|No|
 
+
+---
+**NOTE**
+
+OPF datasets exported by Pix4Dmatic < 1.54 are impacted by a bug rendering stored point cloud and tracks invalid. In such datasets, the `nodeIndices` property of the partitioning extension is misnamed as `nodeCoordinates`. Such datasets may be patched using the script below:
+
+[patch_invalid_partitioning.py](../../../examples/point_cloud/patch_invalid_partitioning.py)
+
+```python
+import argparse
+import json
+import sys
+from pathlib import Path
+
+
+def patch_gltf(gltf_path):
+    extension_to_patch = "OPF_mesh_primitive_partitioning"
+    bad_key = "nodeCoordinates"
+    good_key = "nodeIndices"
+    gltf_obj = json.load(open(gltf_path, "r"))
+
+    for mesh in gltf_obj.get("meshes", []):
+        for primitive in mesh.get("primitives", []):
+            ext_obj = primitive.get("extensions", {}).get(extension_to_patch)
+            if ext_obj is None:
+                continue
+            if bad_key in ext_obj:
+                ext_obj[good_key] = ext_obj.get(bad_key)
+                del ext_obj[bad_key]
+
+    return gltf_obj
+
+
+def gltf_point_cloud_uris(opf_obj):
+    for item in opf_obj.get("items", []):
+        if item["type"] in ["calibration", "point_cloud"]:
+            for resource in item.get("resources", []):
+                if resource["format"] != "model/gltf+json":
+                    continue
+                yield resource["uri"]
+
+
+parser = argparse.ArgumentParser(
+    description="Patch OPF project with invalid OPF_mesh_primitive_partitioning extension"
+)
+parser.add_argument("opf_path", type=str, help="path to the opf project to patch")
+args = parser.parse_args()
+
+opf_obj = json.load(open(args.opf_path, "r"))
+for gltf_uri in gltf_point_cloud_uris(opf_obj):
+    gltf_path = Path(args.opf_path).parent / gltf_uri
+    gltf_obj = patch_gltf(gltf_path)
+    json.dump(gltf_obj, open(gltf_path, "w"), indent=2)
+```
+---
 
 ## OPF_mesh_primitive_matches extension
 
@@ -643,7 +698,7 @@ With those definitions, any parser supporting the full glTF specification is a v
                      "nodeAttributes":{
                         "parent":12
                      },
-                     "nodeCoordinates":9,
+                     "nodeIndices":9,
                      "nodeLevelIndexing":[
                         0,
                         1,

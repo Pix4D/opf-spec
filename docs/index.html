@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>Open Photogrammetry Format (OPF) Specification &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -44,9 +44,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="#">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -386,10 +392,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
     
@@ -408,18 +414,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="open-photogrammetry-format-opf-specification">
-<h1>Open Photogrammetry Format (OPF) Specification<a class="headerlink" href="#open-photogrammetry-format-opf-specification" title="Permalink to this headline">¶</a></h1>
+<h1>Open Photogrammetry Format (OPF) Specification<a class="headerlink" href="#open-photogrammetry-format-opf-specification" title="Permalink to this heading">¶</a></h1>
 <p><em>Primary Authors: Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha</em></p>
 <p>Welcome to the OPF Specification! Here you will find the official documentation and resources for the Open Photogrammetry Format (OPF).</p>
 </div>
 <div class="section" id="what-is-opf">
-<h1>What is OPF?<a class="headerlink" href="#what-is-opf" title="Permalink to this headline">¶</a></h1>
+<h1>What is OPF?<a class="headerlink" href="#what-is-opf" title="Permalink to this heading">¶</a></h1>
 <p>OPF is the specification for a standardized file format designed for photogrammetry data.
 The specification is open and free and aims at making it easy to store, exchange, and collaborate on photogrammetric data between different parties and software products.
 Typically, a project is made of a “project container” file (<cite>.opf</cite>) which references the other project components, such as the files storing the camera parameters or point clouds.</p>
 </div>
 <div class="section" id="features">
-<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h1>
 <ul>
 <li><p>Based as much as possible on simple human readable JSON files, leverage efficient binary formats where a text-based representation would be impractical (for example for the point cloud data)</p></li>
 <li><p>OPF organizes photogrammetry data in a structured manner, allowing for easy access and retrieval of information.</p></li>
@@ -438,7 +444,7 @@ Typically, a project is made of a “project container” file (<cite>.opf</cite
 </ul>
 </div>
 <div class="section" id="content-of-the-specification">
-<h1>Content of the specification<a class="headerlink" href="#content-of-the-specification" title="Permalink to this headline">¶</a></h1>
+<h1>Content of the specification<a class="headerlink" href="#content-of-the-specification" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="specification/project.html">Project format specification</a></li>
@@ -452,7 +458,7 @@ Typically, a project is made of a “project container” file (<cite>.opf</cite
 </div>
 </div>
 <div class="section" id="existing-tooling">
-<h1>Existing tooling<a class="headerlink" href="#existing-tooling" title="Permalink to this headline">¶</a></h1>
+<h1>Existing tooling<a class="headerlink" href="#existing-tooling" title="Permalink to this heading">¶</a></h1>
 <p>We try to maintain here a non-comprehensive list of tools that implement the OPF specification. If you have a tool that implements OPF and  you would like it to be listed here, please reach out to us!</p>
 <ul>
 <li><p>The <a class="reference external" href="https://github.com/Pix4D/opf-spec">OPF GitHub</a> repository, containing</p>
@@ -468,19 +474,19 @@ Typically, a project is made of a “project container” file (<cite>.opf</cite
 </ul>
 </div>
 <div class="section" id="citation">
-<h1>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h1>
+<h1>Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h1>
 <p>If you use the OPF specification in your research or projects, we kindly request that you cite it as follows:</p>
 <p><cite>The Open Photogrammetry Format Specification, Grégoire Krähenbühl, Klaus Schneider-Zapp, Bastien Dalla Piazza, Juan Hernando, Juan Palacios, Massimiliano Bellomo, Mohamed-Ghaïth Kaabi, Christoph Strecha, Pix4D, 2023, retrived from https://pix4d.github.io/opf-spec/</cite></p>
 </div>
 <div class="section" id="license">
-<h1>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h1>
+<h1>License<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h1>
 <p>Copyright (c) 2023 Pix4D SA</p>
 <p>This specification, including but not limited to: all markdown files, json schemas and any automatically produced HTML and PDF files are licensed under the Creative Commons Attribution 4.0 International License (CC BY-SA 4.0).</p>
 <p>All scripts and/or code contained in this repository are licensed under Apache License 2.0.</p>
 <p>Third party documents or tools that are used or referred to in this specification are licensed under their own terms by their respective copyright owners.</p>
 </div>
 <div class="section" id="contact">
-<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h1>
+<h1>Contact<a class="headerlink" href="#contact" title="Permalink to this heading">¶</a></h1>
 <p>If you have any questions, feedback, or suggestions regarding the OPF specification, please feel free to reach out to us or create an issue here: <a class="reference external" href="https://github.com/Pix4D/opf-spec/issues">https://github.com/Pix4D/opf-spec/issues</a>.  We would love to hear from you!
 To report issues related to specific Pix4D product support, please reach out through Pix4D support pages <a class="reference external" href="https://support.pix4d.com/hc/en-us">https://support.pix4d.com/hc/en-us</a></p>
 <p>Thank you for your interest in OPF! We hope it helps streamline and enhance your photogrammetry workflows.</p>
@@ -504,7 +510,7 @@ To report issues related to specific Pix4D product support, please reach out thr
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -528,6 +534,7 @@ To report issues related to specific Pix4D product support, please reach out thr
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     
 

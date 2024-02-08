@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Auxiliary objects &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>Auxiliary objects &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -45,9 +45,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="../index.html">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -387,10 +393,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
           <li><a href="../annexes.html">Annexes</a> &raquo;</li>
@@ -411,9 +417,9 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="auxiliary-objects">
-<h1>Auxiliary objects<a class="headerlink" href="#auxiliary-objects" title="Permalink to this headline">¶</a></h1>
+<h1>Auxiliary objects<a class="headerlink" href="#auxiliary-objects" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="rig-relatives">
-<h2>Rig relatives<a class="headerlink" href="#rig-relatives" title="Permalink to this headline">¶</a></h2>
+<h2>Rig relatives<a class="headerlink" href="#rig-relatives" title="Permalink to this heading">¶</a></h2>
 <p>The sub-objects in this section are used in input, projected and calibrated cameras to represent the relative position and orientation of a camera relative to a reference one.</p>
 <p>For a secondary camera <span class="math notranslate nohighlight">\(s\)</span>, its absolute position is a function of the absolute position of the reference camera <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <p>Let:</p>
@@ -431,7 +437,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <p>Relative rotations are given as Euler angles <span class="math notranslate nohighlight">\((\alpha, \beta, \gamma)\)</span> in degree. The angles define the rotation matrix <span class="math notranslate nohighlight">\(R_{rel} = R_x(\alpha)R_y(\beta)R_z(\gamma)\)</span>.</p>
 <hr class="docutils" />
 <div class="section" id="input-rig-relatives">
-<span id="auxiliary-objects-input-rig-relatives"></span><h3>Input rig relatives<a class="headerlink" href="#input-rig-relatives" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-input-rig-relatives"></span><h3>Input rig relatives<a class="headerlink" href="#input-rig-relatives" title="Permalink to this heading">¶</a></h3>
 <p>Input rig relatives contain the a priori knowledge about the relative translation and rotation of secondary cameras. Since these values are supposedly coming from a sensor database, the units are always meters and degrees.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">rig</span> <span class="pre">relatives</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -463,7 +469,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <hr class="docutils" />
 </div>
 <div class="section" id="rig-relative-rotation">
-<span id="auxiliary-objects-rotation"></span><h3>Rig relative rotation<a class="headerlink" href="#rig-relative-rotation" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-rotation"></span><h3>Rig relative rotation<a class="headerlink" href="#rig-relative-rotation" title="Permalink to this heading">¶</a></h3>
 <p>Input camera rig rotation relative to the reference camera.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Rig</span> <span class="pre">relative</span> <span class="pre">rotation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -477,7 +483,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <tbody>
 <tr class="row-even"><td><p><strong>angles_deg</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
-<td><p>Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-doc">here</span></a>).</p></td>
+<td><p>Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-ref">here</span></a>).</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>sigmas_deg</strong></p></td>
@@ -495,7 +501,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <hr class="docutils" />
 </div>
 <div class="section" id="rig-relative-translation">
-<span id="auxiliary-objects-translation"></span><h3>Rig relative translation<a class="headerlink" href="#rig-relative-translation" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-translation"></span><h3>Rig relative translation<a class="headerlink" href="#rig-relative-translation" title="Permalink to this heading">¶</a></h3>
 <p>Input camera rig translation relative to the reference camera.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Rig</span> <span class="pre">relative</span> <span class="pre">translation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -556,7 +562,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <hr class="docutils" />
 </div>
 <div class="section" id="projected-rig-translation">
-<span id="auxiliary-objects-projected-rig-translation"></span><h3>Projected rig translation<a class="headerlink" href="#projected-rig-translation" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-projected-rig-translation"></span><h3>Projected rig translation<a class="headerlink" href="#projected-rig-translation" title="Permalink to this heading">¶</a></h3>
 <p>Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">rig</span> <span class="pre">translation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -603,7 +609,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 <hr class="docutils" />
 </div>
 <div class="section" id="calibrated-rig-relatives">
-<span id="auxiliary-objects-calibrated-rig-relatives"></span><h3>Calibrated rig relatives<a class="headerlink" href="#calibrated-rig-relatives" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-calibrated-rig-relatives"></span><h3>Calibrated rig relatives<a class="headerlink" href="#calibrated-rig-relatives" title="Permalink to this heading">¶</a></h3>
 <p>Calibrated rig relatives contain the optimised relative translations and rotations in processing CRS units.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Calibrated</span> <span class="pre">rig</span> <span class="pre">relatives</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -622,7 +628,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 </tr>
 <tr class="row-odd"><td><p><strong>rotation_angles_deg</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
-<td><p>Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-doc">here</span></a>)</p></td>
+<td><p>Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-ref">here</span></a>)</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>extensions</strong></p></td>
@@ -650,7 +656,7 @@ The image CS used here is right-down-front, which is not the image CS normally u
 </div>
 </div>
 <div class="section" id="coordinate-reference-system-definition">
-<h2>Coordinate reference system definition<a class="headerlink" href="#coordinate-reference-system-definition" title="Permalink to this headline">¶</a></h2>
+<h2>Coordinate reference system definition<a class="headerlink" href="#coordinate-reference-system-definition" title="Permalink to this heading">¶</a></h2>
 <p>This sub-object defines a coordinate reference system (CRS) along with an optional geoid height.
 The CRS may be defined as either a WTK2 string or some shorthand identifier with well known authority codes.</p>
 <p>The geoid height is an alternative way of specifying the datum of a vertical CRS for which no geoid model is available.
@@ -664,7 +670,7 @@ In this promotion the Z axis of the coordinates shall be interpreted as an ellip
 For example, given the 2D CRS with code EPSG:6434 (NAD83(2011) / Connecticut (ftUS)), its 3D promoted equivalent will have a Z axis in ftUS representing ellipsoidal heights over the ellipsoid used by NAD83(2011).</p>
 <hr class="docutils" />
 <div class="section" id="crs">
-<span id="auxiliary-objects-crs"></span><h3>CRS<a class="headerlink" href="#crs" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-crs"></span><h3>CRS<a class="headerlink" href="#crs" title="Permalink to this heading">¶</a></h3>
 <p>Coordinate reference system</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">CRS</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -713,12 +719,12 @@ For example, given the 2D CRS with code EPSG:6434 (NAD83(2011) / Connecticut (ft
 </div>
 </div>
 <div class="section" id="geolocation">
-<h2>Geolocation<a class="headerlink" href="#geolocation" title="Permalink to this headline">¶</a></h2>
+<h2>Geolocation<a class="headerlink" href="#geolocation" title="Permalink to this heading">¶</a></h2>
 <p>This sub-object is used in input cameras and control points and represents a geolocated measurement with an error estimate.
 It contains a coordinate reference system and the coordinates and standard deviation of the measured position.</p>
 <hr class="docutils" />
 <div class="section" id="id1">
-<span id="id2"></span><h3>CRS<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>CRS<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>Coordinate reference system</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">CRS</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -750,7 +756,7 @@ It contains a coordinate reference system and the coordinates and standard devia
 <hr class="docutils" />
 </div>
 <div class="section" id="auxiliary-objects-geolocation">
-<span id="id3"></span><h3>Geolocation<a class="headerlink" href="#auxiliary-objects-geolocation" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>Geolocation<a class="headerlink" href="#auxiliary-objects-geolocation" title="Permalink to this heading">¶</a></h3>
 <p>Geolocation information</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Geolocation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -763,7 +769,7 @@ It contains a coordinate reference system and the coordinates and standard devia
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>crs</strong></p></td>
-<td><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">crs</span></code></span></p></td>
+<td><p><a class="reference internal" href="#auxiliary_objects-crs"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">crs</span></code></span></a></p></td>
 <td><p>Coordinate reference system</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
@@ -829,11 +835,11 @@ It contains a coordinate reference system and the coordinates and standard devia
 </div>
 </div>
 <div class="section" id="rigid-transform-with-scaling">
-<h2>Rigid transform with scaling<a class="headerlink" href="#rigid-transform-with-scaling" title="Permalink to this headline">¶</a></h2>
+<h2>Rigid transform with scaling<a class="headerlink" href="#rigid-transform-with-scaling" title="Permalink to this heading">¶</a></h2>
 <p>This sub-object contains a rigid transformation with rotation, translation, and scaling. The Euler angle convention for the rotation is the same as the one for the rig relative rotation described above.</p>
 <hr class="docutils" />
 <div class="section" id="rigid-transformation-with-scaling">
-<span id="auxiliary-objects-rigid-transformation-with-scaling"></span><h3>Rigid transformation with scaling<a class="headerlink" href="#rigid-transformation-with-scaling" title="Permalink to this headline">¶</a></h3>
+<span id="auxiliary-objects-rigid-transformation-with-scaling"></span><h3>Rigid transformation with scaling<a class="headerlink" href="#rigid-transformation-with-scaling" title="Permalink to this heading">¶</a></h3>
 <p>Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p’ via p’ = scale * rotation * p + translation.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Rigid</span> <span class="pre">transformation</span> <span class="pre">with</span> <span class="pre">scaling</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -847,7 +853,7 @@ It contains a coordinate reference system and the coordinates and standard devia
 <tbody>
 <tr class="row-even"><td><p><strong>rotation_deg</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
-<td><p>Rotation as Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-doc">here</span></a>)</p></td>
+<td><p>Rotation as Euler angles in degree (see convention <a class="reference internal" href="#rig-relatives"><span class="std std-ref">here</span></a>)</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>translation</strong></p></td>
@@ -891,7 +897,7 @@ It contains a coordinate reference system and the coordinates and standard devia
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -915,6 +921,7 @@ It contains a coordinate reference system and the coordinates and standard devia
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

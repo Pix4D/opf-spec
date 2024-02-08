@@ -1,0 +1,12 @@
+{
+    "$id": "matrix_3x3.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "3x3 Matrix",
+    "description": "A floating point 3x3 matrix stored in column-major order.",
+    "type": "array",
+    "items": {
+        "type": "number"
+    },
+    "minItems": 9,
+    "maxItems": 9
+}

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Projected input camera format &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>Projected input camera format &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -45,9 +45,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="../index.html">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -387,10 +393,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
           <li><a href="../cameras.html">Cameras</a> &raquo;</li>
@@ -411,15 +417,15 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="projected-input-camera-format">
-<h1>Projected input camera format<a class="headerlink" href="#projected-input-camera-format" title="Permalink to this headline">¶</a></h1>
+<h1>Projected input camera format<a class="headerlink" href="#projected-input-camera-format" title="Permalink to this heading">¶</a></h1>
 <p>This format defines the input cameras data in the processing CRS, which is a projected right-handed isometric CS.</p>
 <div class="section" id="coordinate-system-specification">
-<h2>Coordinate system specification<a class="headerlink" href="#coordinate-system-specification" title="Permalink to this headline">¶</a></h2>
+<h2>Coordinate system specification<a class="headerlink" href="#coordinate-system-specification" title="Permalink to this heading">¶</a></h2>
 <p>The processing CRS is a right-handed, isometric, Cartesian coordinate system chosen by the application, the calibration itself is coordinate system agnostic. The definition of the camera axes is the photogrammetrist’s definition: x from left to right in the image, y from bottom to top in the image, z from the scene towards the camera center.</p>
-<p>The actual processing CRS comes from the <a class="reference internal" href="project.html#top-level-scene-reference-frame"><span class="std std-doc">top level scene reference frame</span></a> definition.</p>
+<p>The actual processing CRS comes from the <a class="reference internal" href="project.html#top-level-scene-reference-frame"><span class="std std-ref">top level scene reference frame</span></a> definition.</p>
 </div>
 <div class="section" id="format-specification">
-<h2>Format specification<a class="headerlink" href="#format-specification" title="Permalink to this headline">¶</a></h2>
+<h2>Format specification<a class="headerlink" href="#format-specification" title="Permalink to this heading">¶</a></h2>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Specification format</p></th>
@@ -434,7 +440,7 @@
 </table>
 <hr class="docutils" />
 <div class="section" id="projected-input-camera">
-<span id="projected-input-cameras-projected-input-camera"></span><h3>Projected input camera<a class="headerlink" href="#projected-input-camera" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-projected-input-camera"></span><h3>Projected input camera<a class="headerlink" href="#projected-input-camera" title="Permalink to this heading">¶</a></h3>
 <p>Definition of the input cameras data in the processing CRS, which is a projected right-handed isometric CS.</p>
 <p><strong><code class="docutils literal notranslate"> <span class="pre">Projected</span> <span class="pre">input</span> <span class="pre">camera</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -476,7 +482,7 @@
 <hr class="docutils" />
 </div>
 <div class="section" id="capture">
-<span id="projected-input-cameras-capture"></span><h3>Capture<a class="headerlink" href="#capture" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-capture"></span><h3>Capture<a class="headerlink" href="#capture" title="Permalink to this heading">¶</a></h3>
 <p>Processing CRS dependent parameters of a capture sensor.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Capture</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -513,7 +519,7 @@
 <hr class="docutils" />
 </div>
 <div class="section" id="projected-geolocation">
-<span id="projected-input-cameras-geolocation"></span><h3>Projected geolocation<a class="headerlink" href="#projected-geolocation" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-geolocation"></span><h3>Projected geolocation<a class="headerlink" href="#projected-geolocation" title="Permalink to this heading">¶</a></h3>
 <p>Input geolocation in the processing CRS axes and units.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">geolocation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -545,7 +551,7 @@
 <hr class="docutils" />
 </div>
 <div class="section" id="projected-orientation">
-<span id="projected-input-cameras-orientation"></span><h3>Projected orientation<a class="headerlink" href="#projected-orientation" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-orientation"></span><h3>Projected orientation<a class="headerlink" href="#projected-orientation" title="Permalink to this heading">¶</a></h3>
 <p>Input orientation in the processing CRS axes.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">orientation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -577,7 +583,7 @@
 <hr class="docutils" />
 </div>
 <div class="section" id="projected-rig-translation">
-<span id="projected-input-cameras-projected-rig-translation"></span><h3>Projected rig translation<a class="headerlink" href="#projected-rig-translation" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-projected-rig-translation"></span><h3>Projected rig translation<a class="headerlink" href="#projected-rig-translation" title="Permalink to this heading">¶</a></h3>
 <p>Projected rig relatives only contain the relative translation as the relative rotation stays the same as the input. The difference between the projected rig translation and input rig translation is that the projected translation uses units of the processing CRS.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Projected</span> <span class="pre">rig</span> <span class="pre">translation</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -609,7 +615,7 @@
 <hr class="docutils" />
 </div>
 <div class="section" id="sensor">
-<span id="projected-input-cameras-sensor"></span><h3>Sensor<a class="headerlink" href="#sensor" title="Permalink to this headline">¶</a></h3>
+<span id="projected-input-cameras-sensor"></span><h3>Sensor<a class="headerlink" href="#sensor" title="Permalink to this heading">¶</a></h3>
 <p>Processing CRS dependent parameters of an input sensor.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Sensor</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -641,7 +647,7 @@
 </div>
 </div>
 <div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-projected-input-cameras+json&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
@@ -786,7 +792,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -810,6 +816,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
 
