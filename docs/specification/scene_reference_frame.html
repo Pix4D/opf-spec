@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scene reference frame project item &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>Scene reference frame project item &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -45,9 +45,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="../index.html">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -387,10 +393,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
           <li><a href="../scene_reference_frame.html">Scene reference frame</a> &raquo;</li>
@@ -411,7 +417,7 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="scene-reference-frame-project-item">
-<h1>Scene reference frame project item<a class="headerlink" href="#scene-reference-frame-project-item" title="Permalink to this headline">¶</a></h1>
+<h1>Scene reference frame project item<a class="headerlink" href="#scene-reference-frame-project-item" title="Permalink to this heading">¶</a></h1>
 <p>A scene reference frame project item identifies and describes the coordinate system and reference frame used by other project items.
 In most cases the project item will contain a single resource pointing to a JSON file, but the resource list could also be empty.</p>
 <ul>
@@ -426,7 +432,7 @@ In most cases the project item will contain a single resource pointing to a JSON
 </thead>
 <tbody>
 <tr class="row-even"><td><p></p></td>
-<td><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">application/opf-scene-reference-frame+json</span></code></span><br></p></td>
+<td><p><a class="reference internal" href="#application/opf-scene-reference-frame+json-format"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">application/opf-scene-reference-frame+json</span></code></span></a><br></p></td>
 </tr>
 </tbody>
 </table>
@@ -438,7 +444,7 @@ Notice that many other items still require a scene reference frame as a source i
 The purpose of linking project items to an empty scene reference frame is to denote that all items linked to the same frame have consistent coordinates.
 This is possible because every scene reference frame item has a different UUID that identifies it.</p>
 <div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4049924c-5fed-440d-bae3-1b54869fb4e2&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span><span class="p">,</span>
@@ -484,7 +490,7 @@ This is possible because every scene reference frame item has a different UUID t
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -508,6 +514,7 @@ This is possible because every scene reference frame item has a different UUID t
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
 

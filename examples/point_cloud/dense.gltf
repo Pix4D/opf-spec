@@ -43,9 +43,9 @@
       },
       {
          "bufferView":5,
-         "componentType":5126,
-         "count":10,
-         "type":"VEC2"
+         "componentType":5125,
+         "count":9,
+         "type":"VEC4"
       },
       {
          "bufferView":6,
@@ -55,54 +55,30 @@
       },
       {
          "bufferView":7,
-         "componentType":5126,
-         "count":10,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":8,
-         "componentType":5126,
-         "count":10,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":9,
-         "componentType":5125,
-         "count":9,
-         "type":"VEC4"
-      },
-      {
-         "bufferView":10,
-         "componentType":5125,
-         "count":10,
-         "type":"VEC2"
-      },
-      {
-         "bufferView":11,
          "componentType":5125,
          "count":18,
          "type":"VEC4"
       },
       {
-         "bufferView":12,
+         "bufferView":8,
          "componentType":5125,
          "count":9,
          "type":"VEC2"
       },
       {
-         "bufferView":13,
+         "bufferView":9,
          "componentType":5123,
          "count":3074,
          "type":"SCALAR"
       },
       {
-         "bufferView":14,
+         "bufferView":10,
          "componentType":5125,
          "count":3074,
          "type":"SCALAR"
       },
       {
-         "bufferView":15,
+         "bufferView":11,
          "componentType":5121,
          "count":3074,
          "type":"SCALAR"
@@ -145,59 +121,39 @@
       },
       {
          "buffer":5,
-         "byteLength":80,
-         "target":34962
-      },
-      {
-         "buffer":6,
-         "byteLength":80,
-         "target":34962
-      },
-      {
-         "buffer":7,
-         "byteLength":40,
-         "target":34962
-      },
-      {
-         "buffer":8,
-         "byteLength":40,
-         "target":34962
-      },
-      {
-         "buffer":9,
          "byteLength":144,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":5,
          "byteLength":80,
          "byteOffset":144,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":5,
          "byteLength":288,
          "byteOffset":296,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":5,
          "byteLength":72,
          "byteOffset":224,
          "target":34962
       },
       {
-         "buffer":10,
+         "buffer":6,
          "byteLength":6148,
          "target":34962
       },
       {
-         "buffer":11,
+         "buffer":7,
          "byteLength":12296,
          "target":34962
       },
       {
-         "buffer":12,
+         "buffer":8,
          "byteLength":3074,
          "target":34962
       }
@@ -222,22 +178,6 @@
       {
          "byteLength":24592,
          "uri":"matchPointIndexRanges.bin"
-      },
-      {
-         "byteLength":80,
-         "uri":"matchPixelCoordinates.bin"
-      },
-      {
-         "byteLength":80,
-         "uri":"matchFeatureIds.bin"
-      },
-      {
-         "byteLength":40,
-         "uri":"matchScales.bin"
-      },
-      {
-         "byteLength":40,
-         "uri":"matchDepths.bin"
       },
       {
          "byteLength":584,
@@ -287,9 +227,9 @@
                "extensions":{
                   "OPF_mesh_primitive_custom_attributes":{
                      "attributes":{
-                        "class":13,
-                        "flag":15,
-                        "tag":14
+                        "class":9,
+                        "flag":11,
+                        "tag":10
                      }
                   },
                   "OPF_mesh_primitive_matches":{
@@ -300,12 +240,6 @@
                         2,
                         3
                      ],
-                     "imagePoints":{
-                        "depths":8,
-                        "featureIds":6,
-                        "pixelCoordinates":5,
-                        "scales":7
-                     },
                      "pointIndexRanges":4
                   },
                   "OPF_mesh_primitive_partitioning":{
@@ -321,17 +255,17 @@
                            -1.0
                         ]
                      },
-                     "childrenIndexing":10,
+                     "childrenIndexing":6,
                      "nodeAttributes":{
-                        "parent":12
+                        "parent":8
                      },
-                     "nodeIndices":9,
+                     "nodeIndices":5,
                      "nodeLevelIndexing":[
                         0,
                         1,
                         9
                      ],
-                     "perNodeChunkIndexRanges":11
+                     "perNodeChunkIndexRanges":7
                   }
                },
                "material":0,

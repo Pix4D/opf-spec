@@ -161,35 +161,39 @@
             ],
             "resources": [
                 {
-                    "uri": "point_cloud/point_cloud.gltf",
+                    "uri": "point_cloud/sparse.gltf",
                     "format": "model/gltf+json"
                 },
                 {
-                    "uri": "point_cloud/track-positions.bin",
+                    "uri": "point_cloud/positions.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchPointIndexRanges.bin",
+                    "uri": "point_cloud/partitioning.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchCameraIds.bin",
+                    "uri": "point_cloud/matchPointIndexRanges.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchImagePointPixelCoordinates.bin",
+                    "uri": "point_cloud/matchCameraIds.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchImagePointFeatureIds.bin",
+                    "uri": "point_cloud/matchPixelCoordinates.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchImagePointScales.bin",
+                    "uri": "point_cloud/matchFeatureIds.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
-                    "uri": "point_cloud/track-matchImagePointDepths.bin",
+                    "uri": "point_cloud/matchScales.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/matchDepths.bin",
                     "format": "application/gltf-buffer+bin"
                 },
                 {
@@ -203,6 +207,78 @@
                 {
                     "uri": "gps-bias.json",
                     "format": "application/opf-gps-bias+json"
+                }
+            ]
+        },
+        {
+            "id": "31ee32ac-5095-4507-a342-21cfcf12c54c",
+            "type": "point_cloud",
+            "sources": [
+                {
+                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
+                    "type": "input_cameras"
+                },
+                {
+                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
+                    "type": "input_control_points"
+                },
+                {
+                    "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
+                    "type": "projected_input_cameras"
+                },
+                {
+                    "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
+                    "type": "projected_control_points"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                }
+            ],
+            "resources": [
+                {
+                    "uri": "point_cloud/dense.gltf",
+                    "format": "model/gltf+json"
+                },
+                {
+                    "uri": "point_cloud/positions.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/partitioning.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/matchPointIndexRanges.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/matchCameraIds.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/colors.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/normals.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/classes.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/tags.bin",
+                    "format": "application/gltf-buffer+bin"
+                },
+                {
+                    "uri": "point_cloud/flags.bin",
+                    "format": "application/gltf-buffer+bin"
                 }
             ]
         }

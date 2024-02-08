@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>OPF-glTF point cloud &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>OPF-glTF point cloud &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -45,9 +45,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="../index.html">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -387,10 +393,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
     
@@ -409,7 +415,7 @@
            <div itemprop="articleBody">
             
   <div class="tex2jax_ignore mathjax_ignore section" id="opf-gltf-point-cloud">
-<span id="application-gltf-buffer-bin-format"></span><span id="model-gltf-json-format"></span><span id="opf-gltf-format"></span><h1>OPF-glTF point cloud<a class="headerlink" href="#opf-gltf-point-cloud" title="Permalink to this headline">¶</a></h1>
+<span id="application-gltf-buffer-bin-format"></span><span id="model-gltf-json-format"></span><span id="opf-gltf-format"></span><h1>OPF-glTF point cloud<a class="headerlink" href="#opf-gltf-point-cloud" title="Permalink to this heading">¶</a></h1>
 <p>The OPF-glTF point cloud file format aims at storing spatially partitioned point clouds such as the photogrammetric sparse point cloud (tracks) or the densified point cloud. In particular:</p>
 <ul class="simple">
 <li><p>The data is all memory-mappable</p></li>
@@ -459,7 +465,7 @@
 </tbody>
 </table>
 <div class="section" id="format-structure">
-<h2>Format structure<a class="headerlink" href="#format-structure" title="Permalink to this headline">¶</a></h2>
+<h2>Format structure<a class="headerlink" href="#format-structure" title="Permalink to this heading">¶</a></h2>
 <p>The OPF-glTF point cloud file format is a valid <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-gltf">glTF model</a>. The format specifies the expected content. An OPF point cloud glTF file contains:</p>
 <ul class="simple">
 <li><p>A <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-scene">scene</a> referenced by the <code class="docutils literal notranslate"><span class="pre">scene</span></code> root glTF property.</p></li>
@@ -472,7 +478,7 @@
 </ul>
 </div>
 <div class="section" id="data-layout">
-<h2>Data layout<a class="headerlink" href="#data-layout" title="Permalink to this headline">¶</a></h2>
+<h2>Data layout<a class="headerlink" href="#data-layout" title="Permalink to this heading">¶</a></h2>
 <p>Each node in the glTF file may have a different spatial transform attached allowing to store pointclouds in spatially separated portions. An example use-case for this is to allow the storage of pointclouds with very large spatial extent without precision loss due to single precision position storage, as the transforms may incorporate a spatial offset.</p>
 <p>If a glTF node contains spatial partitioning, then the points are expected to be written in a specific layout. Below is an illustration of the expected data layout and partitioning in 1D.
 <img alt="" src="../_images/chunked_spatial_partitioning.png" /></p>
@@ -481,7 +487,7 @@
 <p>The above partitioning is stored into the <a class="reference download internal" download="" href="../_downloads/6593851c78751143b8a58f693126153f/point_cloud_mesh_primitive_partitioning.schema.json"><span class="xref download myst">OPF_mesh_primitive_partitioning</span></a> extension.</p>
 </div>
 <div class="section" id="gltf-version-restrictions-and-constraints">
-<span id="opf-gltf-restrictions"></span><h2>glTF version, restrictions and constraints<a class="headerlink" href="#gltf-version-restrictions-and-constraints" title="Permalink to this headline">¶</a></h2>
+<span id="opf-gltf-restrictions"></span><h2>glTF version, restrictions and constraints<a class="headerlink" href="#gltf-version-restrictions-and-constraints" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>The glTF asset.version property <strong>must</strong> be <code class="docutils literal notranslate"><span class="pre">2.0</span></code></p></li>
 <li><p>The glTF asset.extensions property <strong>must</strong> include the <a class="reference download internal" download="" href="../_downloads/5a5b91c534b40b7de61f2270784c16e2/point_cloud_asset_version.schema.json"><span class="xref download myst">OPF_asset_version</span></a> extension</p></li>
@@ -522,15 +528,15 @@
 </ul>
 </div>
 <div class="section" id="opf-gltf-point-cloud-extensions">
-<h2>OPF-glTF point cloud extensions<a class="headerlink" href="#opf-gltf-point-cloud-extensions" title="Permalink to this headline">¶</a></h2>
+<h2>OPF-glTF point cloud extensions<a class="headerlink" href="#opf-gltf-point-cloud-extensions" title="Permalink to this heading">¶</a></h2>
 <p>The OPF-glTF point cloud uses extensions to store extra data in glTF format.</p>
 </div>
 <div class="section" id="opf-asset-version">
-<h2>OPF_asset_version<a class="headerlink" href="#opf-asset-version" title="Permalink to this headline">¶</a></h2>
+<h2>OPF_asset_version<a class="headerlink" href="#opf-asset-version" title="Permalink to this heading">¶</a></h2>
 <p>The extension stores the OPF format specification version</p>
 <hr class="docutils" />
 <div class="section" id="point-cloud-opf-asset-version">
-<span id="id1"></span><h3>OPF_asset_version<a class="headerlink" href="#point-cloud-opf-asset-version" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>OPF_asset_version<a class="headerlink" href="#point-cloud-opf-asset-version" title="Permalink to this heading">¶</a></h3>
 <p>glTF extension storing the OPF specification version</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">OPF_asset_version</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -552,7 +558,7 @@
 </div>
 </div>
 <div class="section" id="opf-mesh-primitive-partitioning-extension">
-<h2>OPF_mesh_primitive_partitioning extension<a class="headerlink" href="#opf-mesh-primitive-partitioning-extension" title="Permalink to this headline">¶</a></h2>
+<h2>OPF_mesh_primitive_partitioning extension<a class="headerlink" href="#opf-mesh-primitive-partitioning-extension" title="Permalink to this heading">¶</a></h2>
 <p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object storing the octree spatial data structure and point cloud chunks information:</p>
 <ul class="simple">
 <li><p>The root bounding box, in the same coordinate system than the points stored in the mesh referenced by the node.</p></li>
@@ -563,7 +569,7 @@
 <p>The nodes are stored contiguously by level following a breadth-first-search order. An additional array of indices provides the index of the first node from each level, allowing to partially read the tree up to some level.</p>
 <hr class="docutils" />
 <div class="section" id="opf-mesh-primitive-partitioning">
-<span id="point-cloud-opf-mesh-primitive-partitioning"></span><h3>OPF_mesh_primitive_partitioning<a class="headerlink" href="#opf-mesh-primitive-partitioning" title="Permalink to this headline">¶</a></h3>
+<span id="point-cloud-opf-mesh-primitive-partitioning"></span><h3>OPF_mesh_primitive_partitioning<a class="headerlink" href="#opf-mesh-primitive-partitioning" title="Permalink to this heading">¶</a></h3>
 <p>glTF extension storing the spatial partitioning data structure</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_partitioning</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -592,7 +598,7 @@
 </tr>
 <tr class="row-odd"><td><p><strong>nodeLevelIndexing</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code> <code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
-<td><p>The indexing of octree node levels. For a level <code class="docutils literal notranslate"><span class="pre">l</span></code>, the range <code class="docutils literal notranslate"><span class="pre">[nodeLevelIndexing[l],</span> <span class="pre">nodeIndexing[l]</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nodeIndexing[l</span> <span class="pre">+</span> <span class="pre">1]</span> <span class="pre">-</span> <span class="pre">1]</span></code> corresponds to the indices of all nodes belonging to this level. The size of this array <strong>MUST</strong> match the number of levels plus one</p></td>
+<td><p>The indexing of octree node levels. For a level <code class="docutils literal notranslate"><span class="pre">l</span></code>, the range <code class="docutils literal notranslate"><span class="pre">[nodeLevelIndexing[l],</span> <span class="pre">nodeLevelIndexing[l]</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">...,</span> <span class="pre">nodeLevelIndexing[l</span> <span class="pre">+</span> <span class="pre">1]</span> <span class="pre">-</span> <span class="pre">1]</span></code> corresponds to the indices of all nodes belonging to this level. The size of this array <strong>MUST</strong> match the number of levels plus one</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>perNodeChunkIndexRanges</strong></p></td>
@@ -607,14 +613,65 @@
 </tr>
 </tbody>
 </table>
+<hr class="docutils" />
+<p><strong>NOTE</strong></p>
+<p>OPF datasets exported by Pix4Dmatic &lt; 1.54 are impacted by a bug rendering stored point cloud and tracks invalid. In such datasets, the <code class="docutils literal notranslate"><span class="pre">nodeIndices</span></code> property of the partitioning extension is misnamed as <code class="docutils literal notranslate"><span class="pre">nodeCoordinates</span></code>. Such datasets may be patched using the script below:</p>
+<p><a class="reference download internal" download="" href="../_downloads/b7c1bbbd7762fe07d8b2749c6aaa3c53/patch_invalid_partitioning.py"><span class="xref download myst">patch_invalid_partitioning.py</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+
+<span class="k">def</span> <span class="nf">patch_gltf</span><span class="p">(</span><span class="n">gltf_path</span><span class="p">):</span>
+    <span class="n">extension_to_patch</span> <span class="o">=</span> <span class="s2">&quot;OPF_mesh_primitive_partitioning&quot;</span>
+    <span class="n">bad_key</span> <span class="o">=</span> <span class="s2">&quot;nodeCoordinates&quot;</span>
+    <span class="n">good_key</span> <span class="o">=</span> <span class="s2">&quot;nodeIndices&quot;</span>
+    <span class="n">gltf_obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">gltf_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">gltf_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;meshes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">for</span> <span class="n">primitive</span> <span class="ow">in</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;primitives&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">ext_obj</span> <span class="o">=</span> <span class="n">primitive</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extensions&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">extension_to_patch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ext_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">bad_key</span> <span class="ow">in</span> <span class="n">ext_obj</span><span class="p">:</span>
+                <span class="n">ext_obj</span><span class="p">[</span><span class="n">good_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ext_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bad_key</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">ext_obj</span><span class="p">[</span><span class="n">bad_key</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">gltf_obj</span>
+
+
+<span class="k">def</span> <span class="nf">gltf_point_cloud_uris</span><span class="p">(</span><span class="n">opf_obj</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">opf_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;items&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">,</span> <span class="s2">&quot;point_cloud&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="k">if</span> <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;model/gltf+json&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">yield</span> <span class="n">resource</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">]</span>
+
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Patch OPF project with invalid OPF_mesh_primitive_partitioning extension&quot;</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;opf_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;path to the opf project to patch&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="n">opf_obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opf_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">gltf_uri</span> <span class="ow">in</span> <span class="n">gltf_point_cloud_uris</span><span class="p">(</span><span class="n">opf_obj</span><span class="p">):</span>
+    <span class="n">gltf_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opf_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">gltf_uri</span>
+    <span class="n">gltf_obj</span> <span class="o">=</span> <span class="n">patch_gltf</span><span class="p">(</span><span class="n">gltf_path</span><span class="p">)</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">gltf_obj</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">gltf_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
+</div>
+<hr class="docutils" />
 <div class="section" id="opf-mesh-primitive-matches-extension">
-<h2>OPF_mesh_primitive_matches extension<a class="headerlink" href="#opf-mesh-primitive-matches-extension" title="Permalink to this headline">¶</a></h2>
+<h2>OPF_mesh_primitive_matches extension<a class="headerlink" href="#opf-mesh-primitive-matches-extension" title="Permalink to this heading">¶</a></h2>
 <p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object associating, to each point, a group of image matches. The group of matches is given as a packed pair of a 40-bit and a 24-bit unsigned integers. The first integer refers to the match offset index within the collection of matches. The second integer is the number of matches in the range.</p>
 <hr class="docutils" />
 <div class="section" id="opf-mesh-primitive-matches">
-<span id="point-cloud-opf-mesh-primitive-matches"></span><h3>OPF_mesh_primitive_matches<a class="headerlink" href="#opf-mesh-primitive-matches" title="Permalink to this headline">¶</a></h3>
+<span id="point-cloud-opf-mesh-primitive-matches"></span><h3>OPF_mesh_primitive_matches<a class="headerlink" href="#opf-mesh-primitive-matches" title="Permalink to this heading">¶</a></h3>
 <p>glTF extension storing the point matches</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_matches</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -651,11 +708,11 @@
 </div>
 </div>
 <div class="section" id="opf-mesh-primitive-custom-attributes-extension">
-<h2>OPF_mesh_primitive_custom_attributes extension<a class="headerlink" href="#opf-mesh-primitive-custom-attributes-extension" title="Permalink to this headline">¶</a></h2>
+<h2>OPF_mesh_primitive_custom_attributes extension<a class="headerlink" href="#opf-mesh-primitive-custom-attributes-extension" title="Permalink to this heading">¶</a></h2>
 <p>The extension extends the glTF <a class="reference external" href="https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive">mesh primitive</a> object used to store any extra attribute, with any type as supported by glTF (note that any custom attribute added directly to the mesh primitive attribute would be required to be 4-bytes aligned which is too constraining).</p>
 <hr class="docutils" />
 <div class="section" id="opf-mesh-primitive-custom-attributes">
-<span id="point-cloud-opf-mesh-primitive-custom-attributes"></span><h3>OPF_mesh_primitive_custom_attributes<a class="headerlink" href="#opf-mesh-primitive-custom-attributes" title="Permalink to this headline">¶</a></h3>
+<span id="point-cloud-opf-mesh-primitive-custom-attributes"></span><h3>OPF_mesh_primitive_custom_attributes<a class="headerlink" href="#opf-mesh-primitive-custom-attributes" title="Permalink to this heading">¶</a></h3>
 <p>Extension storing extra custom point attribute</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">OPF_mesh_primitive_custom_attributes</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -677,7 +734,7 @@
 </div>
 </div>
 <div class="section" id="opf-gltf-point-cloud-parser-support">
-<h2>OPF-glTF point cloud parser support<a class="headerlink" href="#opf-gltf-point-cloud-parser-support" title="Permalink to this headline">¶</a></h2>
+<h2>OPF-glTF point cloud parser support<a class="headerlink" href="#opf-gltf-point-cloud-parser-support" title="Permalink to this heading">¶</a></h2>
 <p>To parse an OPF-glTF point cloud, a parser is not required to support the whole glTF specification. We expose below what level of support is expected. Each field is marked as either <em>required</em>, <em>ignored</em>, <em>supported</em>, <em>unsupported</em> or <em>constrained</em>. The meaning of these is described below:</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -708,7 +765,7 @@
 </table>
 <p>With those definitions, any parser supporting the full glTF specification is a valid OPF-glTF point cloud parser. On the other hand, a valid OPF-glTF point cloud parser may choose to ignore some input or fail upon encountering glTF content outside of the subset specified hereby.</p>
 <div class="section" id="asset">
-<h3>Asset<a class="headerlink" href="#asset" title="Permalink to this headline">¶</a></h3>
+<h3>Asset<a class="headerlink" href="#asset" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -745,7 +802,7 @@
 </table>
 </div>
 <div class="section" id="material">
-<h3>Material<a class="headerlink" href="#material" title="Permalink to this headline">¶</a></h3>
+<h3>Material<a class="headerlink" href="#material" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -802,7 +859,7 @@
 </table>
 </div>
 <div class="section" id="scene">
-<h3>Scene<a class="headerlink" href="#scene" title="Permalink to this headline">¶</a></h3>
+<h3>Scene<a class="headerlink" href="#scene" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -831,7 +888,7 @@
 </table>
 </div>
 <div class="section" id="node">
-<h3>Node<a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h3>
+<h3>Node<a class="headerlink" href="#node" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -870,7 +927,7 @@
 </tr>
 <tr class="row-odd"><td><p>matrix</p></td>
 <td><p><strong>supported</strong></p></td>
-<td><p>Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion with the following anti-clockwise rotation around the x-axis [[1, 0, 0, 0], [0, 0, -1, 0],[0, 1, 0, 0], [0, 0, 0 0]] defined here.</p></td>
+<td><p>Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion by specifying a z-up to y-up rotation here. When written in the format required for this property (4x4 column-major matrix) that rotation is [1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1].</p></td>
 </tr>
 <tr class="row-even"><td><p>rotation</p></td>
 <td><p><strong>unsupported</strong></p></td>
@@ -888,7 +945,7 @@
 </table>
 </div>
 <div class="section" id="mesh-primitive">
-<h3>Mesh primitive<a class="headerlink" href="#mesh-primitive" title="Permalink to this headline">¶</a></h3>
+<h3>Mesh primitive<a class="headerlink" href="#mesh-primitive" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -929,7 +986,7 @@
 </table>
 </div>
 <div class="section" id="mesh">
-<h3>Mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h3>
+<h3>Mesh<a class="headerlink" href="#mesh" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -962,7 +1019,7 @@
 </table>
 </div>
 <div class="section" id="accessor">
-<h3>Accessor<a class="headerlink" href="#accessor" title="Permalink to this headline">¶</a></h3>
+<h3>Accessor<a class="headerlink" href="#accessor" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -1023,7 +1080,7 @@
 </table>
 </div>
 <div class="section" id="bufferview">
-<h3>BufferView<a class="headerlink" href="#bufferview" title="Permalink to this headline">¶</a></h3>
+<h3>BufferView<a class="headerlink" href="#bufferview" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -1068,7 +1125,7 @@
 </table>
 </div>
 <div class="section" id="buffer">
-<h3>Buffer<a class="headerlink" href="#buffer" title="Permalink to this headline">¶</a></h3>
+<h3>Buffer<a class="headerlink" href="#buffer" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -1101,7 +1158,7 @@
 </table>
 </div>
 <div class="section" id="gltf">
-<h3>glTF<a class="headerlink" href="#gltf" title="Permalink to this headline">¶</a></h3>
+<h3>glTF<a class="headerlink" href="#gltf" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>property</p></th>
@@ -1191,7 +1248,7 @@
 </div>
 </div>
 <div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference download internal" download="" href="../_downloads/4f0fae28953977749f51aa5513ce38ef/point_cloud.gltf"><span class="xref download myst">point_cloud.gltf</span></a></p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="nt">&quot;accessors&quot;</span><span class="p">:[</span>
@@ -1520,7 +1577,7 @@
 <span class="w">                     </span><span class="nt">&quot;nodeAttributes&quot;</span><span class="p">:{</span>
 <span class="w">                        </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="mi">12</span>
 <span class="w">                     </span><span class="p">},</span>
-<span class="w">                     </span><span class="nt">&quot;nodeCoordinates&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">&quot;nodeIndices&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
 <span class="w">                     </span><span class="nt">&quot;nodeLevelIndexing&quot;</span><span class="p">:[</span>
 <span class="w">                        </span><span class="mi">0</span><span class="p">,</span>
 <span class="w">                        </span><span class="mi">1</span><span class="p">,</span>
@@ -1592,7 +1649,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -1616,6 +1673,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     
 

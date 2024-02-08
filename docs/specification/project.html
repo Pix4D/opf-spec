@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Project format specification &mdash; Open Photogrammetry Format Specification 1.0.3 documentation</title>
+  <title>Project format specification &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
   
 
   
@@ -45,9 +45,15 @@
   <div class="globalNav">
       <a class="homeLogo" href="../index.html">
             
+          
             Open Photogrammetry Format
+          
       </a>
       <ul>
+          
+
+          
+
           <li class="version-switcher-placeholder"></li>
       </ul>
   </div>
@@ -387,10 +393,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.3 /
+        Version 1.0.5 /
       </li>
 
-      <li class="dateInfo">June 2023</li>
+      <li class="dateInfo">February 2024</li>
 
         
     
@@ -421,13 +427,13 @@
 </tbody>
 </table>
 <div class="tex2jax_ignore mathjax_ignore section" id="project-format-specification">
-<span id="project-format"></span><h1>Project format specification<a class="headerlink" href="#project-format-specification" title="Permalink to this headline">¶</a></h1>
+<span id="project-format"></span><h1>Project format specification<a class="headerlink" href="#project-format-specification" title="Permalink to this heading">¶</a></h1>
 <div class="section" id="goal">
-<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this heading">¶</a></h2>
 <p>The goal of this page is to specify the project/data container format that is used to reference the different files and metadata of a project.</p>
 </div>
 <div class="section" id="big-picture">
-<h2>Big picture<a class="headerlink" href="#big-picture" title="Permalink to this headline">¶</a></h2>
+<h2>Big picture<a class="headerlink" href="#big-picture" title="Permalink to this heading">¶</a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">project</span></code> is essentially a container. As such it is composed of different items (cameras, control points, calibration, …) that are glued together in a coherent structure.</p>
 <div class="mermaid">
             flowchart LR
@@ -442,7 +448,7 @@
         </div><p>Figure: The calibration inputs and pipeline</p>
 </div>
 <div class="section" id="definitions">
-<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>A <code class="docutils literal notranslate"><span class="pre">project</span></code> is composed of any number of project <code class="docutils literal notranslate"><span class="pre">items</span></code></p></li>
 <li><p>Each <code class="docutils literal notranslate"><span class="pre">item</span></code> has a <code class="docutils literal notranslate"><span class="pre">type</span></code> and an <code class="docutils literal notranslate"><span class="pre">id</span></code>, that allows the consumer to identify what it is. Example of item types: <code class="docutils literal notranslate"><span class="pre">input_cameras</span></code>, <code class="docutils literal notranslate"><span class="pre">scene_reference_frame</span></code>, <code class="docutils literal notranslate"><span class="pre">calibration</span></code>, etc.</p></li>
@@ -461,7 +467,7 @@ the project JSON schema.</p></li>
 </ol>
 </div>
 <div class="section" id="project-items">
-<h2>Project items<a class="headerlink" href="#project-items" title="Permalink to this headline">¶</a></h2>
+<h2>Project items<a class="headerlink" href="#project-items" title="Permalink to this heading">¶</a></h2>
 <p>The table below describes which <code class="docutils literal notranslate"><span class="pre">resource</span> <span class="pre">format</span></code> and <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">types</span></code> an item <em>may</em> contain depending on its <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -565,9 +571,9 @@ the project JSON schema.</p></li>
 </table>
 </div>
 <div class="section" id="extension-mechanism-for-item-types-and-resource-formats">
-<h2>Extension mechanism for Item types and Resource formats<a class="headerlink" href="#extension-mechanism-for-item-types-and-resource-formats" title="Permalink to this headline">¶</a></h2>
+<h2>Extension mechanism for Item types and Resource formats<a class="headerlink" href="#extension-mechanism-for-item-types-and-resource-formats" title="Permalink to this heading">¶</a></h2>
 <div class="section" id="naming-convention">
-<span id="id1"></span><h3>Naming convention<a class="headerlink" href="#naming-convention" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Naming convention<a class="headerlink" href="#naming-convention" title="Permalink to this heading">¶</a></h3>
 <p>This specification allows for extensions for <em>item types</em> and <em>resource formats</em>. To avoid possible clashes and ambiguities, such extensions must follow the following naming conventions:</p>
 <ul class="simple">
 <li><p>Extension names shall be of the form <code class="docutils literal notranslate"><span class="pre">&quot;&lt;UPPERCASE</span> <span class="pre">vendor&gt;_[&lt;myteam/myBU/myproject&gt;_]&lt;my_type_name&gt;&quot;</span></code></p></li>
@@ -578,7 +584,7 @@ the project JSON schema.</p></li>
 <p>Extensions should be designed such that tooling that do not recognize them can safely ignore them and still interpret the other parts of the project correctly. In other words an extension may not change the semantic of other parts of the projects.</p>
 </div>
 <div class="section" id="extension-example">
-<h3>Extension example<a class="headerlink" href="#extension-example" title="Permalink to this headline">¶</a></h3>
+<h3>Extension example<a class="headerlink" href="#extension-example" title="Permalink to this heading">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -624,11 +630,11 @@ the project JSON schema.</p></li>
 </div>
 </div>
 <div class="section" id="project-specification">
-<h2>Project specification<a class="headerlink" href="#project-specification" title="Permalink to this headline">¶</a></h2>
+<h2>Project specification<a class="headerlink" href="#project-specification" title="Permalink to this heading">¶</a></h2>
 <p>The project is an item catalog. It is stored in the JSON format.</p>
 <hr class="docutils" />
 <div class="section" id="project">
-<span id="project-project"></span><h3>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h3>
+<span id="project-project"></span><h3>Project<a class="headerlink" href="#project" title="Permalink to this heading">¶</a></h3>
 <p>Project Structure</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Project</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
@@ -685,7 +691,7 @@ the project JSON schema.</p></li>
 <hr class="docutils" />
 </div>
 <div class="section" id="project-item">
-<span id="id2"></span><h3>Project Item<a class="headerlink" href="#project-item" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>Project Item<a class="headerlink" href="#project-item" title="Permalink to this heading">¶</a></h3>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Item</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -736,7 +742,7 @@ the project JSON schema.</p></li>
 <hr class="docutils" />
 </div>
 <div class="section" id="project-resource">
-<span id="id3"></span><h3>Project Resource<a class="headerlink" href="#project-resource" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>Project Resource<a class="headerlink" href="#project-resource" title="Permalink to this heading">¶</a></h3>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Resource</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -767,7 +773,7 @@ the project JSON schema.</p></li>
 <hr class="docutils" />
 </div>
 <div class="section" id="project-source">
-<span id="id4"></span><h3>Project Source<a class="headerlink" href="#project-source" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>Project Source<a class="headerlink" href="#project-source" title="Permalink to this heading">¶</a></h3>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Source</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -798,7 +804,7 @@ the project JSON schema.</p></li>
 <hr class="docutils" />
 </div>
 <div class="section" id="the-generator-of-this-project">
-<span id="project-generator"></span><h3>The generator of this project<a class="headerlink" href="#the-generator-of-this-project" title="Permalink to this headline">¶</a></h3>
+<span id="project-generator"></span><h3>The generator of this project<a class="headerlink" href="#the-generator-of-this-project" title="Permalink to this heading">¶</a></h3>
 <p><strong><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">generator</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">project</span></code> Properties</strong></p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -824,13 +830,13 @@ the project JSON schema.</p></li>
 </div>
 </div>
 <div class="section" id="top-level-scene-reference-frame">
-<h2>Top level scene reference frame<a class="headerlink" href="#top-level-scene-reference-frame" title="Permalink to this headline">¶</a></h2>
+<h2>Top level scene reference frame<a class="headerlink" href="#top-level-scene-reference-frame" title="Permalink to this heading">¶</a></h2>
 <p>One of the top level data item of a project may be a scene reference frame. This item represents the <em>Project CRS</em> and its transformation to the <em>Processing CRS</em>. The Project CRS is the CRS that must be implicitly used for presentation purpose (e.g. an application displaying coordinates to a user) of any projected coordinate present in the project’s data items. However, this representation is not suitable for processing and visualization, so the canonical equivalent of the Project CRS, i.e. the Processing CRS, is the implicit coordinate reference system used for storage of all projected coordinates of a project.</p>
-<p>A scene reference frame must be present at the top level whenever a project contains data items with projected coordinates, otherwise the project is malformed. Projected coordinates are present, for example, in the <a class="reference internal" href="projected_input_cameras.html"><span class="doc std std-doc">projected cameras</span></a> and <a class="reference internal" href="control_points.html#format-specification-projected-control-points"><span class="std std-doc">projected control points</span></a>.</p>
-<p>For additional details see the generic specification of a <a class="reference internal" href="scene_reference_frame.html"><span class="doc std std-doc">scene reference frame</span></a>.</p>
+<p>A scene reference frame must be present at the top level whenever a project contains data items with projected coordinates, otherwise the project is malformed. Projected coordinates are present, for example, in the <a class="reference internal" href="projected_input_cameras.html"><span class="std std-doc">projected cameras</span></a> and <a class="reference internal" href="control_points.html#format-specification-projected-control-points"><span class="std std-ref">projected control points</span></a>.</p>
+<p>For additional details see the generic specification of a <a class="reference internal" href="scene_reference_frame.html"><span class="std std-doc">scene reference frame</span></a>.</p>
 </div>
 <div class="section" id="ids">
-<h2>IDs<a class="headerlink" href="#ids" title="Permalink to this headline">¶</a></h2>
+<h2>IDs<a class="headerlink" href="#ids" title="Permalink to this heading">¶</a></h2>
 <p>For some object, a unique ID may be assigned to the object when it is created.</p>
 <p>There are multiple types of IDs throughout this specification, for example:</p>
 <ul class="simple">
@@ -841,11 +847,11 @@ In the JSON representation they are stored as numbers.</p></li>
 </ul>
 </div>
 <div class="section" id="point-cloud-project-item">
-<span id="pcl-naming-convention"></span><h2>point_cloud project item<a class="headerlink" href="#point-cloud-project-item" title="Permalink to this headline">¶</a></h2>
+<span id="pcl-naming-convention"></span><h2>point_cloud project item<a class="headerlink" href="#point-cloud-project-item" title="Permalink to this heading">¶</a></h2>
 <p>The point cloud in the project is represented as a <code class="docutils literal notranslate"><span class="pre">glTF</span></code> file of type <code class="docutils literal notranslate"><span class="pre">model/gltf+json</span></code>, which, in turn, refers to binary buffers of type <code class="docutils literal notranslate"><span class="pre">application/gltf-buffer+bin</span></code> (see <a class="reference external" href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#file-extensions-and-media-types">here</a>). These files must be included as resources in the OPF project item of the point cloud. Further details on the format can be found in <a class="reference internal" href="point_cloud.html#opf-gltf-format"><span class="std std-ref">OPF-glTF point cloud</span></a>.</p>
 </div>
 <div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-project+json&quot;</span><span class="p">,</span>
@@ -1009,35 +1015,39 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">            </span><span class="p">],</span>
 <span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/point_cloud.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/sparse.gltf&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-positions.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/positions.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/partitioning.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchCameraIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointPixelCoordinates.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchCameraIds.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointFeatureIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchPixelCoordinates.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointScales.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchFeatureIds.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/track-matchImagePointDepths.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchScales.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchDepths.bin&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">},</span>
 <span class="w">                </span><span class="p">{</span>
@@ -1051,6 +1061,78 @@ In the JSON representation they are stored as numbers.</p></li>
 <span class="w">                </span><span class="p">{</span>
 <span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gps-bias.json&quot;</span><span class="p">,</span>
 <span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/opf-gps-bias+json&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;31ee32ac-5095-4507-a342-21cfcf12c54c&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;sources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;57608ca8-912d-4fee-b097-2648651474c4&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_cameras&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_control_points&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;54b313cf-9a5d-4bd7-8f51-b06577dedad1&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_input_cameras&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cf980832-21cd-4830-b02c-1e7f6faa7176&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;projected_control_points&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;83291b5e-d239-4d94-93fb-226f70d7cd3c&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scene_reference_frame&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6e12d73b-c8c0-4059-9c13-0a5ff2afaed7&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calibration&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/dense.gltf&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;model/gltf+json&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/positions.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/partitioning.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchPointIndexRanges.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/matchCameraIds.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/colors.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/normals.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/classes.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/tags.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;point_cloud/flags.bin&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;application/gltf-buffer+bin&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
@@ -1081,7 +1163,7 @@ In the JSON representation they are stored as numbers.</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2023, Pix4D.
+        &copy; Copyright 2024, Pix4D.
 
     </p>
   </div>
@@ -1105,6 +1187,7 @@ In the JSON representation they are stored as numbers.</p></li>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>

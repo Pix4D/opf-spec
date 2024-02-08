@@ -1,0 +1,12 @@
+{
+    "$id": "matrix_4x4.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "4x4 Matrix",
+    "description": "A floating point 4x4 matrix stored in column-major order.",
+    "type": "array",
+    "items": {
+        "type": "number"
+    },
+    "minItems": 16,
+    "maxItems": 16
+}

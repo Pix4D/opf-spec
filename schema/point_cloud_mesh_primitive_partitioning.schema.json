@@ -35,7 +35,7 @@
         },
         "nodeLevelIndexing": {
             "type": "array",
-            "description": "The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeIndexing[l] + 1, ..., nodeIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one",
+            "description": "The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeLevelIndexing[l] + 1, ..., nodeLevelIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one",
             "items": {
                 "type": "integer"
             }

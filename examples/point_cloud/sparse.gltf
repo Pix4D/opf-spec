@@ -18,94 +18,63 @@
       },
       {
          "bufferView":1,
-         "componentType":5126,
-         "count":3074,
-         "type":"VEC3"
-      },
-      {
-         "bufferView":2,
-         "componentType":5121,
-         "count":3074,
-         "normalized":true,
-         "type":"VEC4"
-      },
-      {
-         "bufferView":3,
          "componentType":5125,
          "count":10,
          "type":"SCALAR"
       },
       {
-         "bufferView":4,
+         "bufferView":2,
          "componentType":5125,
          "count":3074,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":3,
+         "componentType":5126,
+         "count":10,
+         "type":"VEC2"
+      },
+      {
+         "bufferView":4,
+         "componentType":5125,
+         "count":10,
          "type":"VEC2"
       },
       {
          "bufferView":5,
          "componentType":5126,
          "count":10,
-         "type":"VEC2"
+         "type":"SCALAR"
       },
       {
          "bufferView":6,
-         "componentType":5125,
+         "componentType":5126,
          "count":10,
-         "type":"VEC2"
+         "type":"SCALAR"
       },
       {
          "bufferView":7,
-         "componentType":5126,
-         "count":10,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":8,
-         "componentType":5126,
-         "count":10,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":9,
          "componentType":5125,
          "count":9,
          "type":"VEC4"
       },
       {
-         "bufferView":10,
+         "bufferView":8,
          "componentType":5125,
          "count":10,
          "type":"VEC2"
       },
       {
-         "bufferView":11,
+         "bufferView":9,
          "componentType":5125,
          "count":18,
          "type":"VEC4"
       },
       {
-         "bufferView":12,
+         "bufferView":10,
          "componentType":5125,
          "count":9,
          "type":"VEC2"
-      },
-      {
-         "bufferView":13,
-         "componentType":5123,
-         "count":3074,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":14,
-         "componentType":5125,
-         "count":3074,
-         "type":"SCALAR"
-      },
-      {
-         "bufferView":15,
-         "componentType":5121,
-         "count":3074,
-         "type":"SCALAR"
       }
    ],
    "asset":{
@@ -125,80 +94,55 @@
       },
       {
          "buffer":1,
-         "byteLength":36888,
+         "byteLength":40,
          "target":34962
       },
       {
          "buffer":2,
-         "byteLength":12296,
-         "target":34962
-      },
-      {
-         "buffer":3,
-         "byteLength":40,
-         "target":34962
-      },
-      {
-         "buffer":4,
          "byteLength":24592,
          "target":34962
       },
       {
-         "buffer":5,
+         "buffer":3,
          "byteLength":80,
+         "target":34962
+      },
+      {
+         "buffer":4,
+         "byteLength":80,
+         "target":34962
+      },
+      {
+         "buffer":5,
+         "byteLength":40,
          "target":34962
       },
       {
          "buffer":6,
-         "byteLength":80,
+         "byteLength":40,
          "target":34962
       },
       {
          "buffer":7,
-         "byteLength":40,
-         "target":34962
-      },
-      {
-         "buffer":8,
-         "byteLength":40,
-         "target":34962
-      },
-      {
-         "buffer":9,
          "byteLength":144,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":7,
          "byteLength":80,
          "byteOffset":144,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":7,
          "byteLength":288,
          "byteOffset":296,
          "target":34962
       },
       {
-         "buffer":9,
+         "buffer":7,
          "byteLength":72,
          "byteOffset":224,
-         "target":34962
-      },
-      {
-         "buffer":10,
-         "byteLength":6148,
-         "target":34962
-      },
-      {
-         "buffer":11,
-         "byteLength":12296,
-         "target":34962
-      },
-      {
-         "buffer":12,
-         "byteLength":3074,
          "target":34962
       }
    ],
@@ -206,14 +150,6 @@
       {
          "byteLength":36888,
          "uri":"positions.bin"
-      },
-      {
-         "byteLength":36888,
-         "uri":"normals.bin"
-      },
-      {
-         "byteLength":12296,
-         "uri":"colors.bin"
       },
       {
          "byteLength":40,
@@ -242,18 +178,6 @@
       {
          "byteLength":584,
          "uri":"partitioning.bin"
-      },
-      {
-         "byteLength":6148,
-         "uri":"classes.bin"
-      },
-      {
-         "byteLength":12296,
-         "uri":"tags.bin"
-      },
-      {
-         "byteLength":3074,
-         "uri":"flags.bin"
       }
    ],
    "extensionsRequired":[
@@ -280,20 +204,11 @@
          "primitives":[
             {
                "attributes":{
-                  "COLOR_0":2,
-                  "NORMAL":1,
                   "POSITION":0
                },
                "extensions":{
-                  "OPF_mesh_primitive_custom_attributes":{
-                     "attributes":{
-                        "class":13,
-                        "flag":15,
-                        "tag":14
-                     }
-                  },
                   "OPF_mesh_primitive_matches":{
-                     "cameraIds":3,
+                     "cameraIds":1,
                      "cameraUids":[
                         0,
                         1,
@@ -301,12 +216,12 @@
                         3
                      ],
                      "imagePoints":{
-                        "depths":8,
-                        "featureIds":6,
-                        "pixelCoordinates":5,
-                        "scales":7
+                        "depths":6,
+                        "featureIds":4,
+                        "pixelCoordinates":3,
+                        "scales":5
                      },
-                     "pointIndexRanges":4
+                     "pointIndexRanges":2
                   },
                   "OPF_mesh_primitive_partitioning":{
                      "boundingBox":{
@@ -321,17 +236,17 @@
                            -1.0
                         ]
                      },
-                     "childrenIndexing":10,
+                     "childrenIndexing":8,
                      "nodeAttributes":{
-                        "parent":12
+                        "parent":10
                      },
-                     "nodeIndices":9,
+                     "nodeIndices":7,
                      "nodeLevelIndexing":[
                         0,
                         1,
                         9
                      ],
-                     "perNodeChunkIndexRanges":11
+                     "perNodeChunkIndexRanges":9
                   }
                },
                "material":0,

@@ -42,7 +42,7 @@ Examples of OPF files are available under the `examples` subfolder.
 
 ## JSON encoding
 
-JSON files used throught this specification have the following restrictions on formatting and encoding.
+JSON files used throughout this specification have the following restrictions on formatting and encoding.
 
 1. JSON must use UTF-8 encoding
 2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text.
@@ -80,7 +80,7 @@ An example of a hypothetical `PIX4D_spatial_ref_sys` extension of [geo-referenci
 As per convention, the extension schema should allow additional properties to allow future extensibility of the extension.
 
 Where an extension is meant to share data between teams or with a third party, its format should be specified and documented.
-The specification of the extenstion should be documented under the "/extensions/<extension name>/" folder.
+The specification of the extension should be documented under the "/extensions/<extension name>/" folder.
 
 ### Naming
 
@@ -94,20 +94,20 @@ Names MUST use lowercase snake-case following the prefix, e.g. `OPF_some_extensi
 
 [JSON schema](https://json-schema.org/) is the source of truth regarding conformance with the specification, with the caveat that not all the semantics in the specification can be captured in a schema. The schemas are located in the `schema` directory.
 
-Note that by convention schemas of this specification always allow additional properties, this is required to suppport forward compatibility of the format. Such additionnal properties are strictly reserved for future version of the specification and shall not be used for the purpose of extensions. Extensions of the specification are provided through the [extensions mechanism](#extensions) exclusively.
+Note that by convention schemas of this specification always allow additional properties, this is required to support forward compatibility of the format. Such additional properties are strictly reserved for future version of the specification and shall not be used for the purpose of extensions. Extensions of the specification are provided through the [extensions mechanism](#extensions) exclusively.
 
 ### Custom extensions to JSON schema
 
 In some instances we have slightly extended the JSON schema vocabularies in order to add additional data that may be used to further validate a compliance with the specification.
 These extensions are described below:
 
-- New properties in project.schema.json : `required_resources_per_item_type`, `optional_resources_per_item_type`, `required_sources_per_item_type` and `optional_sources_per_item_type` dictionnaries describe which _resources_ and which _sources_ are required and optional for a given item type.
+- New properties in project.schema.json : `required_resources_per_item_type`, `optional_resources_per_item_type`, `required_sources_per_item_type` and `optional_sources_per_item_type` dictionaries describe which _resources_ and which _sources_ are required and optional for a given item type.
 
 In addition, in the spirit of forward compatibility, we relax the requirement of JSON schemas with respect to the `enum` keyword, which we redefine as an open-ended list of values for the purpose of this specification.
 
 ## Existing Tooling
 
-- PIX4Dmatic: import and export (commercial, free for visualisation, since v1.46)
+- PIX4Dmatic: import and export (commercial, free for visualization, since v1.46)
 - [Python](https://github.com/Pix4D/pyopf)
 
 ## Citation
@@ -118,9 +118,9 @@ If you use the OPF specification in your research or projects, we kindly request
 
 ## License
 
-Copyright (c) 2023 Pix4D SA
+Copyright (c) 2023-2024 Pix4D SA
 
-This specification and all the associated files, including but not limited to the markdown files, json schemas and any automatically generated HTML and PDF files are licensed under the Creative Commons Attribution 4.0 International License (CC BY-SA 4.0).
+This specification and all the associated files, including but not limited to the markdown files, json schemas and any automatically generated HTML and PDF files are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 All scripts and/or code contained in this repository are licensed under Apache License 2.0.
 
