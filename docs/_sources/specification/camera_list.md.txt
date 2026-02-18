@@ -132,10 +132,6 @@ The UID generator used to generate the UIDs of the cameras in the list. The OPF 
             "uri": "Image_09573.jpg"
         },
         {
-            "id": 28493939,
-            "uri": "Image_09573.jpg"
-        },
-        {
             "id": 28436394,
             "uri": "DepthMap_09573.tiff"
         },

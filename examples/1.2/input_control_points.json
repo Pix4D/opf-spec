@@ -1,0 +1,37 @@
+{
+    "format": "application/opf-input-control-points+json",
+    "gcps": [],
+    "mtps": [
+        {
+            "id": "AutoTag_3",
+            "is_checkpoint": false,
+            "marks": [
+                {
+                    "accuracy": 1.0,
+                    "camera_id": 15568579046499462075,
+                    "position_px": [
+                        613.2288254923909,
+                        452.701606334808
+                    ]
+                },
+                {
+                    "accuracy": 1.0,
+                    "camera_id": 1096274986383092996,
+                    "position_px": [
+                        544.7117593773046,
+                        500.57645424443206
+                    ]
+                },
+                {
+                    "accuracy": 1.0,
+                    "camera_id": 6029173663865488137,
+                    "position_px": [
+                        501.4901436868041,
+                        483.0300316321227
+                    ]
+                }
+            ]
+        }
+    ],
+    "version": "1.0"
+}

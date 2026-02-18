@@ -44,6 +44,10 @@ Content of the specification
 
    specification/point_cloud.md
 
+   specification/triangular_mesh_resource_format.md
+
+   specification/lod_mesh.md
+
    extensions
 
    annexes

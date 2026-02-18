@@ -57,11 +57,11 @@
                             "$ref": "vector3d.schema.json"
                         }
                     ],
-                    "description": "Per axis scaling factors to make the base CRS isometric."
+                    "description": "Per axis scaling factors to make the base CRS isometric. All factors must be greater than zero, and the first two elements must be identical."
                 },
                 "swap_xy": {
                     "type": "boolean",
-                    "description": "true if and only if the base CRS is left-handed."
+                    "description": "True if and only if the base CRS is left-handed."
                 },
                 "extensions": {}
             },

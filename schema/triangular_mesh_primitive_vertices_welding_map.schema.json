@@ -1,0 +1,17 @@
+{
+    "$id": "OPF_mesh_primitive_vertices_welding_map.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "OPF_mesh_primitive_vertices_welding_map",
+    "version": "1.1",
+    "description": "glTF extension storing the mesh vertices welding map",
+    "type": "object",
+    "properties": {
+        "weldingMap": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the accessor to the welding map indices. The referenced accessor type **MUST** be `SCALAR` and the component type `UNSIGNED INT`"
+        }
+    },
+    "required": [],
+    "additionalProperties": false
+}

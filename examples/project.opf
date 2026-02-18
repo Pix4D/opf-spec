@@ -1,5 +1,5 @@
 {
-    "version": "1.0",
+    "version": "1.1",
     "format": "application/opf-project+json",
     "id": "caa7754e-90dc-11ec-b909-0242ac120002",
     "name": "Example of a calibration project",
@@ -279,6 +279,84 @@
                 {
                     "uri": "point_cloud/flags.bin",
                     "format": "application/gltf-buffer+bin"
+                }
+            ]
+        },
+        {
+            "id": "aaa91b5e-1234-4d94-5678-226f70d7cddc",
+            "type": "dem",
+            "resources": [
+                {
+                    "uri": "dsm.tif",
+                    "format": "image/tiff; application=geotiff"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "31ee32ac-5095-4507-a342-21cfcf12c54c",
+                    "type": "point_cloud"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "bbb91b5e-1234-4d94-5678-226f70d70000",
+            "type": "orthomosaic",
+            "resources": [
+                {
+                    "uri": "final_ortho.tif",
+                    "format": "image/tiff; application=geotiff"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
+                    "type": "calibration"
+                },
+                {
+                    "id": "aaa91b5e-1234-4d94-5678-226f70d7cddc",
+                    "type": "dem"
+                },
+                {
+                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
+                    "type": "scene_reference_frame"
+                }
+            ]
+        },
+        {
+            "id": "ccc91b5e-1234-4d94-5678-226f70d79876",
+            "type": "scalar_index_map",
+            "name": "NDVI: (nir - red)/(nir + red)",
+            "resources": [
+                {
+                    "uri": "ndvi.tif",
+                    "format": "image/tiff; application=geotiff"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "bbb91b5e-1234-4d94-5678-226f70d70000",
+                    "type": "orthomosaic"
+                }
+            ]
+        },
+        {
+            "id": "ccc91b5e-1234-4d94-5678-226f70d79870",
+            "type": "scalar_index_map",
+            "name": "NDRE: (nir - rededge)/(nir + rededge)",
+            "resources": [
+                {
+                    "uri": "ndre.tif",
+                    "format": "image/tiff; application=geotiff"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "bbb91b5e-1234-4d94-5678-226f70d70000",
+                    "type": "orthomosaic"
                 }
             ]
         }

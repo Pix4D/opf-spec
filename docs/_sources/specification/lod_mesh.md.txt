@@ -1,0 +1,291 @@
+(opf-lod-mesh-format)=
+# OPF level of detail mesh
+
+The OPF level of detail mesh (OPF-LoD mesh) format aims at storing large spatially partitioned triangular meshes which are optimized for rendering and streaming.
+
+The format uses a strict subset of the [Cesium 3D Tiles 1.1](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification) specification and can be extended through the [extension mechanism](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#specifying-extensions-and-application-specific-extras).
+
+An OPF-LoD mesh is thus a fully valid Cesium 3DTile asset but the converse is not necessarily true: not all Cesium 3DTile assets are valid OPF-LoD meshes.
+The requirements specific to an OPF-LoD mesh are described in the next section.
+
+## Format description
+
+The OPF-LoD mesh is a [Cesium 3D Tiles 1.1](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification) asset using [implicit tiling](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling) for defining the spatial partitioning and whose nodes are [OPF triangular meshes](triangular_mesh_resource_format.md).
+
+The spatial partitioning is restricted to use an octree as [subdivision scheme](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subdivision-scheme) with [boxes](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#box) as [bounding volumes](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#bounding-volumes).
+Each level of the octree hierarchy contains the representation of the mesh at different resolutions, with the root containing the lowest resolution version of the asset and the leaves the highest one, allowing rendering implementations to progressively and selectively display higher resolution versions of the asset.
+The [refinement strategy](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#refinement) is therefore required to be [replacement](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#replacement) in order to render the mesh content correctly.
+
+The octree hierarchy is expected to contain the data of a single asset.
+[Multiple contents](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#multiple-contents) are not supported, but multiple OPF-LoD meshes can be stored in an OPF project.
+
+The nodes can only reference 3D meshes content in the [GLB](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification) format, respecting the [OPF triangular meshes](triangular_mesh_resource_format.md) specification.
+Non textured content is allowed, however it is required that all nodes in an OPF-LoD mesh are either textured or not textured. Mixed representations are not valid.
+
+
+### TileSet JSON
+
+The [tileset json](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#tileset-json) is the entry point for defining an OPF-LoD mesh.
+As of the [Cesium specification](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/schema/tileset.schema.json) it is required to define the `asset`, `geometricError` and `root` properties.
+
+
+### TileSet root tile
+
+An OPF-LoD mesh requires the tileset `root` tile to be an [implicit root tile](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/ImplicitTiling/README.adoc#implicit-root-tile) and thus the definition of the `implicitTiling` property is mandatory.
+
+A single tile [content](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#tile-content) must be present, with its `content.uri` being a [template URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris) pointing to the location of the [OPF triangular mesh](triangular_mesh_resource_format.md) nodes.
+The [URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris) must be relative to the referring tileset json file.
+Data embedding URIs are not supported.
+
+The [boundingVolume](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#bounding-volumes) property is required to be a [box](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#box) and the [refine](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#refinement) property set to `REPLACE`
+
+A [transform](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms) property for transforming both the nodes data and the partitioning from their local coordinate system to the tileset coordinate system can optionally be defined.
+The `transform` property is a 4x4 affine transformation matrix stored in column-major order.
+As of the [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms) implementations must assume an identity matrix if the `transform` property is not defined.
+
+Note that as the mesh nodes content is stored in `GLB` files, the `glTF` nodes transform and the `y-Up to z-Up` transform have to be applied to the data prior to apply the tileset `transform` (please refer to the [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms) for a detailed description).
+An OPF-LoD mesh requires the data to be in the [OPF project canonical reference frame](scene_reference_frame_format.md#scene-reference-frame-format) after applying the previously described transformations.
+
+---
+***Informative***
+
+As both the [OPF canonical reference frame](scene_reference_frame_format.md#scene-reference-frame-format) and the [Cesium 3D Tiles reference system](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#coordinate-reference-system-crs) are right handed Cartesian reference systems using a z-Up axis convention while glTF uses a right handed reference system with a y-Up axis convention the following strategy can be used to avoid costly data transformations when consuming the asset:
+
+* Write the [OPF triangular mesh](triangular_mesh_resource_format.md) nodes data directly in the [OPF project canonical reference frame](scene_reference_frame_format.md#scene-reference-frame-format).
+
+* Use a z-Up to y-Up rotation transform in the [OPF mesh node matrix](opf-triangular-mesh-format-nodes). When written in the format required for this property (4x4 column-major matrix) that rotation is `[1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1]`.
+
+* Use an identity matrix for the tileset `transform` property.
+
+As the glTF `y-Up to z-Up` transform will be compensated by the node matrix `z-Up to y-Up` transform and the Cesium tileset transform is already identity, no transformation needs to be applied to the data in order to obtain a representation in the OPF canonical reference frame.
+
+---
+
+### Implicit tiling
+
+In an OPF-LoD mesh the implicit tiling `subdivisionScheme` property must be set to `"OCTREE"` and the `subtree` property must contain a [template URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris) pointing to the location of the [subtrees](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtrees) data describing the spatial partitioning.
+The [URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris) must be relative to the referring tileset json file.
+Data embedding URIs are not supported.
+
+Note that the OPF-LoD mesh only supports subtrees in the [binary format](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/ImplicitTiling/README.adoc#subtree-binary-format) packaging the [subtree json format](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-json-format) description with the required binary buffers.
+The subtrees files must be self-contained, references to external buffers are forbidden.
+
+
+### OPF triangular mesh nodes
+
+The OPF-LoD mesh nodes must be compliant with the [OPF triangular mesh](triangular_mesh_resource_format.md) resource format specification.
+
+When storing a non-textured asset, the [mesh primitive](opf-triangular-mesh-format-meshes) must at least define the vertex positions.
+
+Textured assets require to reference at least a `TEXCOORD_<n>` attribute together with the corresponding material definition.
+An OPF-LoD mesh supports texture images encoded in `png`, `jpeg` or `KTX` format.
+
+A [welding map](opf-triangular-mesh-format-welding-map) can optionally be defined as part of the mesh primitive of a textured asset.
+
+
+## OPF-LoD mesh parser support
+To parse an OPF-LoD mesh, a parser is not required to support the whole Cesium 3DTile specification.
+We expose below what level of support is expected.
+Each field is marked as either *required*, *ignored*, *supported*, *unsupported* or *constrained*.
+The meaning of these is described below:
+| keyword | parser behavior |
+|---------|-----------------|
+| *cesium-required* | The field is required by the Cesium 3D Tiles specification. The parser **must** fail with an error if the field is not found |
+| *required* | A supported field for which the parser **must** fail with an error if not found |
+| *ignored* | The parser **may** ignore the field completely |
+| *supported* | The parser **must** parse the field, yielding the field intended effect |
+| *unsupported* | The parser **may** choose to fail with an error if the field is encountered. Otherwise the field must be ignored. |
+| *constrained* | A required field on which the parser **may** choose to fail with an error if the constraint is not met. |
+
+With those definitions, any parser supporting the full Cesium 3D Tiles specification is a valid parser for the OPF-LoD mesh format. On the other hand, a valid OPF-LoD mesh parser may choose to ignore some input or fail upon encountering content outside of the subset specified hereby.
+
+### Asset
+| property | value | comment |
+|----------|--------|---------|
+| version  | **constrained** | **Must** be "1.1" |
+| tilesetVersion| **ignored** ||
+| extensions  | **constrained** | **Must** include the [OPF_lod_mesh_asset_version](opf-lod-mesh-asset-version) extension |
+| extras     | **ignored** ||
+### Tile
+| property | value | comment |
+|----------|--------|---------|
+| boundingVolume |**constrained**| **Must** be a [`box`](https://github.com/CesiumGS/3d-tiles/blob/3c972d6e5fdea721039f64d7da16274605abcdf5/specification/schema/boundingVolume.schema.json#L9) bounding volume |
+| geometricError | **cesium-required** ||
+| refine | **constrained** |  **Must** be "REPLACE" |
+| content | **required** ||
+| contents |  **unsupported** | A single `content` is expected to be defined by the implicit root tile |
+| transform | **supported** ||
+| implicitTiling | **required** ||
+| children | **unsupported** | The [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile) mandates this property to be omitted when using `implicitTiling` |
+| metadata |  **unsupported** | The [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile) mandates this property to be omitted when using `implicitTiling` |
+| extensions |  **ignored** ||
+| extras     | **ignored** ||
+### Content
+| property | value | comment |
+|----------|--------|---------|
+| boundingVolume |**unsupported**| The [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile) mandates this property to be omitted when using `implicitTiling` |
+| uri | **constrained** | **Must** be a [template URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris) matching the naming pattern of the [OPF triangular mesh](triangular_mesh_resource_format.md) GLB files.<br>The [URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris) **must** be relative to the referring tileset json file.<br>Data embedding URIs are not supported. |
+| metadata |  **ignored** ||
+| group |  **ignored** ||
+| extensions |  **ignored** ||
+| extras     | **ignored** ||
+### Implicit Tiling
+| property | value | comment |
+|----------|--------|---------|
+| subdivisionScheme |**constrained**| **Must** be "OCTREE" |
+| subtreeLevels | **cesium-required** ||
+| availableLevels | **cesium-required** ||
+| subtrees |  **constrained** | **Must** be a [template URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris) matching the naming pattern of the [**binary** subtrees](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-binary-format) files defining the partitioning.<br>The [URI](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris) **must** be relative to the referring tileset json file.<br>Data embedding URIs are not supported. |
+| extensions |  **ignored** ||
+| extras     | **ignored** ||
+### Tileset
+| property | value | comment |
+|----------|--------|---------|
+| asset | **cesium-required** ||
+| geometricError | **cesium-required** ||
+| root | **cesium-required** ||
+| extensionsUsed | **supported** ||
+| extensionsRequired | **supported** ||
+| properties | **ignored** ||
+| schema | **ignored** ||
+| schemaUri | **ignored** ||
+| statistics | **ignored** ||
+| groups | **ignored** ||
+| metadata | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+
+The following is specific to the [Subtree JSON format](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-json-format) embedded in the `subtrees` referenced by the implicit tiling:
+
+### Subtree
+| property | value | comment |
+|----------|--------|---------|
+| buffers | **supported** ||
+| bufferViews | **supported** ||
+| tileAvailability | **cesium-required** ||
+| contentAvailability | **constrained** | The array **must** contain a single element. Multiple contents are not supported |
+| childSubtreeAvailability |  **cesium-required** ||
+| propertyTables | **ignored** ||
+| tileMetadata | **ignored** ||
+| contentMetadata | **ignored** ||
+| subtreeMetadata | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+### Availability
+| property | value | comment |
+|----------|--------|---------|
+| bitstream | **supported** ||
+| availableCount | **supported** ||
+| constant | **supported** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+### Buffer View
+| property | value | comment |
+|----------|--------|---------|
+| buffer | **cesium-required** ||
+| byteOffset | **cesium-required** ||
+| byteLength | **cesium-required** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+### Buffer
+| property | value | comment |
+|----------|--------|---------|
+| uri | **unsupported** | Buffers **must** be embedded in a binary subtree file and cannot refer to external data |
+| byteLength | **cesium-required** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+
+
+(supported_cesium_extensions)=
+## Supported Cesium 3D Tiles extensions
+(opf-lod-mesh-asset-version)=
+### OPF_lod_mesh_asset_version
+
+The extension stores the OPF format specification version
+
+
+---------------------------------------
+(lod_mesh-opf_lod_mesh_asset_version)=
+### OPF_lod_mesh_asset_version
+
+Cesium 3D Tiles extension storing the OPF specification version
+
+**`OPF_lod_mesh_asset_version` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**version**|`string`|The OPF version in the form of `<major>.<minor>` or `<major>.<minor>-draft<draftNumber>` that this asset targets.| &#10003; Yes|
+|**generator**|`string`|An optional string identifying the asset generator.|No|
+
+
+
+## Example
+
+```json
+{
+    "asset": {
+        "version": "1.1",
+        "extensions": {
+            "OPF_lod_mesh_asset_version": {
+                "version": "1.1",
+                "generator": "Pix4D"
+            }
+        }
+    },
+    "geometricError": 0.12102411687374115,
+    "root": {
+        "boundingVolume": {
+            "box": [
+                2.978947162628174,
+                3.799898624420166,
+                1.4298396110534668,
+                3.8271379470825195,
+                0.0,
+                0.0,
+                0.0,
+                3.8271379470825195,
+                0.0,
+                0.0,
+                0.0,
+                3.8271379470825195
+            ]
+        },
+        "geometricError": 0.12102411687374115,
+        "refine": "REPLACE",
+        "transform": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ],
+        "content": {
+            "uri": "content/{level}_{x}_{y}_{z}.glb"
+        },
+        "implicitTiling": {
+            "subdivisionScheme": "OCTREE",
+            "subtreeLevels": 3,
+            "availableLevels": 3,
+            "subtrees": {
+                "uri": "subtrees/{level}_{x}_{y}_{z}.subtree"
+            }
+        }
+    },
+    "extensionsUsed": [
+        "OPF_lod_mesh_asset_version"
+    ]
+}
+```

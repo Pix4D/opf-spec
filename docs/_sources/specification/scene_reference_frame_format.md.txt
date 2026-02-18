@@ -36,8 +36,8 @@ Scene reference frames may be explicitly or implicitly attached to any artifact 
 |   |Type|Description|Required|
 |---|---|---|---|
 |**shift**|`number` `[3]`|Translation from the canonical CRS to a recentered reference frame suitable for processing and visualization.| &#10003; Yes|
-|**scale**|`number` `[3]`|Per axis scaling factors to make the base CRS isometric.| &#10003; Yes|
-|**swap_xy**|`boolean`|true if and only if the base CRS is left-handed.| &#10003; Yes|
+|**scale**|`number` `[3]`|Per axis scaling factors to make the base CRS isometric. All factors must be greater than zero, and the first two elements must be identical.| &#10003; Yes|
+|**swap_xy**|`boolean`|True if and only if the base CRS is left-handed.| &#10003; Yes|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 

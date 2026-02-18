@@ -1,0 +1,518 @@
+(opf-triangular-mesh-format)=
+# OPF triangular mesh resource format
+
+The following defines the OPF resource format for the storage of a simple and self-contained indexed triangular mesh representing a 3D geometry. The mesh can optionally be textured and it is optimized for rendering.
+
+The format uses a strict subset of the [glTF file format](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html) specification and can be extended through the [glTF extension mechanism](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#specifying-extensions). An OPF triangular mesh resource is thus a fully valid glTF asset but the converse is not necessarily true: not all glTF assets are valid OPF triangular meshes.
+
+To keep the asset self-contained, the OPF triangular mesh must be packaged in a [GLB container file](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification).
+
+This document specifies the set of glTF features that have to be supported by a conformant OPF parser. Items using the format as a resource can specify stricter requirements on the file content, for instance by requiring a specific extension to be present in the generated resource.
+
+Items using the OPF triangular mesh resource format must use `model/gltf-binary` as their format storage string.
+
+## Format structure
+
+### glTF model
+
+The OPF triangular mesh file format is a valid [glTF model](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-gltf) embedded in a [GLB container file](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification).
+
+The following specify the expected content of the glTF model and the supported subset of glTF features of an OPF triangular mesh:
+
+#### Scene
+
+The model must contain a single [scene](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-scene). It is recommended to reference the only existing scene by the `scene` root glTF property to avoid delayed rendering by some client implementations.
+
+(opf-triangular-mesh-format-nodes)=
+#### Nodes
+
+The scene must reference a single [root node](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#nodes-and-hierarchy) in its `nodes` array property. This single node must not reference any child node.
+
+The node may have a spatial transform attached by its `matrix` property that transforms from the node internal coordinate system to the global scene one.
+
+---
+***Informative***
+
+Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion by specifying a z-up to y-up rotation here. When written in the format required for this property (4x4 column-major matrix) that rotation is `[1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1]`.
+
+---
+
+The node must reference a mesh by its `mesh` property.
+
+(opf-triangular-mesh-format-meshes)=
+#### Meshes
+
+The mesh referenced by the node must contain a single [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive).
+
+ The mesh primitive [mode](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_mode) must be set to `TRIANGLES (4)` and an [indices](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_indices) accessor must be defined.
+ The referenced indices are constrained to be of `SCALAR` type ['unsigned int (5125)'](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#accessor-data-types)
+
+ To be valid the mesh primitive must at least contain a reference to the vertices "POSITION" accessor in its `attributes` list.
+
+ If the mesh is textured at least a `TEXCOORD_<n>` attribute must be present in the primitive attributes and must reference a `VEC2` accessor of ['float (5126)'](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#accessor-data-types) containing the texture UV coordinates. Additionally the primitive must reference a ['material'](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-material) containing a `pbrMetallicRoughness` attribute with a defined `baseColorTexture` property when the mesh is textured.
+
+The `COLOR_<n>` attribute can be used to assign `RGBA` colors to vertices. The attribute must reference a normalized `VEC4` accessor of ['unsigned byte (5121)'](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#accessor-data-types).
+
+ Custom [glTF extensions](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-extension) for the mesh primitive can be used in order to define additional mesh attributes. The set of supported extensions can be found [here](#supported-gltf-extensions). Unknown extensions are ignored if not marked as required.
+
+#### Material
+
+When referenced by a mesh primitive a [material](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-material) must define the [pbrMetallicRoughness](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-material-pbrmetallicroughness) property.
+
+If the [material](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-material) is referenced by a textured mesh primitive its [pbrMetallicRoughness](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-material-pbrmetallicroughness) property must define a `baseColorTexture` property.
+
+The [textureInfo](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-textureinfo) of the `baseColorTexture` property must reference the `index` of the [`Texture`](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-texture) associated with the mesh and the corresponding UV `texCoord` set index `<n>` matching the mesh primitive `TEXCOORD_<n>`
+
+#### Texture
+
+The [texture](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-texture) referenced by the `baseColorTexture` `index` is required to define a `source` property referencing an `Image`, unless a KTX v2 texture is defined using the [KHR_texture_basisu](https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_texture_basisu) extension.
+When the `KHR_texture_basisu` extension is used, it is required for its `source` property to reference an `Image`.
+
+#### Image
+
+The [image](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-image) referenced by a texture is required to reference the data through its `bufferView` property. The usage of `uri` for referencing the data is forbidden. As a consequence of this the `mimeType` string must be defined.
+
+
+### GLB container
+
+The OPF triangular mesh must be packaged in a [GLB container file](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification) containing the glTF model, the mesh geometry and optionally the mesh texture data.
+The GLB container must only reference data packaged with the file. References to external URIs are forbidden.
+
+
+## glTF version, restrictions and constraints
+
+* The glTF model asset.version property **must** be `2.0`
+* The GLB file version property **must** be `2`
+* The GLB file must be self contained, therefore its glTF model **shall not** reference external buffers. The [glTF specification](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-stored-buffer) mandates that the GLB stored buffer **must** be the first in `buffers` array and **shall not** define a `uri` property
+* The glTF model **shall not** embed base-64 encoded data blobs.
+* glTF accessors [type](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_accessor_type) **must** be `SCALAR`, `VEC2`, `VEC3` or `VEC4`, *i. e.* matrix types are not supported.
+* The glTF specification mandates that all referenced buffers **must** be in little-endian byte order.
+* glTF accessors with the [accessor.sparse](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-accessor-sparse) property set are not supported.
+* glTF buffer views **shall not** have the [byteStride](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_bufferview_bytestride) *i. e.* heterogeneous types interleaved fields are forbidden.
+* Only a single [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) is supported per mesh.
+
+## glTF OPF triangular mesh format parser support
+To parse an OPF triangular mesh, a parser is not required to support the whole glTF specification. We expose below what level of support is expected. Each field is marked as either *required*, *ignored*, *supported*, *unsupported* or *constrained*. The meaning of these is described below:
+| keyword | parser behavior |
+|---------|-----------------|
+| *glTF-required* | The field is required by the glTF specification. The parser **must** fail with an error if the field is not found |
+| *required* | The parser **may** fail with an error if the field is not found |
+| *ignored* | The parser **may** ignore the field completely |
+| *supported* | The parser **must** parse the field, yielding the field intended effect |
+| *unsupported* | The parser **may** choose to fail with an error if the field is encountered |
+| *constrained* | The parser **may** choose to fail with an error if the constraint is not met |
+
+With those definitions, any parser supporting the full glTF specification is a valid parser for the OPF triangular mesh format. On the other hand, a valid OPF triangular mesh parser may choose to ignore some input or fail upon encountering glTF content outside of the subset specified hereby.
+
+### Asset
+| property | value | comment |
+|----------|--------|---------|
+| version  | **constrained** | **Must** be "2.0" |
+| generator| **ignored** ||
+| minVersion | **ignored** ||
+| copyright  | **ignored** ||
+| extensions  | **constrained** | **Must** include the [OPF_mesh_asset_version](#opf_mesh_asset_version) extension |
+| extras     | **ignored** ||
+### Material
+| property | value | comment |
+|----------|--------|---------|
+| extensions |  **ignored** ||
+| extras     | **ignored** ||
+| name       | **ignored** ||
+| pbrMetallicRoughness | **supported** | **Must** contain baseColorTexture for textured assets|
+| normalTexture | **ignored** ||
+| occlusionTexture | **ignored** ||
+| emissiveTexture | **ignored** ||
+| emissiveFactor | **ignored** ||
+| alphaMode | **ignored** ||
+| alphaCutoff | **ignored** ||
+| doubleSided | **ignored** ||
+### Texture
+| property | value | comment |
+|----------|--------|---------|
+| sampler  | **ignored**   ||
+| source   | **supported** ||
+| extensions   | **supported** | Supports the texture extensions listed under the [Supported glTF extensions](#supported-gltf-extensions) section |
+### Image
+| property | value | comment |
+|----------|--------|---------|
+| uri      | **unsupported**   | The texture is required to be packed in the GLB file |
+| bufferView   | **required** ||
+| mimeType     | **required** ||
+### Scene
+| property | value | comment |
+|----------|--------|---------|
+| nodes    | **constrained** |  A single node is expected |
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| name | **ignored** ||
+### Node
+| property | value | comment |
+|----------|--------|---------|
+| mesh | **supported** ||
+| extensions | **ignored** ||
+| name | **ignored** ||
+| extras | **ignored** ||
+| camera |  **unsupported** ||
+| children | **unsupported** ||
+| skin | **unsupported** ||
+| matrix | **supported** | Note that glTF follows a y-up convention. Points in a z-up coordinate system could be written without conversion by specifying a z-up to y-up rotation here. When written in the format required for this property (4x4 column-major matrix) that rotation is [1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1]. |
+| rotation | **unsupported** | Rotation support is covered by the affine matrix transform|
+| translation | **unsupported** | Translation support is covered by the affine matrix transform |
+| weights | **unsupported** ||
+### Mesh primitive
+| property | value | comment |
+|----------|--------|---------|
+| attributes | **constrained** | - **Must** include `POSITION` <br> - **May** include `TEXCOORD_n` and `COLOR_n`. Only RGBA unsigned byte colors are supported <br> - `JOINTS_n` and `WEIGHTS_n` are unsupported <br> - Any other field is ignored |
+| material | **constrained** ||
+| extensions | **supported** | Supports the attributes extensions listed under the [Supported glTF extensions](#supported-gltf-extensions) section |
+| mode | **constrained** | **Must** be 4 (`TRIANGLES` topology) |
+| indices | **constrained** | **Must** be of `SCALAR` type `unsigned int (5125)` |
+| extras | **ignored** ||
+| targets | **unsupported** ||
+### Mesh
+| property | value | comment |
+|----------|--------|---------|
+| primitives | **constrained** | **Must** contain a single mesh primitive |
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| weights | **unsupported** ||
+### Accessor
+| property | value | comment |
+|----------|--------|---------|
+| bufferView | **required** ||
+| componentType | **glTF-required** ||
+| count | **glTF-required** ||
+| type | **glTF-required** ||
+| min | **constrained** | The glTF specification mandates this field to be set for the accessor referred by the mesh primitives `POSITION` attribute.|
+| max | **constrained** | The glTF specification mandates this field to be set for the accessor referred by the mesh primitives `POSITION` attribute.|
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| byteOffset | **supported** ||
+| sparse | **unsupported** ||
+| normalized | **supported** ||
+### BufferView
+| property | value | comment |
+|----------|--------|---------|
+| buffer | **glTF-required** ||
+| byteLength | **glTF-required** ||
+| target | **supported** ||
+| byteOffset | **supported** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| byteStride | **unsupported** | Only packed contiguous data layout is supported|
+### Buffer
+| property | value | comment |
+|----------|--------|---------|
+| uri | **unsupported** | Buffers **must** be embedded in a GLB file and cannot refer to external data |
+| byteLength | **glTF-required** ||
+| name | **ignored** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+### glTF
+| property | value | comment |
+|----------|--------|---------|
+| asset | **glTF-required** ||
+| extensionsUsed | **supported** ||
+| extensionsRequired | **supported** ||
+| materials | **supported** ||
+| scenes | **supported** ||
+| scene | **supported** ||
+| nodes | **supported** ||
+| meshes | **supported** ||
+| accessors | **supported** ||
+| bufferViews | **supported** ||
+| buffers | **supported** ||
+| extensions | **ignored** ||
+| extras | **ignored** ||
+| animations | **unsupported** ||
+| cameras | **unsupported** ||
+| images | **supported** ||
+| samplers | **ignored** ||
+| textures | **supported** ||
+| skins | **unsupported** ||
+
+(supported_gltf_extensions)=
+## Supported glTF extensions
+(opf-mesh-asset-version)=
+### OPF_mesh_asset_version
+
+The extension stores the OPF format specification version
+
+
+
+---------------------------------------
+(triangular_mesh_resource_format-opf_mesh_asset_version)=
+### OPF_mesh_asset_version
+
+glTF extension storing the OPF specification version
+
+**`OPF_mesh_asset_version` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**version**|`string`|The OPF version in the form of  `<major>.<minor>` or `<major>.<minor>-draft<draftNumber>` that this asset targets.| &#10003; Yes|
+
+
+(opf-triangular-mesh-format-welding-map)=
+### OPF_mesh_primitive_vertices_welding_map
+
+Extend the mesh primitive with a vertex welding map.
+
+The glTF specification requires UVs to be stored per-vertex. When the glTF triangulation is generated from a textured mesh representation allowing for multiple UV coordinates per vertex, the vertex positions with different texture coordinates are duplicated.
+
+The welding map is an array of indices, with the same number of elements as the vertices, used to track the vertices that have been duplicated due to discontinuities in UV space.
+
+Given the mesh primitive triangulation [indices](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_indices), the indexing of the vertices before duplication can be obtained as weldingMap[indices[i]], with `i` in range `[0,indices.count[`
+
+The weldingMap indices are expected to be of `SCALAR` type `unsigned int (5125)`
+
+
+
+---------------------------------------
+(triangular_mesh_resource_format-opf_mesh_primitive_vertices_welding_map)=
+### OPF_mesh_primitive_vertices_welding_map
+
+glTF extension storing the mesh vertices welding map
+
+**`OPF_mesh_primitive_vertices_welding_map` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**weldingMap**|`integer`|The index of the accessor to the welding map indices. The referenced accessor type **MUST** be `SCALAR` and the component type `UNSIGNED INT`|No|
+
+
+### KHR_texture_basisu
+
+The extension allows to use KTX v2 images as textures. Please refer to the [extension documentation](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_texture_basisu/README.md) for details and limitations.
+
+
+
+---------------------------------------
+(triangular_mesh_resource_format-khr_texture_basisu-gltf-texture-extension)=
+### KHR_texture_basisu glTF Texture Extension
+
+glTF extension to specify textures using the KTX v2 images with Basis Universal supercompression.
+
+**`KHR_texture_basisu glTF Texture Extension` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**source**|`integer`|The index of the image which points to a KTX v2 resource with Basis Universal supercompression.| &#10003; Yes|
+|**extensions**|`object`|JSON object with extension-specific objects.|No|
+|**extras**|[`any`](triangular_mesh_resource_format-any)|Application-specific data.|No|
+
+
+## Example
+
+The following example shows the content of the [glTF model](../../../examples/triangular_mesh/model.gltf) embedded in a [mesh glb file](../../../examples/triangular_mesh/mesh.glb).
+
+The mesh is textured, use KTX v2 images to store the texture through the `KHR_texture_basisu` extension and defines a welding map for the vertices using the `OPF_mesh_primitive_vertices_welding_map` extension.
+
+```json
+{
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 34761,
+            "max": [
+                8630.0
+            ],
+            "min": [
+                0.0
+            ],
+            "normalized": false,
+            "type": "SCALAR"
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 8631,
+            "max": [
+                0.26404231786727905,
+                0.9723221659660339,
+                -0.4886963367462158
+            ],
+            "min": [
+                -0.9217460751533508,
+                -0.3029027581214905,
+                -1.0421277284622192
+            ],
+            "normalized": false,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 8631,
+            "max": [
+                0.9999366998672485,
+                0.9999370574951172
+            ],
+            "min": [
+                6.294113700278103e-05,
+                6.324052810668945e-05
+            ],
+            "normalized": false,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 4,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 8631,
+            "max": [
+                5886.0
+            ],
+            "min": [
+                0.0
+            ],
+            "normalized": false,
+            "type": "SCALAR"
+        }
+    ],
+    "asset": {
+        "extensions": {
+            "OPF_mesh_asset_version": {
+                "version": "1.1"
+            }
+        },
+        "generator": "Pix4D MESH IO 0.17.1",
+        "version": "2.0"
+    },
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 139044,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 103572,
+            "byteOffset": 139044,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 69048,
+            "byteOffset": 242616,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 160359,
+            "byteOffset": 311664
+        },
+        {
+            "buffer": 0,
+            "byteLength": 34524,
+            "byteOffset": 472024
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 506548
+        }
+    ],
+    "extensionsRequired": [
+        "KHR_texture_basisu"
+    ],
+    "extensionsUsed": [
+        "KHR_texture_basisu",
+        "OPF_mesh_asset_version",
+        "OPF_mesh_primitive_vertices_welding_map"
+    ],
+    "images": [
+        {
+            "bufferView": 3,
+            "mimeType": "image/ktx2"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0,
+                    "texCoord": 0
+                },
+                "metallicFactor": 1.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "extensions": {
+                        "OPF_mesh_primitive_vertices_welding_map": {
+                            "weldingMap": 3
+                        }
+                    },
+                    "indices": 0,
+                    "material": 0,
+                    "mode": 4
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "mesh": 0
+        }
+    ],
+    "scene": 0,
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "extensions": {
+                "KHR_texture_basisu": {
+                    "source": 0
+                }
+            }
+        }
+    ]
+}
+```

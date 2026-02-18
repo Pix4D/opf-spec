@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "KHR_texture_basisu glTF Texture Extension",
+    "type": "object",
+    "description": "glTF extension to specify textures using the KTX v2 images with Basis Universal supercompression.",
+    "properties": {
+        "source": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "The index of the image which points to a KTX v2 resource with Basis Universal supercompression."
+        },
+        "extensions": {
+            "type": "object",
+            "description": "JSON object with extension-specific objects.",
+            "properties": {},
+            "additionalProperties": {
+                "type": "object"
+            }
+        },
+        "extras": {
+            "description": "Application-specific data.",
+            "gltf_sectionDescription": "Although `extras` **MAY** have any type, it is common for applications to store and access custom data as key/value pairs. Therefore, `extras` **SHOULD** be a JSON object rather than a primitive value for best portability."
+        }
+    },
+    "required": [
+        "source"
+    ]
+}

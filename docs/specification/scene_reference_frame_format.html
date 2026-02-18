@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scene reference frame format &mdash; Open Photogrammetry Format Specification 1.0.5 documentation</title>
+  <title>Scene reference frame format &mdash; Open Photogrammetry Format Specification 1.1.0-draft1 documentation</title>
   
 
   
@@ -110,6 +110,8 @@
 <li class="toctree-l2"><a class="reference internal" href="project.html#top-level-scene-reference-frame">Top level scene reference frame</a></li>
 <li class="toctree-l2"><a class="reference internal" href="project.html#ids">IDs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="project.html#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#lod-mesh-project-item">lod_mesh project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#geotiff-project-items">GeoTIFF project items</a></li>
 <li class="toctree-l2"><a class="reference internal" href="project.html#example">Example</a></li>
 </ul>
 </li>
@@ -132,9 +134,11 @@
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#camera">Camera</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#capture-element">Capture element</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#crs">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#depth-map-confidence">Depth map confidence</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#dynamic-pixel-range">Dynamic pixel range</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#fisheye-internals">Fisheye internals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#geolocation">Geolocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-camera-depth-map">Input camera depth map</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#input-rig-relatives">Input rig relatives</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#internals">Internals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="input_cameras.html#omega-phi-kappa-orientation">Omega-Phi-Kappa orientation</a></li>
@@ -308,6 +312,76 @@
 <li class="toctree-l2"><a class="reference internal" href="point_cloud.html#example">Example</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="triangular_mesh_resource_format.html">OPF triangular mesh resource format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#format-structure">Format structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-model">glTF model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#scene">Scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#nodes">Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#meshes">Meshes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#material">Material</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#texture">Texture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#image">Image</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#glb-container">GLB container</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-opf-triangular-mesh-format-parser-support">glTF OPF triangular mesh format parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id1">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id2">Texture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id3">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id4">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#supported-gltf-extensions">Supported glTF extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#opf-mesh-asset-version">OPF_mesh_asset_version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#triangular-mesh-resource-format-opf-mesh-asset-version">OPF_mesh_asset_version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#opf-mesh-primitive-vertices-welding-map">OPF_mesh_primitive_vertices_welding_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#triangular-mesh-resource-format-opf-mesh-primitive-vertices-welding-map">OPF_mesh_primitive_vertices_welding_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#khr-texture-basisu">KHR_texture_basisu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#khr-texture-basisu-gltf-texture-extension">KHR_texture_basisu glTF Texture Extension</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lod_mesh.html">OPF level of detail mesh</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lod_mesh.html#format-description">Format description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#tileset-json">TileSet JSON</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#tileset-root-tile">TileSet root tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#implicit-tiling">Implicit tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#opf-triangular-mesh-nodes">OPF triangular mesh nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lod_mesh.html#opf-lod-mesh-parser-support">OPF-LoD mesh parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#tile">Tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#content">Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#id1">Implicit Tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#tileset">Tileset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#subtree">Subtree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#availability">Availability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#buffer-view">Buffer View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#buffer">Buffer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lod_mesh.html#supported-cesium-3d-tiles-extensions">Supported Cesium 3D Tiles extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#opf-lod-mesh-asset-version">OPF_lod_mesh_asset_version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lod_mesh.html#lod-mesh-opf-lod-mesh-asset-version">OPF_lod_mesh_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lod_mesh.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../annexes.html">Annexes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="auxiliary_objects.html">Auxiliary objects</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
@@ -393,10 +467,10 @@
       <li>OPF /</li>
 
       <li>
-        Version 1.0.5 /
+        Version 1.1.0-draft1 /
       </li>
 
-      <li class="dateInfo">February 2024</li>
+      <li class="dateInfo">February 2026</li>
 
         
           <li><a href="../scene_reference_frame.html">Scene reference frame</a> &raquo;</li>
@@ -466,12 +540,12 @@ The canonical reference frame is translated for recentering all coordinates of i
 </tr>
 <tr class="row-odd"><td><p><strong>scale</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">number</span></code> <code class="docutils literal notranslate"><span class="pre">[3]</span></code></p></td>
-<td><p>Per axis scaling factors to make the base CRS isometric.</p></td>
+<td><p>Per axis scaling factors to make the base CRS isometric. All factors must be greater than zero, and the first two elements must be identical.</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>swap_xy</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">boolean</span></code></p></td>
-<td><p>true if and only if the base CRS is left-handed.</p></td>
+<td><p>True if and only if the base CRS is left-handed.</p></td>
 <td><p>✓ Yes</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>extensions</strong></p></td>
@@ -626,7 +700,7 @@ The canonical reference frame is translated for recentering all coordinates of i
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2024, Pix4D.
+        &copy; Copyright 2026, Pix4D.
 
     </p>
   </div>

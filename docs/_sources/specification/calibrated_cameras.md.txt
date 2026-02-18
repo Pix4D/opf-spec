@@ -17,7 +17,7 @@ Same as the [projected camera coordinate system specification](projected_input_c
 
 | Specification format                                       | Version                                    |
 | ---------------------------------------------------------- | ------------------------------------------ |
-| "application/opf-calibrated-cameras+json" | "1.0" |
+| "application/opf-calibrated-cameras+json" | "1.1" |
 
 
 
@@ -51,7 +51,7 @@ Definition of Calibrated Camera Parameters
 |**sensor_id**|`integer`|Unique ID of the sensor used by this camera.| &#10003; Yes|
 |**position**|`number` `[3]`|Calibrated coordinates in the processing CRS.| &#10003; Yes|
 |**orientation_deg**|`number` `[3]`|Calibrated Omega-Phi-Kappa angles in degree representing a rotation R_x(ω)R_y(ϕ)R_z(κ) from the image CS to the processing CRS.| &#10003; Yes|
-|**rolling_shutter**|`number` `[3]`|Refer to [this document](https://s3.amazonaws.com/mics.pix4d.com/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf).|No|
+|**rolling_shutter**|`number` `[3]`|Refer to [this document](https://data.pix4d.com/misc/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf).|No|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
@@ -130,6 +130,7 @@ Parameters of the perspective camera model as described in Pix4D [knowledge base
 |**focal_length_px**|`number`|Focal length in pixels.| &#10003; Yes|
 |**radial_distortion**|`number` `[3]`|The radial distortion coefficients (R1, R2, R3).| &#10003; Yes|
 |**tangential_distortion**|`number` `[2]`|The tangential distortion coefficients (T1, T2).| &#10003; Yes|
+|**distortion_type**|[`any`](calibrated_cameras-any)|Defines which distortion coefficients to use. Default is `radial3_and_tangential2`.<br>**Allowed values** :       `none`       `radial3`       `radial3_tangential2` |No|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
@@ -160,7 +161,7 @@ Parameters of the perspective camera model as described in Pix4D [knowledge base
 ```json
 {
     "format": "application/opf-calibrated-cameras+json",
-    "version": "1.0",
+    "version": "1.1",
     "cameras": [
         {
             "id": 47292894,

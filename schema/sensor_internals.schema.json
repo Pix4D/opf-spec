@@ -54,6 +54,14 @@
                     ],
                     "description": "The tangential distortion coefficients (T1, T2)."
                 },
+                "distortion_type": {
+                    "enum": [
+                        "none",
+                        "radial3",
+                        "radial3_tangential2"
+                    ],
+                    "description": "Defines which distortion coefficients to use. Default is `radial3_and_tangential2`."
+                },
                 "extensions": {}
             },
             "required": [

@@ -8,7 +8,7 @@ Those are handled separately.
 
 | Specification format                                  | Version                               |
 | ----------------------------------------------------- | ------------------------------------- |
-| "application/opf-input-cameras+json" | "1.0" |
+| "application/opf-input-cameras+json" | "1.2-draft1" |
 
 
 
@@ -41,6 +41,8 @@ Information about a band
 |   |Type|Description|Required|
 |---|---|---|---|
 |**name**|`string`||No|
+|**central_wavelength_nm**|`number`|Central wavelength of the spectral sensitivity distribution of the band in nanometers|No|
+|**fwhm_nm**|`number`|Full width at half maximum of the spectral sensitivity distribution of the band in nanometers|No|
 |**weight**|`number`|Weights to compute a luminance representation of the image| &#10003; Yes|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
@@ -58,10 +60,11 @@ One camera in a capture. It is associated to a sensor via a sensor identifier.
 |---|---|---|---|
 |**sensor_id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
 |**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
-|**model_source**|`string`|**Allowed values** :       `"database"`       `"generic_from_exif"`       `"generic"`       `"user"` | &#10003; Yes|
+|**model_source**|`string`|Source of the camera parameters.<br>**Allowed values** :       `"database"`       `"database_fuzzy"`       `"generic_from_exif"`       `"generic"`       `"generic_guess"`       `"user"` | &#10003; Yes|
 |**pixel_type**|`string`|**Allowed values** :       `"uint8"`       `"uint12"`       `"uint16"`       `"float"` | &#10003; Yes|
 |**pixel_range**|`object`|Defines the range of valid pixel values. Values &le; min are considered underexposed and &ge; max overexposed. Can be a [static range](#pixel-range) or a [dynamic range](#dynamic-pixel-range).| &#10003; Yes|
 |**image_orientation**|`integer`|Specifies the image orientation following [EXIF, page 37](https://www.jeita.or.jp/japanese/standard/book/CP-3451E_E/#target/page_no=38). 1: no rotation, no mirror, 2: mirror horizontal, 3: rotate 180 degrees, 4: mirror vertical, 5: mirror horizontal and rotate 270 degrees CW, 6: rotate 90 degrees CW, 7: mirror horizontal and rotate 90 degrees CW, 8: rotate 270 degrees CW.|No|
+|**depth_map**|[`depth_map`](input_cameras-depth_map)|Reference to depth information for input cameras, for example for RGB-D type sensors. In a depth map, each pixel represents the estimated distance from the device to its environment on the camera depth axis. A depth map image is aligned with an RGB image but it may have a different resolution. An optional confidence map may be provided as well.|No|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
@@ -101,6 +104,24 @@ Coordinate reference system
 |**definition**|`string`|One of:<br>- A [WKT string version 2](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).<br>- A string in the format `Authority:code+code` where the first code is for a 2D CRS and the second one if for a vertical CRS (e.g. `EPSG:4326+5773`). .<br>- A string in the form `Authority:code+Authority:code` where the first code is for a 2D CRS and the second one if for a vertical CRS.<br>- A string in the form `Authority:code` where the code is for a 2D or 3D CRS.| &#10003; Yes|
 |**geoid_height**|`number`|Constant geoid height over the underlying ellipsoid in the units of the vertical CRS axis.|No|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-confidence)=
+### Depth map confidence
+
+A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).
+
+**`Depth map confidence` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|The confidence map UID in the camera list.| &#10003; Yes|
+|**min**|`number`|Minimum confidence value to consider a depth measurement valid. Note that low confidence values while considered valid may be unreliable.| &#10003; Yes|
+|**threshold**|`number`|Hint on the minimum (inclusive) confidence value to consider a depth measurement reliable.| &#10003; Yes|
+|**max**|`number`|Maximum confidence value to consider a depth measurement valid.| &#10003; Yes|
+|**extensions**|[`any`](input_cameras-any)||No|
 
 
 
@@ -153,6 +174,23 @@ Geolocation information
 |**coordinates**|`number` `[3]`|3D coordinates of a point using the same axis convention as declared by the CRS, i.e., the X, Y axes are **not** always Easting-Northing.| &#10003; Yes|
 |**sigmas**|`number` `[3]`|Standard deviation of a measured position. For geographic CRSs, all units are meters. For Cartesian CRSs, the units are given by the 3D promoted definition of the axes (see the specification of the coordinate reference system above for the definition of the promotion).| &#10003; Yes|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
+
+
+
+---------------------------------------
+(input_cameras-depth_map)=
+### Input camera depth map
+
+Reference to depth information for input cameras, for example for RGB-D type sensors. In a depth map, each pixel represents the estimated distance from the device to its environment on the camera depth axis. A depth map image is aligned with an RGB image but it may have a different resolution. An optional confidence map may be provided as well.
+
+**`Input camera depth map` Properties**
+
+|   |Type|Description|Required|
+|---|---|---|---|
+|**id**|`integer`|The depth map UID in the camera list.| &#10003; Yes|
+|**unit_to_meters**|`number`|Multiply this scale factor with depth maps values in order to obtain values in meters. For example, if the depth map values represent millimeters the scale factor is 0.001 (e.g. a value of 1000mm corresponds to 1m).  If not specified, defaults to 1.|No, default: `1`|
+|**confidence**|[`confidence`](input_cameras-confidence)|A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).|No|
+|**extensions**|[`any`](input_cameras-any)||No|
 
 
 
@@ -215,6 +253,7 @@ Parameters of the perspective camera model as described in Pix4D [knowledge base
 |**focal_length_px**|`number`|Focal length in pixels.| &#10003; Yes|
 |**radial_distortion**|`number` `[3]`|The radial distortion coefficients (R1, R2, R3).| &#10003; Yes|
 |**tangential_distortion**|`number` `[2]`|The tangential distortion coefficients (T1, T2).| &#10003; Yes|
+|**distortion_type**|[`any`](input_cameras-any)|Defines which distortion coefficients to use. Default is `radial3_and_tangential2`.<br>**Allowed values** :       `none`       `radial3`       `radial3_tangential2` |No|
 |**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
@@ -332,7 +371,7 @@ Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the 
 ```json
 {
     "format": "application/opf-input-cameras+json",
-    "version": "1.0",
+    "version": "1.1",
     "sensors": [
         {
             "id": 18493134,
@@ -340,6 +379,8 @@ Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the 
             "bands": [
                 {
                     "name": "Green",
+                    "central_wavelength_nm": 550,
+                    "fwhm_nm": 40,
                     "weight": 1
                 }
             ],
@@ -377,6 +418,8 @@ Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the 
             "bands": [
                 {
                     "name": "Red",
+                    "central_wavelength_nm": 660,
+                    "fwhm_nm": 40,
                     "weight": 1
                 }
             ],
@@ -440,6 +483,7 @@ Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the 
             "bands": [
                 {
                     "name": "TIR",
+                    "central_wavelength_nm": 11000,
                     "weight": 1
                 }
             ],
@@ -532,9 +576,10 @@ Yaw-Pitch-Roll angles represent a rotation R_z(yaw)R_y(pitch)R_x(roll) from the 
                     -2.2309e-05
                 ],
                 "tangential_distortion": [
-                    0.00127711,
-                    0.000421167
-                ]
+                    0,
+                    0
+                ],
+                "distortion_type": "radial3"
             },
             "shutter_type": "global"
         },

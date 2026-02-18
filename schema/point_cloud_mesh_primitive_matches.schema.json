@@ -8,7 +8,7 @@
     "properties": {
         "cameraUids": {
             "type": "array",
-            "description": "The camera UIDs referenced by the match camera ids",
+            "description": "The camera UIDs referenced by the match camera ids. There **MUST NOT** be duplicated UIDs in the array.",
             "items": {
                 "$ref": "uid64.schema.json"
             }

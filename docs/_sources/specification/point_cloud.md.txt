@@ -37,7 +37,7 @@ An image point comprises:
 
 | Specification format | Version of the format |
 | --- | --- |
-| "model/gltf+json" | "1.0-draft7" |
+| "model/gltf+json" | "1.0-draft8" |
 
 ## Format structure
 
@@ -46,9 +46,10 @@ The OPF-glTF point cloud file format is a valid [glTF model](https://www.khronos
 * A collection of [root nodes](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#nodes-and-hierarchy) referenced in the `nodes` array property of the glTF scene. Each node may have a spatial transform attached by the nodes `matrix` property that transforms from the node internal coordinate system to the global scene one.
 * A collection of [meshes](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh) each referenced by the `mesh` property of the root nodes. Note that in glTF the geometric content is always referred as a "mesh", even if the geometry has no connectivity as is the case for a pointcloud. The collection of nodes and associated meshes corresponds to a collection of pointclouds.
 * For each mesh a unique [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) corresponding to the full point cloud contained within the mesh. The mesh primitive [mode](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#_mesh_primitive_mode) must be set to `POINTS (0)`. There are no restriction on the size of the mesh primitives.
-* *[optional]* An [OPF_mesh_primitive_partitioning](../../../schema/point_cloud_mesh_primitive_partitioning.schema.json) extension appended to the mesh primitive extensions containing the spatial partitioning data.
-* *[optional]* An [OPF_mesh_primitive_matches](../../../schema/point_cloud_mesh_primitive_matches.schema.json) extension appended to the mesh primitives extensions containing the image matches associated to the points.
-* *[optional]* An [OPF_mesh_primitive_custom_attributes](../../../schema/point_cloud_mesh_primitive_custom_attributes.schema.json) extension appended to the mesh primitives extensions containing extra point custom attributes accessors.
+* A required [OPF_asset_version](#opf_asset_version) extension added to the glTF asset extension object. This extension is versioning the set of used glTF OPF extensions described below.
+* *[optional]* An [OPF_mesh_primitive_partitioning](#opf_mesh_primitive_partitioning) extension appended to the mesh primitive extensions containing the spatial partitioning data.
+* *[optional]* An [OPF_mesh_primitive_matches](#opf_mesh_primitive_matches) extension appended to the mesh primitives extensions containing the image matches associated to the points.
+* *[optional]* An [OPF_mesh_primitive_custom_attributes](#opf_mesh_primitive_custom_attributes) extension appended to the mesh primitives extensions containing extra point custom attributes accessors.
 ## Data layout
 Each node in the glTF file may have a different spatial transform attached allowing to store pointclouds in spatially separated portions. An example use-case for this is to allow the storage of pointclouds with very large spatial extent without precision loss due to single precision position storage, as the transforms may incorporate a spatial offset.
 
@@ -91,7 +92,7 @@ The OPF-glTF point cloud uses extensions to store extra data in glTF format.
 
 ## OPF_asset_version
 
-The extension stores the OPF format specification version
+The extension stores the OPF format specification version of the OPF glTF extensions defined here.
 
 
 
@@ -132,10 +133,10 @@ glTF extension storing the spatial partitioning data structure
 |---|---|---|---|
 |**nodeIndices**|`integer`|The index of the accessor to the nodes indices. The referenced accessor type **MUST** be `VEC4` and the component type **MUST** be `UNSIGNED INT`. The elements are the octree nodes integer coordinates (level, x, y, z) stored contiguously by level following a breadth-first-search order. The accessor count field corresponds to the number of nodes within the octree. Nodes a hereby referred to by their index within this sequence.| &#10003; Yes|
 |**boundingBox**|`object`|minimum and maximum 3D coordinates| &#10003; Yes|
-|**childrenIndexing**|`integer`|The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeCoordinates` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids| &#10003; Yes|
+|**childrenIndexing**|`integer`|The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeIndices` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids| &#10003; Yes|
 |**nodeLevelIndexing**|`integer` `[]`|The indexing of octree node levels. For a level `l`, the range `[nodeLevelIndexing[l], nodeLevelIndexing[l] + 1, ..., nodeLevelIndexing[l + 1] - 1]` corresponds to the indices of all nodes belonging to this level. The size of this array **MUST** match the number of levels plus one| &#10003; Yes|
-|**perNodeChunkIndexRanges**|`integer`|The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeCoordinates` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`| &#10003; Yes|
-|**nodeAttributes**|`object`|The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeCoordinates` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively.|No|
+|**perNodeChunkIndexRanges**|`integer`|The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeIndices` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`| &#10003; Yes|
+|**nodeAttributes**|`object`|The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeIndices` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively.|No|
 
 
 ---
@@ -209,7 +210,7 @@ glTF extension storing the point matches
 
 |   |Type|Description|Required|
 |---|---|---|---|
-|**cameraUids**|`integer` `[]`|The camera UIDs referenced by the match camera ids| &#10003; Yes|
+|**cameraUids**|`integer` `[]`|The camera UIDs referenced by the match camera ids. There **MUST NOT** be duplicated UIDs in the array.| &#10003; Yes|
 |**cameraIds**|`integer`|The index of the accessor to the match camera ids. The referenced accessor type **MUST** be `SCALAR` and the component type `UNSIGNED INT`. Each value is not a camera UID, but an index referring a UID from the `cameraUids` array.| &#10003; Yes|
 |**pointIndexRanges**|`integer`|The index of the match index ranges accessor. The referred accessor type **MUST** be `VEC2` and the component type `UNSIGNED_INT`. Together the two 32-bit unsigned integers form a packed pair of 40-bit and 24-bit unsigned integers in little-endian order. The first integer of the pair is the match offset index within the matches. The second integer is the number of matches in the range. The referred accessor `count` must match that of the corresponding mesh primitive attribute `POSITION` referred accessor.| &#10003; Yes|
 |**imagePoints**|`object`|Collection of attributes for image points|No|
@@ -218,6 +219,14 @@ glTF extension storing the point matches
 ## OPF_mesh_primitive_custom_attributes extension
 
 The extension extends the glTF [mesh primitive](https://www.khronos.org/registry/glTF/specs/2.0/glTF-2.0.html#reference-mesh-primitive) object used to store any extra attribute, with any type as supported by glTF (note that any custom attribute added directly to the mesh primitive attribute would be required to be 4-bytes aligned which is too constraining).
+
+The following attributes are specified as custom attributes:
+
+  | attribute name | accessor | meaning |
+  | - | - | - |
+  | vertexFlags | **type**: `SCALAR` <br>**component type**: `UNSIGNED_BYTE` | The vertex flags indicating whether a point is **enabled** (value `0`) or **disabled** (value `1`) |
+  | classId | **type**: `SCALAR` <br>**component type**: `UNSIGNED_BYTE` | The ids used for point cloud classification following ASPRS convention, see "LAS Specification v.1.4 - R14" http://www.asprs.org/wp-content/uploads/2019/03/LAS_1_4_r14.pdf (page 30). |
+  | terrainClassId | **type**: `SCALAR` <br>**component type**: `UNSIGNED_BYTE` | The ids used for terrain classification. Values are as follows: `0` - **NotClassified**, `1` - **Terrain**, `2` - **NotTerrain** |
 
 
 

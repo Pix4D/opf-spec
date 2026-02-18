@@ -1,0 +1,517 @@
+{
+    "captures": [
+        {
+            "cameras": [
+                {
+                    "id": 18004626038942563571,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50827692280556,
+                    6.634103087611111,
+                    444.62562
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.0221487395465374
+                ]
+            },
+            "id": 18004626038942563571,
+            "orientation": {
+                "angles_deg": [
+                    137.90640258788153,
+                    0.07550098001956441,
+                    54.94614791869755
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 18004626038942563571,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:27"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 1287584358539973327,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50827559863889,
+                    6.634104630777777,
+                    444.62721
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.021422825753688812
+                ]
+            },
+            "id": 1287584358539973327,
+            "orientation": {
+                "angles_deg": [
+                    134.33039855956147,
+                    -1.8232873678206196,
+                    55.595764160152584
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 1287584358539973327,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:27"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 17731858121436658996,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.508274103472225,
+                    6.63410579711111,
+                    444.61916
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.01991182565689087
+                ]
+            },
+            "id": 17731858121436658996,
+            "orientation": {
+                "angles_deg": [
+                    128.23352050780406,
+                    -0.9290143847464905,
+                    55.52456283568971
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 17731858121436658996,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:27"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 2028077148091237672,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50827259138889,
+                    6.6341074937222215,
+                    444.61426
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.017524052411317825
+                ]
+            },
+            "id": 2028077148091237672,
+            "orientation": {
+                "angles_deg": [
+                    126.86648559569477,
+                    -1.472496271133326,
+                    55.50500488280884
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 2028077148091237672,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:28"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 2510381438831954424,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50827168938889,
+                    6.634109574055555,
+                    444.59553
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.016403980553150177
+                ]
+            },
+            "id": 2510381438831954424,
+            "orientation": {
+                "angles_deg": [
+                    124.20516967772619,
+                    -0.7064729928969872,
+                    53.5659141540492
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 2510381438831954424,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:28"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 12271907533037195998,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50827084461111,
+                    6.634111749722222,
+                    444.60194
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.016671767458319664
+                ]
+            },
+            "id": 12271907533037195998,
+            "orientation": {
+                "angles_deg": [
+                    122.7581710815349,
+                    -1.0983353853224986,
+                    52.42900085448873
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 12271907533037195998,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:28"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 43883881306998320,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50826983291667,
+                    6.634113602083333,
+                    444.59594
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.01699327677488327
+                ]
+            },
+            "id": 43883881306998320,
+            "orientation": {
+                "angles_deg": [
+                    115.25559997557836,
+                    -0.43546080589291564,
+                    53.82624816894177
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 43883881306998320,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:29"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 10922788005040980985,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50826870344444,
+                    6.634115544166666,
+                    444.59694
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.01736418716609478
+                ]
+            },
+            "id": 10922788005040980985,
+            "orientation": {
+                "angles_deg": [
+                    111.5993041992114,
+                    -2.2903106212614457,
+                    53.327938079830474
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 10922788005040980985,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:29"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 6523112081595099370,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.50826855022222,
+                    6.634118077027777,
+                    444.57691
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.017834443598985672
+                ]
+            },
+            "id": 6523112081595099370,
+            "orientation": {
+                "angles_deg": [
+                    108.62735748290301,
+                    0.31140571832654806,
+                    49.89860916137366
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 6523112081595099370,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:29"
+        },
+        {
+            "cameras": [
+                {
+                    "id": 8908096697497231504,
+                    "image_orientation": 6,
+                    "model_source": "generic_from_exif",
+                    "pixel_range": {
+                        "max": 255.0,
+                        "min": 0.0
+                    },
+                    "pixel_type": "uint8",
+                    "sensor_id": 4340993158634677544
+                }
+            ],
+            "geolocation": {
+                "coordinates": [
+                    46.508268545777774,
+                    6.634120594833333,
+                    444.58591
+                ],
+                "crs": {
+                    "definition": "EPSG:4258"
+                },
+                "sigmas": [
+                    0.009999999776482582,
+                    0.009999999776482582,
+                    0.018390189856290817
+                ]
+            },
+            "id": 8908096697497231504,
+            "orientation": {
+                "angles_deg": [
+                    107.29193115233669,
+                    -0.6129096746444298,
+                    52.550079345699665
+                ],
+                "sigmas_deg": [
+                    4.0,
+                    4.0,
+                    6.0
+                ],
+                "type": "yaw_pitch_roll"
+            },
+            "reference_camera_id": 8908096697497231504,
+            "rig_model_source": "database",
+            "time": "2021-10-01T20:09:30"
+        }
+    ],
+    "format": "application/opf-input-cameras+json",
+    "sensors": [
+        {
+            "bands": [
+                {
+                    "weight": 0.2126
+                },
+                {
+                    "weight": 0.7152
+                },
+                {
+                    "weight": 0.0722
+                }
+            ],
+            "id": 4340993158634677544,
+            "image_size_px": [
+                1920,
+                1440
+            ],
+            "internals": {
+                "distortion_type": "radial3_tangential2",
+                "focal_length_px": 1518.1281061318903,
+                "principal_point_px": [
+                    960.0005953935065,
+                    719.9993215451082
+                ],
+                "radial_distortion": [
+                    1e-06,
+                    0.0,
+                    0.0
+                ],
+                "tangential_distortion": [
+                    0.0,
+                    0.0
+                ],
+                "type": "perspective"
+            },
+            "name": "GenericFromExif_Apple_Pix4Dcatch.iPhone13.4_iOS_3.9_1920x1440",
+            "pixel_size_um": 2.599999949975951,
+            "shutter_type": "global"
+        }
+    ],
+    "version": "1.1"
+}
