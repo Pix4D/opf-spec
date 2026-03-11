@@ -1,0 +1,1007 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OPF level of detail mesh &mdash; Open Photogrammetry Format Specification 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/pix4d_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Annexes" href="../annexes.html" />
+    <link rel="prev" title="OPF triangular mesh resource format" href="triangular_mesh_resource_format.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="globalNav">
+      <a class="homeLogo" href="../index.html">
+            
+          
+            Open Photogrammetry Format
+          
+      </a>
+      <ul>
+          
+
+          
+
+          <li class="version-switcher-placeholder"></li>
+      </ul>
+  </div>
+
+
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          </a>
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <img class="searchIcon" src="../_static/search_icon.svg"/>
+    <input type="text" name="q" placeholder="Search docs..." />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project format specification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="project.html#goal">Goal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#big-picture">Big picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-items">Project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#extension-mechanism-for-item-types-and-resource-formats">Extension mechanism for Item types and Resource formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="project.html#naming-convention">Naming convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#new-item-extension-example">New item extension example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="project.html#core-specification-resource-format-extension-example">Core specification resource format extension example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#project-specification">Project specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#top-level-scene-reference-frame">Top level scene reference frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#ids">IDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#point-cloud-project-item">point_cloud project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#lod-mesh-project-item">lod_mesh project item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#geotiff-project-items">GeoTIFF project items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cameras.html">Cameras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="camera_list.html">Camera list format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#image-uid-generator-registry">Image UID Generator registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera_list.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input_cameras.html">Input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="projected_input_cameras.html">Projected input camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projected_input_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="control_points.html">Control Points</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#file-format">File format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-input-control-points">Format specification: Input control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-projected-control-points">Format specification: Projected control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id1">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-calibrated-control-points">Format specification: Calibrated control points</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id2">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="control_points.html#format-specification-scale-and-orientation-constraints">Format specification: Scale and orientation constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_points.html#id3">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scene_reference_frame.html">Scene reference frame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame.html">Scene reference frame project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene_reference_frame_format.html">Scene reference frame format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scene_reference_frame_format.html#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calibration.html">Calibration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">Calibration project item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="calibrated_cameras.html">Calibrated camera format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#definitions">Definitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#coordinate-system-specification">Coordinate system specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="calibrated_cameras.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gps_bias.html">GPS bias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#format-specification">Format specification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gps_bias.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparse_point_cloud.html">Calibration sparse point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="point_cloud.html">OPF-glTF point cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#format-structure">Format structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#data-layout">Data layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-extensions">OPF-glTF point cloud extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-asset-version">OPF_asset_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-partitioning-extension">OPF_mesh_primitive_partitioning extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-matches-extension">OPF_mesh_primitive_matches extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-mesh-primitive-custom-attributes-extension">OPF_mesh_primitive_custom_attributes extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#opf-gltf-point-cloud-parser-support">OPF-glTF point cloud parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#material">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="point_cloud.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="point_cloud.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="triangular_mesh_resource_format.html">OPF triangular mesh resource format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#format-structure">Format structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-model">glTF model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#scene">Scene</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#nodes">Nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#meshes">Meshes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#material">Material</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#texture">Texture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="triangular_mesh_resource_format.html#image">Image</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#glb-container">GLB container</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-version-restrictions-and-constraints">glTF version, restrictions and constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf-opf-triangular-mesh-format-parser-support">glTF OPF triangular mesh format parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id1">Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id2">Texture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id3">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#id4">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#mesh-primitive">Mesh primitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#mesh">Mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#accessor">Accessor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#bufferview">BufferView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#buffer">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#gltf">glTF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#supported-gltf-extensions">Supported glTF extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#opf-mesh-asset-version">OPF_mesh_asset_version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#opf-mesh-primitive-vertices-welding-map">OPF_mesh_primitive_vertices_welding_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#khr-texture-basisu">KHR_texture_basisu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="triangular_mesh_resource_format.html#khr-texture-basisu-gltf-texture-extension">KHR_texture_basisu glTF Texture Extension</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="triangular_mesh_resource_format.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OPF level of detail mesh</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#format-description">Format description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tileset-json">TileSet JSON</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tileset-root-tile">TileSet root tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implicit-tiling">Implicit tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opf-triangular-mesh-nodes">OPF triangular mesh nodes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#opf-lod-mesh-parser-support">OPF-LoD mesh parser support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#asset">Asset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tile">Tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#content">Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Implicit Tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tileset">Tileset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subtree">Subtree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#availability">Availability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buffer-view">Buffer View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buffer">Buffer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-cesium-3d-tiles-extensions">Supported Cesium 3D Tiles extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opf-lod-mesh-asset-version">OPF_lod_mesh_asset_version</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../annexes.html">Annexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auxiliary_objects.html">Auxiliary objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rig-relatives">Rig relatives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#input-rig-relatives">Input rig relatives</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-rotation">Rig relative rotation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#rig-relative-translation">Rig relative translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#projected-rig-translation">Projected rig translation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#calibrated-rig-relatives">Calibrated rig relatives</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#coordinate-reference-system-definition">Coordinate reference system definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#crs">CRS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#geolocation">Geolocation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#id1">CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="auxiliary_objects.html#auxiliary-objects-geolocation">Geolocation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="auxiliary_objects.html#rigid-transform-with-scaling">Rigid transform with scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#definitions">Definitions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#canonical-reference-system">Canonical reference system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#coordinate-reference-system-crs">Coordinate reference system (CRS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#processing-crs">Processing CRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#scene-reference-frame">Scene reference frame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="glossary.html#spatial-reference-system">Spatial reference system</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#acronyms">Acronyms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Open Photogrammetry Format Specification</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li>OPF /</li>
+
+      <li>
+        Version 1.2.0 /
+      </li>
+
+      <li class="dateInfo">March 2026</li>
+
+        
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="opf-level-of-detail-mesh">
+<span id="opf-lod-mesh-format"></span><h1>OPF level of detail mesh<a class="headerlink" href="#opf-level-of-detail-mesh" title="Permalink to this heading">¶</a></h1>
+<p>The OPF level of detail mesh (OPF-LoD mesh) format aims at storing large spatially partitioned triangular meshes which are optimized for rendering and streaming.</p>
+<p>The format uses a strict subset of the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification">Cesium 3D Tiles 1.1</a> specification and can be extended through the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#specifying-extensions-and-application-specific-extras">extension mechanism</a>.</p>
+<p>An OPF-LoD mesh is thus a fully valid Cesium 3DTile asset but the converse is not necessarily true: not all Cesium 3DTile assets are valid OPF-LoD meshes.
+The requirements specific to an OPF-LoD mesh are described in the next section.</p>
+<div class="section" id="format-description">
+<h2>Format description<a class="headerlink" href="#format-description" title="Permalink to this heading">¶</a></h2>
+<p>The OPF-LoD mesh is a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification">Cesium 3D Tiles 1.1</a> asset using <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling">implicit tiling</a> for defining the spatial partitioning and whose nodes are <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular meshes</span></a>.</p>
+<p>The spatial partitioning is restricted to use an octree as <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subdivision-scheme">subdivision scheme</a> with <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#box">boxes</a> as <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#bounding-volumes">bounding volumes</a>.
+Each level of the octree hierarchy contains the representation of the mesh at different resolutions, with the root containing the lowest resolution version of the asset and the leaves the highest one, allowing rendering implementations to progressively and selectively display higher resolution versions of the asset.
+The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#refinement">refinement strategy</a> is therefore required to be <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#replacement">replacement</a> in order to render the mesh content correctly.</p>
+<p>The octree hierarchy is expected to contain the data of a single asset.
+<a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#multiple-contents">Multiple contents</a> are not supported, but multiple OPF-LoD meshes can be stored in an OPF project.</p>
+<p>The nodes can only reference 3D meshes content in the <a class="reference external" href="https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#glb-file-format-specification">GLB</a> format, respecting the <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular meshes</span></a> specification.
+Non textured content is allowed, however it is required that all nodes in an OPF-LoD mesh are either textured or not textured. Mixed representations are not valid.</p>
+<div class="section" id="tileset-json">
+<h3>TileSet JSON<a class="headerlink" href="#tileset-json" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#tileset-json">tileset json</a> is the entry point for defining an OPF-LoD mesh.
+As of the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/schema/tileset.schema.json">Cesium specification</a> it is required to define the <code class="docutils literal notranslate"><span class="pre">asset</span></code>, <code class="docutils literal notranslate"><span class="pre">geometricError</span></code> and <code class="docutils literal notranslate"><span class="pre">root</span></code> properties.</p>
+</div>
+<div class="section" id="tileset-root-tile">
+<h3>TileSet root tile<a class="headerlink" href="#tileset-root-tile" title="Permalink to this heading">¶</a></h3>
+<p>An OPF-LoD mesh requires the tileset <code class="docutils literal notranslate"><span class="pre">root</span></code> tile to be an <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/ImplicitTiling/README.adoc#implicit-root-tile">implicit root tile</a> and thus the definition of the <code class="docutils literal notranslate"><span class="pre">implicitTiling</span></code> property is mandatory.</p>
+<p>A single tile <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#tile-content">content</a> must be present, with its <code class="docutils literal notranslate"><span class="pre">content.uri</span></code> being a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris">template URI</a> pointing to the location of the <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular mesh</span></a> nodes.
+The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris">URI</a> must be relative to the referring tileset json file.
+Data embedding URIs are not supported.</p>
+<p>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#bounding-volumes">boundingVolume</a> property is required to be a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#box">box</a> and the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#refinement">refine</a> property set to <code class="docutils literal notranslate"><span class="pre">REPLACE</span></code></p>
+<p>A <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms">transform</a> property for transforming both the nodes data and the partitioning from their local coordinate system to the tileset coordinate system can optionally be defined.
+The <code class="docutils literal notranslate"><span class="pre">transform</span></code> property is a 4x4 affine transformation matrix stored in column-major order.
+As of the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms">Cesium specification</a> implementations must assume an identity matrix if the <code class="docutils literal notranslate"><span class="pre">transform</span></code> property is not defined.</p>
+<p>Note that as the mesh nodes content is stored in <code class="docutils literal notranslate"><span class="pre">GLB</span></code> files, the <code class="docutils literal notranslate"><span class="pre">glTF</span></code> nodes transform and the <code class="docutils literal notranslate"><span class="pre">y-Up</span> <span class="pre">to</span> <span class="pre">z-Up</span></code> transform have to be applied to the data prior to apply the tileset <code class="docutils literal notranslate"><span class="pre">transform</span></code> (please refer to the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#transforms">Cesium specification</a> for a detailed description).
+An OPF-LoD mesh requires the data to be in the <a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame-format"><span class="std std-ref">OPF project canonical reference frame</span></a> after applying the previously described transformations.</p>
+<hr class="docutils" />
+<p><em><strong>Informative</strong></em></p>
+<p>As both the <a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame-format"><span class="std std-ref">OPF canonical reference frame</span></a> and the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#coordinate-reference-system-crs">Cesium 3D Tiles reference system</a> are right handed Cartesian reference systems using a z-Up axis convention while glTF uses a right handed reference system with a y-Up axis convention the following strategy can be used to avoid costly data transformations when consuming the asset:</p>
+<ul class="simple">
+<li><p>Write the <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular mesh</span></a> nodes data directly in the <a class="reference internal" href="scene_reference_frame_format.html#scene-reference-frame-format"><span class="std std-ref">OPF project canonical reference frame</span></a>.</p></li>
+<li><p>Use a z-Up to y-Up rotation transform in the <a class="reference internal" href="triangular_mesh_resource_format.html#opf-triangular-mesh-format-nodes"><span class="std std-ref">OPF mesh node matrix</span></a>. When written in the format required for this property (4x4 column-major matrix) that rotation is <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">-1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1]</span></code>.</p></li>
+<li><p>Use an identity matrix for the tileset <code class="docutils literal notranslate"><span class="pre">transform</span></code> property.</p></li>
+</ul>
+<p>As the glTF <code class="docutils literal notranslate"><span class="pre">y-Up</span> <span class="pre">to</span> <span class="pre">z-Up</span></code> transform will be compensated by the node matrix <code class="docutils literal notranslate"><span class="pre">z-Up</span> <span class="pre">to</span> <span class="pre">y-Up</span></code> transform and the Cesium tileset transform is already identity, no transformation needs to be applied to the data in order to obtain a representation in the OPF canonical reference frame.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="implicit-tiling">
+<h3>Implicit tiling<a class="headerlink" href="#implicit-tiling" title="Permalink to this heading">¶</a></h3>
+<p>In an OPF-LoD mesh the implicit tiling <code class="docutils literal notranslate"><span class="pre">subdivisionScheme</span></code> property must be set to <code class="docutils literal notranslate"><span class="pre">&quot;OCTREE&quot;</span></code> and the <code class="docutils literal notranslate"><span class="pre">subtree</span></code> property must contain a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris">template URI</a> pointing to the location of the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtrees">subtrees</a> data describing the spatial partitioning.
+The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris">URI</a> must be relative to the referring tileset json file.
+Data embedding URIs are not supported.</p>
+<p>Note that the OPF-LoD mesh only supports subtrees in the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/ImplicitTiling/README.adoc#subtree-binary-format">binary format</a> packaging the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-json-format">subtree json format</a> description with the required binary buffers.
+The subtrees files must be self-contained, references to external buffers are forbidden.</p>
+</div>
+<div class="section" id="opf-triangular-mesh-nodes">
+<h3>OPF triangular mesh nodes<a class="headerlink" href="#opf-triangular-mesh-nodes" title="Permalink to this heading">¶</a></h3>
+<p>The OPF-LoD mesh nodes must be compliant with the <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular mesh</span></a> resource format specification.</p>
+<p>When storing a non-textured asset, the <a class="reference internal" href="triangular_mesh_resource_format.html#opf-triangular-mesh-format-meshes"><span class="std std-ref">mesh primitive</span></a> must at least define the vertex positions.</p>
+<p>Textured assets require to reference at least a <code class="docutils literal notranslate"><span class="pre">TEXCOORD_&lt;n&gt;</span></code> attribute together with the corresponding material definition.
+An OPF-LoD mesh supports texture images encoded in <code class="docutils literal notranslate"><span class="pre">png</span></code>, <code class="docutils literal notranslate"><span class="pre">jpeg</span></code> or <code class="docutils literal notranslate"><span class="pre">KTX</span></code> format.</p>
+<p>A <a class="reference internal" href="triangular_mesh_resource_format.html#opf-triangular-mesh-format-welding-map"><span class="std std-ref">welding map</span></a> can optionally be defined as part of the mesh primitive of a textured asset.</p>
+</div>
+</div>
+<div class="section" id="opf-lod-mesh-parser-support">
+<h2>OPF-LoD mesh parser support<a class="headerlink" href="#opf-lod-mesh-parser-support" title="Permalink to this heading">¶</a></h2>
+<p>To parse an OPF-LoD mesh, a parser is not required to support the whole Cesium 3DTile specification.
+We expose below what level of support is expected.
+Each field is marked as either <em>required</em>, <em>ignored</em>, <em>supported</em>, <em>unsupported</em> or <em>constrained</em>.
+The meaning of these is described below:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>keyword</p></th>
+<th class="head"><p>parser behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em>cesium-required</em></p></td>
+<td><p>The field is required by the Cesium 3D Tiles specification. The parser <strong>must</strong> fail with an error if the field is not found</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>required</em></p></td>
+<td><p>A supported field for which the parser <strong>must</strong> fail with an error if not found</p></td>
+</tr>
+<tr class="row-even"><td><p><em>ignored</em></p></td>
+<td><p>The parser <strong>may</strong> ignore the field completely</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>supported</em></p></td>
+<td><p>The parser <strong>must</strong> parse the field, yielding the field intended effect</p></td>
+</tr>
+<tr class="row-even"><td><p><em>unsupported</em></p></td>
+<td><p>The parser <strong>may</strong> choose to fail with an error if the field is encountered. Otherwise the field must be ignored.</p></td>
+</tr>
+<tr class="row-odd"><td><p><em>constrained</em></p></td>
+<td><p>A required field on which the parser <strong>may</strong> choose to fail with an error if the constraint is not met.</p></td>
+</tr>
+</tbody>
+</table>
+<p>With those definitions, any parser supporting the full Cesium 3D Tiles specification is a valid parser for the OPF-LoD mesh format. On the other hand, a valid OPF-LoD mesh parser may choose to ignore some input or fail upon encountering content outside of the subset specified hereby.</p>
+<div class="section" id="asset">
+<h3>Asset<a class="headerlink" href="#asset" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>version</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be “1.1”</p></td>
+</tr>
+<tr class="row-odd"><td><p>tilesetVersion</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> include the <a class="reference internal" href="#opf-lod-mesh-asset-version"><span class="std std-ref">OPF_lod_mesh_asset_version</span></a> extension</p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tile">
+<h3>Tile<a class="headerlink" href="#tile" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boundingVolume</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/blob/3c972d6e5fdea721039f64d7da16274605abcdf5/specification/schema/boundingVolume.schema.json#L9"><code class="docutils literal notranslate"><span class="pre">box</span></code></a> bounding volume</p></td>
+</tr>
+<tr class="row-odd"><td><p>geometricError</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>refine</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be “REPLACE”</p></td>
+</tr>
+<tr class="row-odd"><td><p>content</p></td>
+<td><p><strong>required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>contents</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>A single <code class="docutils literal notranslate"><span class="pre">content</span></code> is expected to be defined by the implicit root tile</p></td>
+</tr>
+<tr class="row-odd"><td><p>transform</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>implicitTiling</p></td>
+<td><p><strong>required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>children</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile">Cesium specification</a> mandates this property to be omitted when using <code class="docutils literal notranslate"><span class="pre">implicitTiling</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>metadata</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile">Cesium specification</a> mandates this property to be omitted when using <code class="docutils literal notranslate"><span class="pre">implicitTiling</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="content">
+<h3>Content<a class="headerlink" href="#content" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>boundingVolume</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#implicit-root-tile">Cesium specification</a> mandates this property to be omitted when using <code class="docutils literal notranslate"><span class="pre">implicitTiling</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>uri</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris">template URI</a> matching the naming pattern of the <a class="reference internal" href="triangular_mesh_resource_format.html"><span class="std std-doc">OPF triangular mesh</span></a> GLB files.<br>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris">URI</a> <strong>must</strong> be relative to the referring tileset json file.<br>Data embedding URIs are not supported.</p></td>
+</tr>
+<tr class="row-even"><td><p>metadata</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>group</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id1">
+<h3>Implicit Tiling<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>subdivisionScheme</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be “OCTREE”</p></td>
+</tr>
+<tr class="row-odd"><td><p>subtreeLevels</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>availableLevels</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>subtrees</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p><strong>Must</strong> be a <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#template-uris">template URI</a> matching the naming pattern of the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-binary-format"><strong>binary</strong> subtrees</a> files defining the partitioning.<br>The <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#uris">URI</a> <strong>must</strong> be relative to the referring tileset json file.<br>Data embedding URIs are not supported.</p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tileset">
+<h3>Tileset<a class="headerlink" href="#tileset" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>asset</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>geometricError</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>root</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensionsUsed</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensionsRequired</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>properties</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>schema</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>schemaUri</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>statistics</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>groups</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>metadata</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following is specific to the <a class="reference external" href="https://github.com/CesiumGS/3d-tiles/tree/1.1/specification/ImplicitTiling#subtree-json-format">Subtree JSON format</a> embedded in the <code class="docutils literal notranslate"><span class="pre">subtrees</span></code> referenced by the implicit tiling:</p>
+</div>
+<div class="section" id="subtree">
+<h3>Subtree<a class="headerlink" href="#subtree" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>buffers</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>bufferViews</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>tileAvailability</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>contentAvailability</p></td>
+<td><p><strong>constrained</strong></p></td>
+<td><p>The array <strong>must</strong> contain a single element. Multiple contents are not supported</p></td>
+</tr>
+<tr class="row-even"><td><p>childSubtreeAvailability</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>propertyTables</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>tileMetadata</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>contentMetadata</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>subtreeMetadata</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="availability">
+<h3>Availability<a class="headerlink" href="#availability" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bitstream</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>availableCount</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>constant</p></td>
+<td><p><strong>supported</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="buffer-view">
+<h3>Buffer View<a class="headerlink" href="#buffer-view" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>buffer</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>byteOffset</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>byteLength</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="buffer">
+<h3>Buffer<a class="headerlink" href="#buffer" title="Permalink to this heading">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>property</p></th>
+<th class="head"><p>value</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>uri</p></td>
+<td><p><strong>unsupported</strong></p></td>
+<td><p>Buffers <strong>must</strong> be embedded in a binary subtree file and cannot refer to external data</p></td>
+</tr>
+<tr class="row-odd"><td><p>byteLength</p></td>
+<td><p><strong>cesium-required</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>name</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>extensions</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>extras</p></td>
+<td><p><strong>ignored</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="supported-cesium-3d-tiles-extensions">
+<span id="supported-cesium-extensions"></span><h2>Supported Cesium 3D Tiles extensions<a class="headerlink" href="#supported-cesium-3d-tiles-extensions" title="Permalink to this heading">¶</a></h2>
+<div class="section" id="opf-lod-mesh-asset-version">
+<span id="id2"></span><h3>OPF_lod_mesh_asset_version<a class="headerlink" href="#opf-lod-mesh-asset-version" title="Permalink to this heading">¶</a></h3>
+<p>The extension stores the OPF format specification version</p>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;asset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;extensions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;OPF_lod_mesh_asset_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pix4D&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;geometricError&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12102411687374115</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;root&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;boundingVolume&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;box&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="mf">2.978947162628174</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">3.799898624420166</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">1.4298396110534668</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">3.8271379470825195</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">3.8271379470825195</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">                </span><span class="mf">3.8271379470825195</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;geometricError&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12102411687374115</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;refine&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;REPLACE&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;transform&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">            </span><span class="mf">1.0</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;content/{level}_{x}_{y}_{z}.glb&quot;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;implicitTiling&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;subdivisionScheme&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OCTREE&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;subtreeLevels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;availableLevels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;subtrees&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;subtrees/{level}_{x}_{y}_{z}.subtree&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;extensionsUsed&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;OPF_lod_mesh_asset_version&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../annexes.html" class="btn btn-neutral float-right" title="Annexes" accesskey="n" rel="next">Next</a>
+      
+      
+        <a href="triangular_mesh_resource_format.html" class="btn btn-neutral" title="OPF triangular mesh resource format" accesskey="p" rel="prev">Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2026, Pix4D.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+  
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  <script type="text/javascript" src="/server/switcher.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -2,7 +2,9 @@
     "$id": "camera_list.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": " Camera list",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "List of primitive camera data files",
     "type": "object",
     "allOf": [

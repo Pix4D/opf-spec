@@ -1,0 +1,202 @@
+{
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 34761,
+            "max": [
+                8630.0
+            ],
+            "min": [
+                0.0
+            ],
+            "normalized": false,
+            "type": "SCALAR"
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 8631,
+            "max": [
+                0.26404231786727905,
+                0.9723221659660339,
+                -0.4886963367462158
+            ],
+            "min": [
+                -0.9217460751533508,
+                -0.3029027581214905,
+                -1.0421277284622192
+            ],
+            "normalized": false,
+            "type": "VEC3"
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 8631,
+            "max": [
+                0.9999366998672485,
+                0.9999370574951172
+            ],
+            "min": [
+                6.294113700278103e-05,
+                6.324052810668945e-05
+            ],
+            "normalized": false,
+            "type": "VEC2"
+        },
+        {
+            "bufferView": 4,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 8631,
+            "max": [
+                5886.0
+            ],
+            "min": [
+                0.0
+            ],
+            "normalized": false,
+            "type": "SCALAR"
+        }
+    ],
+    "asset": {
+        "extensions": {
+            "OPF_mesh_asset_version": {
+                "version": "1.1"
+            }
+        },
+        "generator": "Pix4D MESH IO 0.17.1",
+        "version": "2.0"
+    },
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteLength": 139044,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        {
+            "buffer": 0,
+            "byteLength": 103572,
+            "byteOffset": 139044,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 69048,
+            "byteOffset": 242616,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteLength": 160359,
+            "byteOffset": 311664
+        },
+        {
+            "buffer": 0,
+            "byteLength": 34524,
+            "byteOffset": 472024
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 506548
+        }
+    ],
+    "extensionsRequired": [
+        "KHR_texture_basisu"
+    ],
+    "extensionsUsed": [
+        "KHR_texture_basisu",
+        "OPF_mesh_asset_version",
+        "OPF_mesh_primitive_vertices_welding_map"
+    ],
+    "images": [
+        {
+            "bufferView": 3,
+            "mimeType": "image/ktx2"
+        }
+    ],
+    "materials": [
+        {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "baseColorTexture": {
+                    "index": 0,
+                    "texCoord": 0
+                },
+                "metallicFactor": 1.0,
+                "roughnessFactor": 1.0
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "primitives": [
+                {
+                    "attributes": {
+                        "POSITION": 1,
+                        "TEXCOORD_0": 2
+                    },
+                    "extensions": {
+                        "OPF_mesh_primitive_vertices_welding_map": {
+                            "weldingMap": 3
+                        }
+                    },
+                    "indices": 0,
+                    "material": 0,
+                    "mode": 4
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "matrix": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.0,
+                0.0,
+                0.0,
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "mesh": 0
+        }
+    ],
+    "scene": 0,
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "extensions": {
+                "KHR_texture_basisu": {
+                    "source": 0
+                }
+            }
+        }
+    ]
+}

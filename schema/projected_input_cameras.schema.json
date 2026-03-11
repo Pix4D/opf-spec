@@ -2,7 +2,9 @@
     "$id": "projected_input_cameras.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": " Projected input camera",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "Definition of the input cameras data in the processing CRS, which is a projected right-handed isometric CS.",
     "type": "object",
     "allOf": [

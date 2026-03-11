@@ -17,142 +17,8 @@ Same as the [projected camera coordinate system specification](projected_input_c
 
 | Specification format                                       | Version                                    |
 | ---------------------------------------------------------- | ------------------------------------------ |
-| "application/opf-calibrated-cameras+json" | "1.0" |
+| "application/opf-calibrated-cameras+json" | "1.2" |
 
-
-
----------------------------------------
-(calibrated_cameras--calibrated-cameras)=
-###  Calibrated cameras
-
-Definition of Calibrated Camera Parameters
-
-**` Calibrated cameras` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**format**|`string`|For calibrated cameras it must be `"application/opf-calibrated-cameras+json"`| &#10003; Yes|
-|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
-|**sensors**|[`sensor`](calibrated_cameras-sensor) `[]`|Calibrated sensor parameters.| &#10003; Yes|
-|**cameras**|[`camera`](calibrated_cameras-camera) `[]`|Calibrated camera parameters.| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-camera)=
-### Calibrated camera
-
-**`Calibrated camera` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**id**|`integer`|Unique ID of the camera, it must appear in the input cameras.| &#10003; Yes|
-|**sensor_id**|`integer`|Unique ID of the sensor used by this camera.| &#10003; Yes|
-|**position**|`number` `[3]`|Calibrated coordinates in the processing CRS.| &#10003; Yes|
-|**orientation_deg**|`number` `[3]`|Calibrated Omega-Phi-Kappa angles in degree representing a rotation R_x(ω)R_y(ϕ)R_z(κ) from the image CS to the processing CRS.| &#10003; Yes|
-|**rolling_shutter**|`number` `[3]`|Refer to [this document](https://s3.amazonaws.com/mics.pix4d.com/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf).|No|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-calibrated_rig_relatives)=
-### Calibrated rig relatives
-
-Calibrated rig relatives contain the optimised relative translations and rotations in processing CRS units.
-
-**`Calibrated rig relatives` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**translation**|`number` `[3]`|Relative translation in processing CRS units| &#10003; Yes|
-|**rotation_angles_deg**|`number` `[3]`|Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-sensor)=
-### Calibrated sensor
-
-**`Calibrated sensor` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**id**|`integer`|Unique ID of the sensor, it must appear in the input cameras.| &#10003; Yes|
-|**internals**|[`sensor_internals`](calibrated_cameras-sensor_internals)|Calibrated sensor internal parameters.| &#10003; Yes|
-|**rig_relatives**|[`calibrated_rig_relatives`](calibrated_cameras-calibrated_rig_relatives)|Calibrated rig relatives contain the optimised relative translations and rotations in processing CRS units.|No|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-fisheye_internals)=
-### Fisheye internals
-
-Parameters of the fisheye camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label2).
-
-**`Fisheye internals` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**type**|`string`|Must be `"fisheye"`.| &#10003; Yes|
-|**principal_point_px**|[`principal_point`](calibrated_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
-|**is_symmetric_affine**|`boolean`|If true, it is prior knowledge that the affine matrix is symmetric (that is, c=f and d=e=0) and should be kept symmetric.| &#10003; Yes|
-|**affine**|`number` `[4]`|Affine transformation parameters as [ c d; e f ]| &#10003; Yes|
-|**polynomial**|`number` `[]`|The coefficients of the distortion polynomial.| &#10003; Yes|
-|**is_p0_zero**|`boolean`|If true, it is prior knowledge that the first polynomial coefficient is equal to zero and should be kept zero.| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-sensor_internals)=
-### Internals
-
-One of [perspective](#perspective-internals), [fisheye](#fisheye-internals) or [spherical](#spherical-internals) internal. Parameters of the camera models are described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089).
-
-
-
----------------------------------------
-(calibrated_cameras-perspective_internals)=
-### Perspective internals
-
-Parameters of the perspective camera model as described in Pix4D [knowledge base](https://support.pix4d.com/hc/en-us/articles/202559089#label1).
-
-**`Perspective internals` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**type**|`string`|Must be `"perspective"`.| &#10003; Yes|
-|**principal_point_px**|[`principal_point`](calibrated_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
-|**focal_length_px**|`number`|Focal length in pixels.| &#10003; Yes|
-|**radial_distortion**|`number` `[3]`|The radial distortion coefficients (R1, R2, R3).| &#10003; Yes|
-|**tangential_distortion**|`number` `[2]`|The tangential distortion coefficients (T1, T2).| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(calibrated_cameras-principal_point)=
-### Principal point
-
-(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.
-
-
-
----------------------------------------
-(calibrated_cameras-spherical_internals)=
-### Spherical internals
-
-**`Spherical internals` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**type**|`string`|Must be `"spherical"`.| &#10003; Yes|
-|**principal_point_px**|[`principal_point`](calibrated_cameras-principal_point)|(x, y) location of the principal point in pixels with (0, 0) being at the top left corner of the top left pixel.| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
 ## Example
@@ -160,7 +26,7 @@ Parameters of the perspective camera model as described in Pix4D [knowledge base
 ```json
 {
     "format": "application/opf-calibrated-cameras+json",
-    "version": "1.0",
+    "version": "1.1",
     "cameras": [
         {
             "id": 47292894,

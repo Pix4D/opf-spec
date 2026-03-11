@@ -2,7 +2,9 @@
     "$id": "point_cloud_mesh_primitive_custom_attributes.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "OPF_mesh_primitive_custom_attributes",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "Extension storing extra custom point attribute",
     "type": "object",
     "properties": {

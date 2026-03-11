@@ -1,6 +1,6 @@
 | Specification format                            | Version                         |
 | ----------------------------------------------- | ------------------------------- |
-| "application/opf-project+json" | "1.0" |
+| "application/opf-project+json" | "1.2" |
 
 (project-format)=
 # Project format specification
@@ -15,6 +15,7 @@ A `project` is essentially a container. As such it is composed of different item
 
 ```{mermaid}
 flowchart LR
+    CameraList --> InputCameras
     SpatialReference --> ProjectedInputCameras
     InputCameras --> ProjectedInputCameras
     GCPs --> ProjectedGCPs
@@ -59,6 +60,10 @@ The table below describes which `resource format` and `source types` an item _ma
 | `constraints` | `application/opf-constraints+json`<br>  |  |
 | `calibration` | `application/opf-calibrated-cameras+json`<br>  | `application/opf-calibrated-control-points+json`<br> `application/opf-gps-bias+json`<br> `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  |
 | `point_cloud` | `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  | `model/gltf+json`<br> `application/gltf-buffer+bin`<br>  |
+| `lod_mesh` | `application/cesium-tileset+json`<br> `model/gltf-binary`<br> `application/octet-stream`<br>  |  |
+| `dem` | `image/tiff; application=geotiff`<br>  | `application/xml`<br>  |
+| `orthomosaic` | `image/tiff; application=geotiff`<br>  | `application/xml`<br>  |
+| `scalar_index_map` | `image/tiff; application=geotiff`<br>  | `application/xml`<br>  |
 | \<extension-name\> (must start with `ext_` see [naming convention](naming-convention)) | Defined by the extension | Defined by the extension |
 
 
@@ -73,6 +78,10 @@ The table below describes which `resource format` and `source types` an item _ma
 | `constraints` | `input_control_points`<br>  |  |
 | `calibration` | `input_cameras`<br> `scene_reference_frame`<br>  | `constraints`<br> `projected_input_cameras`<br> `input_control_points`<br> `projected_control_points`<br>  |
 | `point_cloud` | `scene_reference_frame`<br>  | `calibration`<br>  |
+| `lod_mesh` | `scene_reference_frame`<br>  | `calibration`<br> `point_cloud`<br>  |
+| `dem` |  | `point_cloud`<br> `scene_reference_frame`<br>  |
+| `orthomosaic` |  | `calibration`<br> `dem`<br> `scene_reference_frame`<br>  |
+| `scalar_index_map` |  | `orthomosaic`<br> `scene_reference_frame`<br>  |
 | \<extension-name\> (must start with `ext_` see [naming convention](naming-convention)) | Defined by the extension | Defined by the extension |
 
 ## Extension mechanism for Item types and Resource formats
@@ -80,28 +89,30 @@ The table below describes which `resource format` and `source types` an item _ma
 (naming-convention)=
 ### Naming convention
 
-This specification allows for extensions for _item types_ and _resource formats_. To avoid possible clashes and ambiguities, such extensions must follow the following naming conventions:
+This specification allows for extensions for new _item types_, new _resource formats_ or extend existing formats. To avoid possible clashes and ambiguities, such extensions must follow the following naming conventions:
 
 - Extension names shall be of the form `"<UPPERCASE vendor>_[<myteam/myBU/myproject>_]<my_type_name>"`
-- Extensions for item types shall of the form `"ext_<vendor>_[<myteam/myBU/myproduct>_]<my_type_name>"`
-- Extensions for resource formats shall be of the form `"application/ext-<vendor>-[<myteam/myBU/myproduct>-]<my_resource_name>+<ext>"`
+- The name of new item types shall be of the form `"ext_<vendor>_[<myteam/myBU/myproduct>_]<my_type_name>"`
+- The MIME type for new resource formats shall be of the form `"application/ext-<vendor>-[<myteam/myBU/myproduct>-]<my_resource_name>+<ext>"`
 
 For extensions that are intended to be shared it is recommended they are accompagnied with a specification.
 
-Extensions should be designed such that tooling that do not recognize them can safely ignore them and still interpret the other parts of the project correctly. In other words an extension may not change the semantic of other parts of the projects.
+Extensions should be designed such that tooling that do not recognize them can safely ignore them and still interpret the other parts of the project correctly. In other words an extension may not change the semantics of other parts of the projects.
 
-### Extension example
+Core specification resource format extensions may only add information within the optional `extensions` object that can be added to any of the resource format sub-objects.
+
+### New item extension example
 
 |                         |                                                                     |
 | ----------------------- |---------------------------------------------------------------------|
 | Extension name          | PIX4D_myteam_myalgo_settings                                        |
 | Description             | This extension allow the storage of the settings for myalgo         |
 | New item type(s)        | `ext_pix4d_myteam_myalgo_settings`                                  |
-| New ressource type used | `application/ext-pix4d-myteam-myalgo-settings+json` (defined below) |
+| New resource type used | `application/ext-pix4d-myteam-myalgo-settings+json` (defined below) |
 
 | Extension format                        | Version |
 | --------------------------------------- | ------- |
-| "ext-pix4d-myteam-myalgo-settings+json" | "0.1"   |
+| "application/ext-pix4d-myteam-myalgo-settings+json" | "0.1"   |
 
 The extension author should provide the specification for _application/ext-pix4d-myteam-myalgo-settings+json_ including its _schema_ definition.
 
@@ -115,89 +126,45 @@ For brevity we just describe an hypothetical example of ext-pix4d-myteam-myalgo-
 }
 ```
 
+### Core specification resource format extension example
+
+|                         |                                                                     |
+| ----------------------- |---------------------------------------------------------------------|
+| Extension name          | PIX4D_my_camera_list_extension                                      |
+| Description             | This extension adds extra data to the camera object                 |
+| New item type(s)        | N/A                                                                 |
+| New resource type used  | N/A                                                                 |
+
+In this example, the extension adds some integer `foo` to the camera object from the camera list resource file:
+
+```json
+{
+    "format": "application/opf-camera-list+json",
+    "version": "1.0",
+    "uid_generator": {
+        "vendor": "pix4d",
+        "name": "image_content_hashing",
+        "scope": "global",
+        "version": 1
+    },
+    "cameras": [
+        {
+            "id": 47292894,
+            "uri": "IMG_160929_114101_0001_GRE.tif"
+            "extensions": {
+                "PIX4D_my_camera_list_extension": {
+                    "foo": 42
+                }
+            }
+        }
+    ]
+}
+```
+
 ## Project specification
 
 The project is an item catalog. It is stored in the JSON format.
 
-
-
----------------------------------------
-(project-project)=
-### Project
-
-Project Structure
-
-**`Project` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**format**|`string`|Must be application/opf-project+json| &#10003; Yes|
-|**version**|`string`|The version of this specification as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
-|**name**|`string`|The name of the project| &#10003; Yes|
-|**description**|`string`|The description of the project| &#10003; Yes|
-|**generator**|[`generator`](project-generator)||No|
-|**id**|`string`|A UUID string| &#10003; Yes|
-|**items**|[`item`](project-item) `[]`|The items contained in this project| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(project-item)=
-### Project Item
-
-**`Project Item` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**id**|`string`|A UUID string| &#10003; Yes|
-|**name**|`string`|The name of this item|No|
-|**type**|`string`|Define the type of data represented by the item. Can be one of ['camera_list', 'input_cameras', 'projected_input_cameras', 'scene_reference_frame', 'input_control_points', 'projected_control_points', 'constraints', 'calibration', 'point_cloud'] or an extension type (starting with `ext_` see [naming convention](naming-convention))<br>**Allowed values** :       `"camera_list"` | &#10003; Yes|
-|**resources**|[`resource`](project-resource) `[]`|The resources that constitute this item| &#10003; Yes|
-|**sources**|[`source`](project-source) `[]`|The sources of this item, that is the set of items this item depends on| &#10003; Yes|
-|**labels**|`string` `[]`|Labels associated to the item in the format `<vendor>-key:value`. The `<vendor>` prefix should be lower case. The specification reserves the `opf` vendor prefix. In this version of the specification, the only specified key is `opf-origin` which indicates the origin of the data. Allowed values for the key `opf-origin` are `images` and `depth` which indicate that the corresponding item is derived from images and depth maps respectively.|No|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(project-resource)=
-### Project Resource
-
-**`Project Resource` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**uri**|`string`|URI reference of the resource file as specified by [RFC3986](https://www.rfc-editor.org/rfc/rfc3986). If the reference is relative, it is relative to the folder containing the present file| &#10003; Yes|
-|**format**|`string`|The storage format of this resource. Can be one of ['application/opf-scene-reference-frame+json', 'application/opf-camera-list+json', 'application/opf-input-cameras+json', 'application/opf-projected-input-cameras+json', 'application/opf-input-control-points+json', 'application/opf-projected-control-points+json', 'application/opf-calibrated-control-points+json', 'application/opf-constraints+json', 'application/opf-calibrated-cameras+json', 'application/opf-gps-bias+json', 'model/gltf+json', 'application/gltf-buffer+bin'] or an extension type (starting with `application/ext-` see [naming convention](naming-convention))<br>**Allowed values** :       `"application/opf-scene-reference-frame+json"` | &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(project-source)=
-### Project Source
-
-**`Project Source` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**id**|`string`|A UUID string| &#10003; Yes|
-|**type**|`string`|| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(project-generator)=
-### The generator of this project
-
-**`The generator of this project` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**name**|`string`|The name of the generator| &#10003; Yes|
-|**version**|`string`|The version of the generator`| &#10003; Yes|
 
 
 ## Top level scene reference frame
@@ -224,293 +191,345 @@ In the JSON representation they are stored as numbers.
 
 The point cloud in the project is represented as a `glTF` file of type `model/gltf+json`, which, in turn, refers to binary buffers of type `application/gltf-buffer+bin` (see [here](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#file-extensions-and-media-types)). These files must be included as resources in the OPF project item of the point cloud. Further details on the format can be found in [OPF-glTF point cloud](opf-gltf-format).
 
+## lod_mesh project item
+
+An LoD mesh in the project is represented as a `Cesium 3D Tiles tileset` file of type `application/cesium-tileset+json`, which, in turn, refers to binary `subtree` files of type `application/octet-stream` describing its spatial partitioning  and to [OPF triangular meshes](triangular_mesh_resource_format.md) of type `model/gltf-binary` storing the nodes' meshes. These files must be included as resources in the OPF project item of the lod mesh.
+
+Note that the specialized media type `application/cesium-tileset+json` is used as an alias to identify the file corresponding to the [Cesium 3D Tiles Tileset JSON](https://github.com/CesiumGS/3d-tiles/blob/1.1/specification/README.adoc#tileset-json) within the OPF specification and it is equivalent to the more generic `application/json` type required by the [Cesium specification](https://github.com/CesiumGS/3d-tiles/tree/1.1/specification#file-extensions-and-media-types).
+
+Further details on the format can be found in [OPF level of detail mesh](opf-lod-mesh-format).
+
+## GeoTIFF project items
+
+The items `dem` (Digital Elevation Model), `orthomosaic` and `scalar_index_map` (single band images representing an index, like [NDVI](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index)) are in [GeoTIFF](https://docs.ogc.org/is/19-008r4/19-008r4.html) format.
+
+If a `scene_reference_frame` is present in the `sources`, its base reference frame must match the CRS in the internal metadata of the GeoTIFF.
+GeoTIFF must be valid in all aspects, including but not limited to, complete GeoTIFF metadata.
+
+Multiple items of the same type can be present in the same project.
+It is recommended to use the `name` field to distinguish between same type items.
+
+In some cases where GeoTIFF tags are not enough to describe the metadata (like complicated CRSs), auxiliary XML files can be used like [PAM](https://gdal.org/en/stable/glossary.html#term-PAM).
+
 ## Example
 
 ```json
 {
-    "version": "1.0",
-    "format": "application/opf-project+json",
-    "id": "caa7754e-90dc-11ec-b909-0242ac120002",
-    "name": "Example of a calibration project",
-    "description": "Show an example of a calibration project",
-    "generator": {
-        "name": "PIX4Dmatic",
-        "version": "1.41.0"
-    },
-    "items": [
+  "name": "OPF-example",
+  "version": "1.1",
+  "description": "An OPF example project",
+  "format": "application/opf-project+json",
+  "id": "93d75792-1dee-4b48-97d3-ef8c05dbf43f",
+  "items": [
+    {
+      "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+      "name": "scene_reference_frame",
+      "resources": [
         {
-            "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
-            "type": "ext_pix4d_myteam_myalgo_settings",
-            "resources": [
-                {
-                    "uri": "myalgo-settings.json",
-                    "format": "application/ext-pix4d-myteam-myalgo-settings"
-                }
-            ],
-            "sources": []
-        },
-        {
-            "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
-            "type": "camera_list",
-            "resources": [
-                {
-                    "uri": "camera-list.json",
-                    "format": "application/opf-camera-list+json"
-                }
-            ],
-            "sources": []
-        },
-        {
-            "id": "57608ca8-912d-4fee-b097-2648651474c4",
-            "type": "input_cameras",
-            "resources": [
-                {
-                    "uri": "input-cameras.json",
-                    "format": "application/opf-input-cameras+json"
-                }
-            ],
-            "sources": [
-                {
-                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
-                    "type": "camera_list"
-                }
-            ]
-        },
-        {
-            "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
-            "type": "input_control_points",
-            "resources": [
-                {
-                    "uri": "control_points/input-control-points.json",
-                    "format": "application/opf-input-control-points+json"
-                }
-            ],
-            "sources": [
-                {
-                    "id": "0bc95642-e37f-46df-a2c6-3ddd65881807",
-                    "type": "camera_list"
-                }
-            ]
-        },
-        {
-            "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-            "type": "scene_reference_frame",
-            "resources": [
-                {
-                    "uri": "arbitrary-scene-reference-frame.json",
-                    "format": "application/opf-scene-reference-frame+json"
-                }
-            ],
-            "sources": []
-        },
-        {
-            "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
-            "type": "projected_input_cameras",
-            "resources": [
-                {
-                    "uri": "projected-input-cameras.json",
-                    "format": "application/opf-projected-input-cameras+json"
-                }
-            ],
-            "sources": [
-                {
-                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
-                    "type": "input_cameras"
-                },
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                }
-            ]
-        },
-        {
-            "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
-            "type": "projected_control_points",
-            "resources": [
-                {
-                    "uri": "control_points/projected-control-points.json",
-                    "format": "application/opf-projected-control-points+json"
-                }
-            ],
-            "sources": [
-                {
-                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
-                    "type": "input_control_points"
-                },
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                }
-            ]
-        },
-        {
-            "id": "a71bf97a-045c-11ee-be56-0242ac120002",
-            "type": "constraints",
-            "resources": [
-                {
-                    "uri": "control_points/constraints.json",
-                    "format": "application/opf-constraints+json"
-                }
-            ],
-            "sources": [
-                {
-                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
-                    "type": "input_control_points"
-                }
-            ]
-        },
-        {
-            "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
-            "type": "calibration",
-            "sources": [
-                {
-                    "id": "1fbfd8dd-188c-45dc-955c-30eac64ad4d7",
-                    "type": "ext_pix4d_myteam_myalgo_settings"
-                },
-                {
-                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
-                    "type": "input_cameras"
-                },
-                {
-                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
-                    "type": "input_control_points"
-                },
-                {
-                    "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
-                    "type": "projected_input_cameras"
-                },
-                {
-                    "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
-                    "type": "projected_control_points"
-                },
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                }
-            ],
-            "resources": [
-                {
-                    "uri": "point_cloud/sparse.gltf",
-                    "format": "model/gltf+json"
-                },
-                {
-                    "uri": "point_cloud/positions.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/partitioning.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchPointIndexRanges.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchCameraIds.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchPixelCoordinates.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchFeatureIds.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchScales.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchDepths.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "calibrated-cameras.json",
-                    "format": "application/opf-calibrated-cameras+json"
-                },
-                {
-                    "uri": "control_points/calibrated-control-points.json",
-                    "format": "application/opf-calibrated-control-points+json"
-                },
-                {
-                    "uri": "gps-bias.json",
-                    "format": "application/opf-gps-bias+json"
-                }
-            ]
-        },
-        {
-            "id": "31ee32ac-5095-4507-a342-21cfcf12c54c",
-            "type": "point_cloud",
-            "sources": [
-                {
-                    "id": "57608ca8-912d-4fee-b097-2648651474c4",
-                    "type": "input_cameras"
-                },
-                {
-                    "id": "dad66aa8-6e52-4d7c-8cec-c6fd9da2aae6",
-                    "type": "input_control_points"
-                },
-                {
-                    "id": "54b313cf-9a5d-4bd7-8f51-b06577dedad1",
-                    "type": "projected_input_cameras"
-                },
-                {
-                    "id": "cf980832-21cd-4830-b02c-1e7f6faa7176",
-                    "type": "projected_control_points"
-                },
-                {
-                    "id": "83291b5e-d239-4d94-93fb-226f70d7cd3c",
-                    "type": "scene_reference_frame"
-                },
-                {
-                    "id": "6e12d73b-c8c0-4059-9c13-0a5ff2afaed7",
-                    "type": "calibration"
-                }
-            ],
-            "resources": [
-                {
-                    "uri": "point_cloud/dense.gltf",
-                    "format": "model/gltf+json"
-                },
-                {
-                    "uri": "point_cloud/positions.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/partitioning.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchPointIndexRanges.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/matchCameraIds.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/colors.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/normals.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/classes.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/tags.bin",
-                    "format": "application/gltf-buffer+bin"
-                },
-                {
-                    "uri": "point_cloud/flags.bin",
-                    "format": "application/gltf-buffer+bin"
-                }
-            ]
+          "format": "application/opf-scene-reference-frame+json",
+          "uri": "./scene_reference_frame.json"
         }
-    ]
+      ],
+      "sources": [],
+      "type": "scene_reference_frame"
+    },
+    {
+      "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+      "name": "camera_list",
+      "resources": [
+        {
+          "format": "application/opf-camera-list+json",
+          "uri": "./camera_list.json"
+        }
+      ],
+      "sources": [],
+      "type": "camera_list"
+    },
+    {
+      "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+      "name": "input_cameras",
+      "resources": [
+        {
+          "format": "application/opf-input-cameras+json",
+          "uri": "./input_cameras.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+          "type": "camera_list"
+        }
+      ],
+      "type": "input_cameras"
+    },
+    {
+      "id": "82575328-c538-4846-9ff7-a0bb242f442e",
+      "name": "projected_input_cameras",
+      "resources": [
+        {
+          "format": "application/opf-projected-input-cameras+json",
+          "uri": "./projected_input_cameras.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        }
+      ],
+      "type": "projected_input_cameras"
+    },
+    {
+      "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+      "name": "calibration",
+      "resources": [
+        {
+          "format": "application/opf-calibrated-cameras+json",
+          "uri": "./calibrated_cameras.json"
+        },
+        {
+          "format": "application/opf-gps-bias+json",
+          "uri": "./gps_bias.json"
+        },
+        {
+          "format": "application/opf-calibrated-control-points+json",
+          "uri": "./calibrated_control_points.json"
+        },
+        {
+          "format": "model/gltf+json",
+          "uri": "./sparse/pcl.gltf"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/49a2ed6a-0083-47b9-80ac-f0c80bbb0730.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/12364e77-4c42-45a8-854f-8db2bf9bdf5e.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/4d869fa6-1f7d-4ccf-be60-68083478d2c4.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/97160a88-6050-4ef9-bdb0-3cc9821036b3.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/ac0e25ef-a428-4084-866c-8b69d21538ef.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/26905c3a-2bbd-4ee7-a5bf-a640aba2e812.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/fe43e722-b735-4474-9d58-1767ca81eaf1.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/055c4a01-44d4-481b-9116-68fa635fd479.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/d0091556-2f30-4e6b-9b0e-6aff9047051a.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/dc0eea1a-59ad-4aff-9d38-2689bf53107f.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/210a7717-40c5-4633-81d8-7897cd07cb3f.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/449354e4-82c7-4c9a-92e6-ecab1cb3ae3f.glbin"
+        },
+        {
+          "format": "application/ext-pix4d-features+bin",
+          "uri": "./features.bin"
+        },
+        {
+          "format": "application/ext-pix4d-matches+bin",
+          "uri": "./matches.bin"
+        },
+        {
+          "format": "application/ext-pix4d-original-matches+bin",
+          "uri": "./originalMatches.bin"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        },
+        {
+          "id": "82575328-c538-4846-9ff7-a0bb242f442e",
+          "type": "projected_input_cameras"
+        },
+        {
+          "id": "af99ceac-a7f0-4d26-a027-9d3162fa1b39",
+          "type": "input_control_points"
+        }
+      ],
+      "type": "calibration"
+    },
+    {
+      "id": "4344484c-d0c8-45eb-abc4-d0176838fc55",
+      "labels": [
+        "opf-origin:images"
+      ],
+      "name": "dense_point_cloud",
+      "resources": [
+        {
+          "format": "model/gltf+json",
+          "uri": "./dense/pcl.gltf"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/c6ea55ef-b056-4bde-b034-0cc4d5158327.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/8f2d1454-1c49-486a-a6b6-2e22af755058.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/daa66593-cab1-43a1-a327-18c3658c7091.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/ea97b8d4-07a7-48c9-8c0c-ab0ef4984b48.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/12566d2f-60f1-4eea-a57a-b26e33b2d230.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/070c096e-1fd9-47f8-b5b9-f155608b2383.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/20e0cf98-e508-430a-8687-01bde600bd9c.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/f723f850-3f81-44f2-8be0-2cf0db187502.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/17979885-b8cd-4395-8bc2-9734ad291428.glbin"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        },
+        {
+          "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+          "type": "calibration"
+        }
+      ],
+      "type": "point_cloud"
+    },
+     {
+      "id": "7344484c-f0c8-98eb-abc4-d0173838ab16",
+      "name": "textured_lod_mesh",
+      "resources": [
+        {
+          "format": "application/cesium-tileset+json",
+          "uri": "./lod_mesh/tileset.json"
+        },
+        {
+          "format": "application/octet-stream",
+          "uri": "./lod_mesh/subtrees/0_0_0_0.subtree"
+        },
+        {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/0_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_0_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_1_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_1_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_0_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_1_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_1_1_0.glb"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+          "type": "calibration"
+        },
+         {
+          "id": "4344484c-d0c8-45eb-abc4-d0176838fc55",
+          "type": "point_cloud"
+        }
+      ],
+      "type": "lod_mesh"
+    },
+    {
+      "id": "af99ceac-a7f0-4d26-a027-9d3162fa1b39",
+      "name": "input_control_points",
+      "resources": [
+        {
+          "format": "application/opf-input-control-points+json",
+          "uri": "./input_control_points.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+          "type": "camera_list"
+        }
+      ],
+      "type": "input_control_points"
+    }
+  ]
 }
 ```

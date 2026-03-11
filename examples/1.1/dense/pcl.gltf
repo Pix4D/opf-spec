@@ -1,0 +1,303 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 24890,
+      "max": [
+        6.342927932739258,
+        7.627036094665527,
+        -0.7941575050354004
+      ],
+      "min": [
+        -0.38503432273864746,
+        -0.027239441871643066,
+        -2.0868704319000244
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 24890,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5121,
+      "count": 24890,
+      "normalized": true,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 1889,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5125,
+      "count": 24890,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5125,
+      "count": 1301,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5125,
+      "count": 1302,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5125,
+      "count": 1301,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 8,
+      "componentType": 5121,
+      "count": 24890,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 9,
+      "componentType": 5121,
+      "count": 24890,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 10,
+      "componentType": 5121,
+      "count": 24890,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extensions": {
+      "OPF_asset_version": {
+        "version": "1.0"
+      }
+    },
+    "generator": "Pix4D PCL IO 2.1.2",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 298680,
+      "target": 34962
+    },
+    {
+      "buffer": 1,
+      "byteLength": 298680,
+      "target": 34962
+    },
+    {
+      "buffer": 2,
+      "byteLength": 99560,
+      "target": 34962
+    },
+    {
+      "buffer": 3,
+      "byteLength": 7556,
+      "target": 34962
+    },
+    {
+      "buffer": 4,
+      "byteLength": 199120,
+      "target": 34962
+    },
+    {
+      "buffer": 5,
+      "byteLength": 20816,
+      "target": 34962
+    },
+    {
+      "buffer": 5,
+      "byteLength": 10416,
+      "byteOffset": 20816,
+      "target": 34962
+    },
+    {
+      "buffer": 5,
+      "byteLength": 20816,
+      "byteOffset": 31232,
+      "target": 34962
+    },
+    {
+      "buffer": 6,
+      "byteLength": 24890,
+      "target": 34962
+    },
+    {
+      "buffer": 7,
+      "byteLength": 24890,
+      "target": 34962
+    },
+    {
+      "buffer": 8,
+      "byteLength": 24890,
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 298680,
+      "uri": "c6ea55ef-b056-4bde-b034-0cc4d5158327.glbin"
+    },
+    {
+      "byteLength": 298680,
+      "uri": "8f2d1454-1c49-486a-a6b6-2e22af755058.glbin"
+    },
+    {
+      "byteLength": 99560,
+      "uri": "daa66593-cab1-43a1-a327-18c3658c7091.glbin"
+    },
+    {
+      "byteLength": 7556,
+      "uri": "ea97b8d4-07a7-48c9-8c0c-ab0ef4984b48.glbin"
+    },
+    {
+      "byteLength": 199120,
+      "uri": "12566d2f-60f1-4eea-a57a-b26e33b2d230.glbin"
+    },
+    {
+      "byteLength": 52048,
+      "uri": "070c096e-1fd9-47f8-b5b9-f155608b2383.glbin"
+    },
+    {
+      "byteLength": 24890,
+      "uri": "20e0cf98-e508-430a-8687-01bde600bd9c.glbin"
+    },
+    {
+      "byteLength": 24890,
+      "uri": "f723f850-3f81-44f2-8be0-2cf0db187502.glbin"
+    },
+    {
+      "byteLength": 24890,
+      "uri": "17979885-b8cd-4395-8bc2-9734ad291428.glbin"
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_materials_unlit"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_unlit",
+    "OPF_asset_version",
+    "OPF_mesh_primitive_custom_attributes",
+    "OPF_mesh_primitive_matches",
+    "OPF_mesh_primitive_partitioning"
+  ],
+  "materials": [
+    {
+      "extensions": {
+        "KHR_materials_unlit": {}
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "COLOR_0": 2,
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "extensions": {
+            "OPF_mesh_primitive_custom_attributes": {
+              "attributes": {
+                "classId": 8,
+                "terrainClassId": 10,
+                "vertexFlags": 9
+              }
+            },
+            "OPF_mesh_primitive_matches": {
+              "cameraIds": 3,
+              "cameraUids": [
+                18004626038942563571,
+                1287584358539973327,
+                17731858121436658996,
+                2028077148091237672,
+                2510381438831954424,
+                12271907533037195998,
+                43883881306998320,
+                10922788005040980985,
+                6523112081595099370,
+                8908096697497231504
+              ],
+              "pointIndexRanges": 4
+            },
+            "OPF_mesh_primitive_partitioning": {
+              "boundingBox": {
+                "max": [
+                  6.806085109710693,
+                  7.6270365715026855,
+                  5.256977558135986
+                ],
+                "min": [
+                  -0.8481907844543457,
+                  -0.027239322662353516,
+                  -2.3972983360290527
+                ]
+              },
+              "childrenIndexing": 6,
+              "nodeIndices": 5,
+              "nodeLevelIndexing": [
+                0,
+                1,
+                5,
+                20,
+                79,
+                247,
+                591,
+                1023,
+                1301
+              ],
+              "perNodeChunkIndexRanges": 7
+            }
+          },
+          "material": 0,
+          "mode": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

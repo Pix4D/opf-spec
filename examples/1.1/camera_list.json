@@ -1,0 +1,46 @@
+{
+    "cameras": [
+        {
+            "id": 18004626038942563571,
+            "uri": "images/Image_000108.jpg"
+        },
+        {
+            "id": 1287584358539973327,
+            "uri": "images/Image_000109.jpg"
+        },
+        {
+            "id": 17731858121436658996,
+            "uri": "images/Image_000110.jpg"
+        },
+        {
+            "id": 2028077148091237672,
+            "uri": "images/Image_000111.jpg"
+        },
+        {
+            "id": 2510381438831954424,
+            "uri": "images/Image_000112.jpg"
+        },
+        {
+            "id": 12271907533037195998,
+            "uri": "images/Image_000113.jpg"
+        },
+        {
+            "id": 43883881306998320,
+            "uri": "images/Image_000114.jpg"
+        },
+        {
+            "id": 10922788005040980985,
+            "uri": "images/Image_000115.jpg"
+        },
+        {
+            "id": 6523112081595099370,
+            "uri": "images/Image_000116.jpg"
+        },
+        {
+            "id": 8908096697497231504,
+            "uri": "images/Image_000117.jpg"
+        }
+    ],
+    "format": "application/opf-camera-list+json",
+    "version": "1.0"
+}

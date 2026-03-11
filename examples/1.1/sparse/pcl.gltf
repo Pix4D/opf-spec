@@ -1,0 +1,354 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 15660,
+      "max": [
+        8.769189834594727,
+        11.169885635375977,
+        -0.4122951626777649
+      ],
+      "min": [
+        -0.4749695956707001,
+        -0.18069609999656677,
+        -9.465072631835938
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5121,
+      "count": 15660,
+      "normalized": true,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5125,
+      "count": 48925,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 15660,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 48925,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5125,
+      "count": 48925,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 48925,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5126,
+      "count": 15660,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 8,
+      "componentType": 5125,
+      "count": 921,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 9,
+      "componentType": 5125,
+      "count": 922,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 10,
+      "componentType": 5125,
+      "count": 921,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 11,
+      "componentType": 5121,
+      "count": 15660,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 12,
+      "componentType": 5121,
+      "count": 15660,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 13,
+      "componentType": 5121,
+      "count": 15660,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extensions": {
+      "OPF_asset_version": {
+        "version": "1.0"
+      }
+    },
+    "generator": "Pix4D PCL IO 2.1.2",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 187920,
+      "target": 34962
+    },
+    {
+      "buffer": 1,
+      "byteLength": 62640,
+      "target": 34962
+    },
+    {
+      "buffer": 2,
+      "byteLength": 195700,
+      "target": 34962
+    },
+    {
+      "buffer": 3,
+      "byteLength": 125280,
+      "target": 34962
+    },
+    {
+      "buffer": 4,
+      "byteLength": 391400,
+      "target": 34962
+    },
+    {
+      "buffer": 5,
+      "byteLength": 391400,
+      "target": 34962
+    },
+    {
+      "buffer": 6,
+      "byteLength": 195700,
+      "target": 34962
+    },
+    {
+      "buffer": 7,
+      "byteLength": 62640,
+      "target": 34962
+    },
+    {
+      "buffer": 8,
+      "byteLength": 14736,
+      "target": 34962
+    },
+    {
+      "buffer": 8,
+      "byteLength": 7376,
+      "byteOffset": 14736,
+      "target": 34962
+    },
+    {
+      "buffer": 8,
+      "byteLength": 14736,
+      "byteOffset": 22112,
+      "target": 34962
+    },
+    {
+      "buffer": 9,
+      "byteLength": 15660,
+      "target": 34962
+    },
+    {
+      "buffer": 10,
+      "byteLength": 15660,
+      "target": 34962
+    },
+    {
+      "buffer": 11,
+      "byteLength": 15660,
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 187920,
+      "uri": "49a2ed6a-0083-47b9-80ac-f0c80bbb0730.glbin"
+    },
+    {
+      "byteLength": 62640,
+      "uri": "12364e77-4c42-45a8-854f-8db2bf9bdf5e.glbin"
+    },
+    {
+      "byteLength": 195700,
+      "uri": "4d869fa6-1f7d-4ccf-be60-68083478d2c4.glbin"
+    },
+    {
+      "byteLength": 125280,
+      "uri": "97160a88-6050-4ef9-bdb0-3cc9821036b3.glbin"
+    },
+    {
+      "byteLength": 391400,
+      "uri": "ac0e25ef-a428-4084-866c-8b69d21538ef.glbin"
+    },
+    {
+      "byteLength": 391400,
+      "uri": "26905c3a-2bbd-4ee7-a5bf-a640aba2e812.glbin"
+    },
+    {
+      "byteLength": 195700,
+      "uri": "fe43e722-b735-4474-9d58-1767ca81eaf1.glbin"
+    },
+    {
+      "byteLength": 62640,
+      "uri": "055c4a01-44d4-481b-9116-68fa635fd479.glbin"
+    },
+    {
+      "byteLength": 36848,
+      "uri": "d0091556-2f30-4e6b-9b0e-6aff9047051a.glbin"
+    },
+    {
+      "byteLength": 15660,
+      "uri": "dc0eea1a-59ad-4aff-9d38-2689bf53107f.glbin"
+    },
+    {
+      "byteLength": 15660,
+      "uri": "210a7717-40c5-4633-81d8-7897cd07cb3f.glbin"
+    },
+    {
+      "byteLength": 15660,
+      "uri": "449354e4-82c7-4c9a-92e6-ecab1cb3ae3f.glbin"
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_materials_unlit"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_unlit",
+    "OPF_asset_version",
+    "OPF_mesh_primitive_custom_attributes",
+    "OPF_mesh_primitive_matches",
+    "OPF_mesh_primitive_partitioning"
+  ],
+  "materials": [
+    {
+      "extensions": {
+        "KHR_materials_unlit": {}
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "COLOR_0": 1,
+            "POSITION": 0
+          },
+          "extensions": {
+            "OPF_mesh_primitive_custom_attributes": {
+              "attributes": {
+                "classId": 11,
+                "confidence": 7,
+                "terrainClassId": 13,
+                "vertexFlags": 12
+              }
+            },
+            "OPF_mesh_primitive_matches": {
+              "cameraIds": 2,
+              "cameraUids": [
+                18004626038942563571,
+                1287584358539973327,
+                17731858121436658996,
+                2028077148091237672,
+                2510381438831954424,
+                12271907533037195998,
+                43883881306998320,
+                10922788005040980985,
+                6523112081595099370,
+                8908096697497231504
+              ],
+              "imagePoints": {
+                "featureIds": 5,
+                "pixelCoordinates": 4,
+                "scales": 6
+              },
+              "pointIndexRanges": 3
+            },
+            "OPF_mesh_primitive_partitioning": {
+              "boundingBox": {
+                "max": [
+                  9.822402000427246,
+                  11.169886589050293,
+                  0.736607551574707
+                ],
+                "min": [
+                  -1.5281810760498047,
+                  -0.1806964874267578,
+                  -10.613975524902344
+                ]
+              },
+              "childrenIndexing": 9,
+              "nodeIndices": 8,
+              "nodeLevelIndexing": [
+                0,
+                1,
+                6,
+                23,
+                49,
+                156,
+                303,
+                641,
+                863,
+                921
+              ],
+              "perNodeChunkIndexRanges": 10
+            }
+          },
+          "material": 0,
+          "mode": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

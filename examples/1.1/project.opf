@@ -1,0 +1,318 @@
+{
+  "name": "OPF-example",
+  "version": "1.1",
+  "description": "An OPF example project",
+  "format": "application/opf-project+json",
+  "id": "93d75792-1dee-4b48-97d3-ef8c05dbf43f",
+  "items": [
+    {
+      "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+      "name": "scene_reference_frame",
+      "resources": [
+        {
+          "format": "application/opf-scene-reference-frame+json",
+          "uri": "./scene_reference_frame.json"
+        }
+      ],
+      "sources": [],
+      "type": "scene_reference_frame"
+    },
+    {
+      "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+      "name": "camera_list",
+      "resources": [
+        {
+          "format": "application/opf-camera-list+json",
+          "uri": "./camera_list.json"
+        }
+      ],
+      "sources": [],
+      "type": "camera_list"
+    },
+    {
+      "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+      "name": "input_cameras",
+      "resources": [
+        {
+          "format": "application/opf-input-cameras+json",
+          "uri": "./input_cameras.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+          "type": "camera_list"
+        }
+      ],
+      "type": "input_cameras"
+    },
+    {
+      "id": "82575328-c538-4846-9ff7-a0bb242f442e",
+      "name": "projected_input_cameras",
+      "resources": [
+        {
+          "format": "application/opf-projected-input-cameras+json",
+          "uri": "./projected_input_cameras.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        }
+      ],
+      "type": "projected_input_cameras"
+    },
+    {
+      "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+      "name": "calibration",
+      "resources": [
+        {
+          "format": "application/opf-calibrated-cameras+json",
+          "uri": "./calibrated_cameras.json"
+        },
+        {
+          "format": "application/opf-gps-bias+json",
+          "uri": "./gps_bias.json"
+        },
+        {
+          "format": "application/opf-calibrated-control-points+json",
+          "uri": "./calibrated_control_points.json"
+        },
+        {
+          "format": "model/gltf+json",
+          "uri": "./sparse/pcl.gltf"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/49a2ed6a-0083-47b9-80ac-f0c80bbb0730.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/12364e77-4c42-45a8-854f-8db2bf9bdf5e.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/4d869fa6-1f7d-4ccf-be60-68083478d2c4.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/97160a88-6050-4ef9-bdb0-3cc9821036b3.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/ac0e25ef-a428-4084-866c-8b69d21538ef.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/26905c3a-2bbd-4ee7-a5bf-a640aba2e812.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/fe43e722-b735-4474-9d58-1767ca81eaf1.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/055c4a01-44d4-481b-9116-68fa635fd479.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/d0091556-2f30-4e6b-9b0e-6aff9047051a.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/dc0eea1a-59ad-4aff-9d38-2689bf53107f.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/210a7717-40c5-4633-81d8-7897cd07cb3f.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./sparse/449354e4-82c7-4c9a-92e6-ecab1cb3ae3f.glbin"
+        },
+        {
+          "format": "application/ext-pix4d-features+bin",
+          "uri": "./features.bin"
+        },
+        {
+          "format": "application/ext-pix4d-matches+bin",
+          "uri": "./matches.bin"
+        },
+        {
+          "format": "application/ext-pix4d-original-matches+bin",
+          "uri": "./originalMatches.bin"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        },
+        {
+          "id": "82575328-c538-4846-9ff7-a0bb242f442e",
+          "type": "projected_input_cameras"
+        },
+        {
+          "id": "af99ceac-a7f0-4d26-a027-9d3162fa1b39",
+          "type": "input_control_points"
+        }
+      ],
+      "type": "calibration"
+    },
+    {
+      "id": "4344484c-d0c8-45eb-abc4-d0176838fc55",
+      "labels": [
+        "opf-origin:images"
+      ],
+      "name": "dense_point_cloud",
+      "resources": [
+        {
+          "format": "model/gltf+json",
+          "uri": "./dense/pcl.gltf"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/c6ea55ef-b056-4bde-b034-0cc4d5158327.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/8f2d1454-1c49-486a-a6b6-2e22af755058.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/daa66593-cab1-43a1-a327-18c3658c7091.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/ea97b8d4-07a7-48c9-8c0c-ab0ef4984b48.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/12566d2f-60f1-4eea-a57a-b26e33b2d230.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/070c096e-1fd9-47f8-b5b9-f155608b2383.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/20e0cf98-e508-430a-8687-01bde600bd9c.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/f723f850-3f81-44f2-8be0-2cf0db187502.glbin"
+        },
+        {
+          "format": "application/gltf-buffer+bin",
+          "uri": "./dense/17979885-b8cd-4395-8bc2-9734ad291428.glbin"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "264b37ef-0f17-40e1-b311-3cd0c24de832",
+          "type": "input_cameras"
+        },
+        {
+          "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+          "type": "calibration"
+        }
+      ],
+      "type": "point_cloud"
+    },
+     {
+      "id": "7344484c-f0c8-98eb-abc4-d0173838ab16",
+      "name": "textured_lod_mesh",
+      "resources": [
+        {
+          "format": "application/cesium-tileset+json",
+          "uri": "./lod_mesh/tileset.json"
+        },
+        {
+          "format": "application/octet-stream",
+          "uri": "./lod_mesh/subtrees/0_0_0_0.subtree"
+        },
+        {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/0_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_0_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_1_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/1_1_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_0_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_0_1_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_1_0_0.glb"
+        },
+         {
+          "format": "model/gltf-binary",
+          "uri": "./lod_mesh/content/2_1_1_0.glb"
+        }
+      ],
+      "sources": [
+        {
+          "id": "72ed15d4-2ff6-4dcd-9150-5cbe6d276071",
+          "type": "scene_reference_frame"
+        },
+        {
+          "id": "e08e4913-acf0-408a-bb64-78dc52916345",
+          "type": "calibration"
+        },
+         {
+          "id": "4344484c-d0c8-45eb-abc4-d0176838fc55",
+          "type": "point_cloud"
+        }
+      ],
+      "type": "lod_mesh"
+    },
+    {
+      "id": "af99ceac-a7f0-4d26-a027-9d3162fa1b39",
+      "name": "input_control_points",
+      "resources": [
+        {
+          "format": "application/opf-input-control-points+json",
+          "uri": "./input_control_points.json"
+        }
+      ],
+      "sources": [
+        {
+          "id": "3eb7f1c0-67b7-41f9-93d1-1f6d09cf6660",
+          "type": "camera_list"
+        }
+      ],
+      "type": "input_control_points"
+    }
+  ]
+}

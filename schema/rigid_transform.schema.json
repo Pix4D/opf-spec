@@ -1,7 +1,9 @@
 {
     "$id": "rigid_transform.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "title": "Rigid transformation with scaling",
     "description": "Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p' via p' = scale * rotation * p + translation.",
     "type": "object",

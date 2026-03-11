@@ -16,6 +16,28 @@ def examples_dir():
 def test_examples(example_filename):
     print(f"Validating {example_filename}...")
     validate_opf(
+        example_filename,
+        exact_version=False,
+        no_dangling=True,
+        validate_extensions=True,
+    )
+
+
+@pytest.mark.parametrize("example_filename", (examples_dir() / "1.1").glob("*.json"))
+def test_1_1_examples(example_filename):
+    print(f"Validating {example_filename}...")
+    validate_opf(
+        example_filename,
+        exact_version=False,
+        no_dangling=True,
+        validate_extensions=True,
+    )
+
+
+@pytest.mark.parametrize("example_filename", (examples_dir() / "1.2").glob("*.json"))
+def test_1_2_examples(example_filename):
+    print(f"Validating {example_filename}...")
+    validate_opf(
         example_filename, exact_version=True, no_dangling=True, validate_extensions=True
     )
 
@@ -26,7 +48,10 @@ def test_examples(example_filename):
 def test_control_point_examples(example_filename):
     print(f"Validating {example_filename}...")
     validate_opf(
-        example_filename, exact_version=True, no_dangling=True, validate_extensions=True
+        example_filename,
+        exact_version=False,
+        no_dangling=True,
+        validate_extensions=True,
     )
 
 
@@ -35,6 +60,18 @@ def test_control_point_examples(example_filename):
 )
 @pytest.mark.filterwarnings("ignore::UserWarning")
 def test_point_cloud_examples(example_filename):
+    print(f"Validating {example_filename}...")
+    gltf = GLTF2().load(example_filename)
+    validate_gltf(gltf)
+    print(f"Successful validation of {example_filename} with summary:")
+    summary_gltf(gltf)
+
+
+@pytest.mark.parametrize(
+    "example_filename", (examples_dir() / "triangular_mesh").glob("*.glb")
+)
+@pytest.mark.filterwarnings("ignore::UserWarning")
+def test_triangular_mesh_examples(example_filename):
     print(f"Validating {example_filename}...")
     gltf = GLTF2().load(example_filename)
     validate_gltf(gltf)

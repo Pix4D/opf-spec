@@ -1,7 +1,9 @@
 {
     "$id": "calibrated_cameras.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "title": " Calibrated cameras",
     "description": "Definition of Calibrated Camera Parameters",
     "type": "object",
@@ -124,7 +126,7 @@
                             "$ref": "vector3d.schema.json"
                         }
                     ],
-                    "description": "Refer to [this document](https://s3.amazonaws.com/mics.pix4d.com/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf)."
+                    "description": "Refer to [this document](https://data.pix4d.com/misc/KB/documents/isprs_rolling_shutter_paper_final_2016.pdf)."
                 },
                 "extensions": {}
             },

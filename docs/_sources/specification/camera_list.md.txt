@@ -43,59 +43,8 @@ The OPF specification does not mandate a specific method for generating cameras 
 
 | Specification format                                  | Version                               |
 | ----------------------------------------------------- | ------------------------------------- |
-| "application/opf-camera-list+json" | "1.0" |
+| "application/opf-camera-list+json" | "1.2" |
 
-
-
----------------------------------------
-(camera_list--camera-list)=
-###  Camera list
-
-List of primitive camera data files
-
-**` Camera list` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**format**|`string`|For a camera list it must be `"application/opf-camera-list+json"`| &#10003; Yes|
-|**version**|`string`|The version of this schema as `MAJOR.MINOR`. Breaking changes are reflected by a change in MAJOR version. Can optionally include a pre-release tag `MAJOR.MINOR-tag`. Examples: `0.1`, `1.0`, `1.0-draft1`| &#10003; Yes|
-|**uid_generator**|[`uid_generator`](camera_list-uid_generator)|The UID generator used to generate the UIDs of the cameras in the list. The OPF specification does not mandate a particular ID generation mechanism, but the mapping between camera IDs and cameras must be unique at the specified scope. Note that it is required that all `camera_list` items from a given OPF project use the same uid_generator.|No|
-|**cameras**|[`camera`](camera_list-camera) `[]`|List of all cameras in all captures.| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(camera_list-camera)=
-### Camera
-
-All data files associated with one camera in a capture
-
-**`Camera` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**id**|`integer`|Unique identifier as unsigned 64 bit integer.| &#10003; Yes|
-|**uri**|`string`|The location of the image file given as a URI-reference. For multi-page images, only one page shall be considered. By default, that page will be the first one unless the URI refers to a different one in a fragment part with the syntax "page=n", e.g. "image.tiff#page=1".| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
-
-
----------------------------------------
-(camera_list-uid_generator)=
-### UID generator
-
-The UID generator used to generate the UIDs of the cameras in the list. The OPF specification does not mandate a particular ID generation mechanism, but the mapping between camera IDs and cameras must be unique at the specified scope. Note that it is required that all `camera_list` items from a given OPF project use the same uid_generator.
-
-**`UID generator` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**vendor**|`string`|The vendor of the UID generator. The string should be lower case.| &#10003; Yes|
-|**name**|`string`|The name of the UID generator.| &#10003; Yes|
-|**scope**|`string`|In `project` scope the UIDs <-> cameras mapping is guaranteed to be unique within the OPF project. In `global` scope the UID <-> camera mapping is required to be unique beyond the project boundaries.<br>**Allowed values** :       `"global"`       `"project"` | &#10003; Yes|
-|**version**|`integer`|The version of the UID generator.| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
 
 
 ## Example
@@ -126,10 +75,6 @@ The UID generator used to generate the UIDs of the cameras in the list. The OPF 
         {
             "id": 86930102,
             "uri": "file:///c:/data/images/DJI_09572.jpg"
-        },
-        {
-            "id": 28493939,
-            "uri": "Image_09573.jpg"
         },
         {
             "id": 28493939,

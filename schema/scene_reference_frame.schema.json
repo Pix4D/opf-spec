@@ -2,7 +2,9 @@
     "$id": "scene_reference_frame.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Scene reference frame",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "An object that specifies a base Cartesian CRS and the transformation parameters to a translated canonical form suitable for processing and visualization.",
     "type": "object",
     "allOf": [
@@ -57,11 +59,11 @@
                             "$ref": "vector3d.schema.json"
                         }
                     ],
-                    "description": "Per axis scaling factors to make the base CRS isometric."
+                    "description": "Per axis scaling factors to make the base CRS isometric. All factors must be greater than zero, and the first two elements must be identical."
                 },
                 "swap_xy": {
                     "type": "boolean",
-                    "description": "true if and only if the base CRS is left-handed."
+                    "description": "True if and only if the base CRS is left-handed."
                 },
                 "extensions": {}
             },

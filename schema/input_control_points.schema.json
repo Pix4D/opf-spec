@@ -1,7 +1,9 @@
 {
     "$id": "input_control_points.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "title": " Input control points",
     "description": "Definition of the input control points, which are the control points in their original CRS",
     "type": "object",

@@ -52,6 +52,8 @@ JSON files used throughout this specification have the following restrictions on
 
 This specification uses [URI references (RFC3986)](https://tools.ietf.org/html/rfc3986#section-4.1) to reference content.
 
+Relative URIs contained within JSON files should be interpreted as relative to the location of the JSON file in which they are specified, adhering to the principles outlined in [RFC 3986 5.1.3:  Base URI from the Retrieval URI](https://www.rfc-editor.org/rfc/rfc3986#section-5.1.3).
+
 ## Extensions
 
 ### Purpose of extensions
@@ -73,7 +75,7 @@ Extensions may add new properties and values.
 As much as possible these feature additions are designed to allow safe fallback consumption in tools that do not recognize an extension.
 In case an application imports a OPF project with an unknown extension and re-exports it, it is desirable to preserve the extension. Extensions should be designed to be resilient to changes to their parent objects.
 
-An example of a hypothetical `PIX4D_spatial_ref_sys` extension of [geo-referencing information][7] to add the URI of the grid used would be this: [scene-reference-frame-extension.json](examples/scene-reference-frame-extension.json).
+An example of a hypothetical `PIX4D_spatial_ref_sys` extension of [geo-referencing information][8] to add the URI of the grid used would be this: [scene-reference-frame-extension.json](examples/scene-reference-frame-extension.json).
 
 ### Creating Extensions
 

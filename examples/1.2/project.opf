@@ -1,0 +1,88 @@
+{
+    "description": "",
+    "format": "application/opf-project+json",
+    "id": "c1de757a-ffed-4270-a1b1-514e0db803b3",
+    "items": [
+        {
+            "id": "e2d2480e-6df5-46db-a9b4-865270523cb2",
+            "name": "scene_reference_frame",
+            "resources": [
+                {
+                    "format": "application/opf-scene-reference-frame+json",
+                    "uri": "./scene_reference_frame.json"
+                }
+            ],
+            "sources": [],
+            "type": "scene_reference_frame"
+        },
+        {
+            "id": "c7bf35ff-b554-43ed-a357-2dd617bae54e",
+            "name": "camera_list",
+            "resources": [
+                {
+                    "format": "application/opf-camera-list+json",
+                    "uri": "./camera_list.json"
+                }
+            ],
+            "sources": [],
+            "type": "camera_list"
+        },
+        {
+            "id": "5a673a6a-ad4c-4c19-99ce-cd90cfd3e776",
+            "name": "input_cameras",
+            "resources": [
+                {
+                    "format": "application/opf-input-cameras+json",
+                    "uri": "./input_cameras.json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "c7bf35ff-b554-43ed-a357-2dd617bae54e",
+                    "type": "camera_list"
+                }
+            ],
+            "type": "input_cameras"
+        },
+        {
+            "id": "333f51a6-3e26-477e-8cf8-b51438416dd4",
+            "name": "projected_input_cameras",
+            "resources": [
+                {
+                    "format": "application/opf-projected-input-cameras+json",
+                    "uri": "./projected_input_cameras.json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "e2d2480e-6df5-46db-a9b4-865270523cb2",
+                    "type": "scene_reference_frame"
+                },
+                {
+                    "id": "5a673a6a-ad4c-4c19-99ce-cd90cfd3e776",
+                    "type": "input_cameras"
+                }
+            ],
+            "type": "projected_input_cameras"
+        },
+        {
+            "id": "b8ac1710-2a00-40ee-b352-576ac9e22545",
+            "name": "input_control_points",
+            "resources": [
+                {
+                    "format": "application/opf-input-control-points+json",
+                    "uri": "./input_control_points.json"
+                }
+            ],
+            "sources": [
+                {
+                    "id": "c7bf35ff-b554-43ed-a357-2dd617bae54e",
+                    "type": "camera_list"
+                }
+            ],
+            "type": "input_control_points"
+        },
+    ],
+    "name": "",
+    "version": "1.2"
+}

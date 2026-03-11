@@ -1,6 +1,6 @@
 {
     "format": "application/opf-input-cameras+json",
-    "version": "1.0",
+    "version": "1.1",
     "sensors": [
         {
             "id": 18493134,
@@ -8,6 +8,8 @@
             "bands": [
                 {
                     "name": "Green",
+                    "central_wavelength_nm": 550,
+                    "fwhm_nm": 40,
                     "weight": 1
                 }
             ],
@@ -45,6 +47,8 @@
             "bands": [
                 {
                     "name": "Red",
+                    "central_wavelength_nm": 660,
+                    "fwhm_nm": 40,
                     "weight": 1
                 }
             ],
@@ -108,6 +112,7 @@
             "bands": [
                 {
                     "name": "TIR",
+                    "central_wavelength_nm": 11000,
                     "weight": 1
                 }
             ],
@@ -200,9 +205,10 @@
                     -2.2309e-05
                 ],
                 "tangential_distortion": [
-                    0.00127711,
-                    0.000421167
-                ]
+                    0,
+                    0
+                ],
+                "distortion_type": "radial3"
             },
             "shutter_type": "global"
         },

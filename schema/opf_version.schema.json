@@ -1,0 +1,9 @@
+{
+    "$id": "opf_version.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "opf_version": {
+            "const": "1.2"
+        }
+    }
+}

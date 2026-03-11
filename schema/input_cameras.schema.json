@@ -2,7 +2,9 @@
     "$id": "input_cameras.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": " Input cameras",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "Definition of the input cameras, i.e. the data as provided by the user and camera database.",
     "type": "object",
     "allOf": [
@@ -164,7 +166,7 @@
                 "time": {
                     "type": "string",
                     "pattern": "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$",
-                    "description": "The time of image acquisition formatted as [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). If the timezone is known then the time should be specified as UTC, if no timezone is given then it is unknown."
+                    "description": "The time of image acquisition formatted as [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). If the timezone is known then the time should be specified as UTC, if no timezone is given then it is unknown. The special value \"0000-01-01T00:00:00\" indicates that the acquisition time is unknown."
                 },
                 "extensions": {}
             },
@@ -194,10 +196,13 @@
                 },
                 "model_source": {
                     "type": "string",
+                    "description": "Source of the camera parameters.",
                     "enum": [
                         "database",
+                        "database_fuzzy",
                         "generic_from_exif",
                         "generic",
+                        "generic_guess",
                         "user"
                     ]
                 },
@@ -228,6 +233,9 @@
                     "maximum": 8,
                     "description": "Specifies the image orientation following [EXIF, page 37](https://www.jeita.or.jp/japanese/standard/book/CP-3451E_E/#target/page_no=38). 1: no rotation, no mirror, 2: mirror horizontal, 3: rotate 180 degrees, 4: mirror vertical, 5: mirror horizontal and rotate 270 degrees CW, 6: rotate 90 degrees CW, 7: mirror horizontal and rotate 90 degrees CW, 8: rotate 270 degrees CW."
                 },
+                "depth_map": {
+                    "$ref": "input_cameras.schema.json#/$defs/depth_map"
+                },
                 "extensions": {}
             },
             "required": [
@@ -250,6 +258,16 @@
             "properties": {
                 "name": {
                     "type": "string"
+                },
+                "central_wavelength_nm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "description": "Central wavelength of the spectral sensitivity distribution of the band in nanometers"
+                },
+                "fwhm_nm": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "description": "Full width at half maximum of the spectral sensitivity distribution of the band in nanometers"
                 },
                 "weight": {
                     "type": "number",
@@ -389,6 +407,67 @@
                 "angles_deg",
                 "sigmas_deg",
                 "crs"
+            ]
+        },
+        "depth_map": {
+            "title": "Input camera depth map",
+            "description": "Reference to depth information for input cameras, for example for RGB-D type sensors. In a depth map, each pixel represents the estimated distance from the device to its environment on the camera depth axis. A depth map image is aligned with an RGB image but it may have a different resolution. An optional confidence map may be provided as well.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "The depth map UID in the camera list."
+                },
+                "unit_to_meters": {
+                    "type": "number",
+                    "description": "Multiply this scale factor with depth maps values in order to obtain values in meters. For example, if the depth map values represent millimeters the scale factor is 0.001 (e.g. a value of 1000mm corresponds to 1m).  If not specified, defaults to 1.",
+                    "default": 1
+                },
+                "confidence": {
+                    "$ref": "input_cameras.schema.json#/$defs/confidence"
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id"
+            ]
+        },
+        "confidence": {
+            "type": "object",
+            "title": "Depth map confidence",
+            "description": "A confidence map indicates the level of confidence of the depth measurements. If present, it must be of the same dimension as the depth map. Valid confidence values range from a `min` (lowest confidence) to a `max` (highest confidence).",
+            "properties": {
+                "id": {
+                    "allOf": [
+                        {
+                            "$ref": "uid64.schema.json"
+                        }
+                    ],
+                    "description": "The confidence map UID in the camera list."
+                },
+                "min": {
+                    "type": "number",
+                    "description": "Minimum confidence value to consider a depth measurement valid. Note that low confidence values while considered valid may be unreliable."
+                },
+                "threshold": {
+                    "type": "number",
+                    "description": "Hint on the minimum (inclusive) confidence value to consider a depth measurement reliable."
+                },
+                "max": {
+                    "type": "number",
+                    "description": "Maximum confidence value to consider a depth measurement valid."
+                },
+                "extensions": {}
+            },
+            "required": [
+                "id",
+                "min",
+                "threshold",
+                "max"
             ]
         }
     }

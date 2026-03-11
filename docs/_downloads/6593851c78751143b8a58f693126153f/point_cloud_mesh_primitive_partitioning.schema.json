@@ -2,7 +2,9 @@
     "$id": "point_cloud_mesh_primitive_partitioning.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "OPF_mesh_primitive_partitioning",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "glTF extension storing the spatial partitioning data structure",
     "type": "object",
     "properties": {
@@ -31,7 +33,7 @@
         "childrenIndexing": {
             "type": "integer",
             "minimum": 0,
-            "description": "The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeCoordinates` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids"
+            "description": "The index of the accessor to the nodes children indexing. The referred accessor type **MUST** be `VEC2` and the component type **MUST** be `UNSIGNED INT`. Together the pair of unsigned 32-bit integers form an unsigned 64-bit integers in the little-endian byte order. The accessor `count` property **MUST** equal the `count` property of the `nodeIndices` accessor plus 1. The indexing is defined such that the range `[childrenIndexing[i], childrenIndexing[i] + 1, ..., childrenIndexing[i+1] - 1]` corresponds to the i'th node children ids"
         },
         "nodeLevelIndexing": {
             "type": "array",
@@ -43,7 +45,7 @@
         "perNodeChunkIndexRanges": {
             "type": "integer",
             "minimum": 0,
-            "description": "The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeCoordinates` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`"
+            "description": "The accessor index corresponding the spatial partitioning point ranges. The referred accessor type **MUST** be `VEC4`, the component type `UNSIGNED_INT`. The first pair of unsigned integers forms the range 64-bit unsigned integer starting index in little-endian order. The second pair forms the range 64-bit unsigned integer length. The `count` property must be a multiple of the `nodeIndices` property referred accessor `count`. The multiple is the number of chunks. The ranges are ordered such that, for a node `n` and a chunk `c`, the corresponding range is found at the position `n * chunkCount + c`"
         },
         "nodeAttributes": {
             "type": "object",
@@ -52,7 +54,7 @@
                 "type": "integer",
                 "minimum": 0
             },
-            "description": "The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeCoordinates` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively."
+            "description": "The extra node attribute name and index of the accessor for an additional per-node property. The referred accessor `count` property **MUST** match the `count` property of the `nodeIndices` referenced accessor. If the component type is `UNSIGNED INT`, then the type **MUST** be either `VEC2` or `VEC4` in which case the integers are interpreted as 1 or 2 64-bit unsigned integers respectively."
         }
     },
     "required": [

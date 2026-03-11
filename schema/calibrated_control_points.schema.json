@@ -2,7 +2,9 @@
     "$id": "calibrated_control_points.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": " Calibrated control points",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "Definition of calibrated control points, which are the optimised control points with coordinates expressed in the processing CRS.",
     "type": "object",
     "allOf": [

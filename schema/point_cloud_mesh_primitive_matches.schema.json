@@ -2,13 +2,15 @@
     "$id": "point_cloud_mesh_primitive_matches.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "OPF_mesh_primitive_matches",
-    "version": "1.0",
+    "version": {
+        "$ref": "opf_version.schema.json#/$defs/opf_version"
+    },
     "description": "glTF extension storing the point matches",
     "type": "object",
     "properties": {
         "cameraUids": {
             "type": "array",
-            "description": "The camera UIDs referenced by the match camera ids",
+            "description": "The camera UIDs referenced by the match camera ids. There **MUST NOT** be duplicated UIDs in the array.",
             "items": {
                 "$ref": "uid64.schema.json"
             }

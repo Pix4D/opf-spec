@@ -315,19 +315,3 @@ Examples:
 This sub-object contains a rigid transformation with rotation, translation, and scaling. The Euler angle convention for the rotation is the same as the one for the rig relative rotation described above.
 
 
-
----------------------------------------
-(auxiliary_objects-rigid-transformation-with-scaling)=
-### Rigid transformation with scaling
-
-Definition of a rigid transformation with rotation, translation, and scaling. Transforms input points p to output points p' via p' = scale * rotation * p + translation.
-
-**`Rigid transformation with scaling` Properties**
-
-|   |Type|Description|Required|
-|---|---|---|---|
-|**rotation_deg**|`number` `[3]`|Rotation as Euler angles in degree (see convention [here](auxiliary_objects.md#rig-relatives))| &#10003; Yes|
-|**translation**|`number` `[3]`|Translation in units of the processing CRS.| &#10003; Yes|
-|**scale**|`number`|Scale| &#10003; Yes|
-|**extensions**|`object`|JSON object with extension-specific objects. Extensions follow the naming convention VENDOR[_(team❘product)]_extname|No|
-
